@@ -1,0 +1,49 @@
+@import '../../../styles/reset.css';
+@import '../../../assets/font/font.css';
+
+
+body {
+  font-family: 'Pretendard';
+  text-align: center;
+}
+
+.nav-bar {
+  width: 100%;
+  height: 60px;
+  color: #767676;
+  background: #ffffff;
+  padding: 0 6px;
+}
+
+.menu-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-bar li a {
+  display: inline-block;
+  width: 84px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  padding: 12px 0 6px;
+}
+.nav-bar li a::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 4px;
+}
+.nav-bar .menu-home::before {
+  background: url('../../../assets/images/icon-home.svg') center no-repeat;
+}
+.nav-bar .menu-chat::before {
+  background: url('../../../assets/images/icon-edit.svg') center no-repeat;
+}
+.nav-bar .menu-post::before {
+  background: url('../../../assets/images/icon-edit.svg') center no-repeat;
+}
+.nav-bar .menu-profile::before {
+  background: url('../../../assets/images/icon-user.svg') center no-repeat;
+}

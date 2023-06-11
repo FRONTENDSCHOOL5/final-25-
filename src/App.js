@@ -1,8 +1,5 @@
-function App() {
-  return (
-    <div>
-      hello world
-    </div>
-  );
+import ProfileProduct from './components/common/Profile/ProfileProduct';
+
+export default function App() {
+  return <ProfileProduct />;
 }
-export default App;
