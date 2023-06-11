@@ -1,0 +1,40 @@
+@import '../../../styles/reset.css';
+@import '../../../assets/font/font.css';
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #eee;
+  font-family: 'Pretendard-Regular';
+  text-align: left;
+}
+
+.profileProduct-wrapper {
+  background-color: #fff;
+  width: 10em;
+  /* margin: auto; */
+}
+.profileProduct-pic-contain {
+  width: 100%;
+  height: 6.3em;
+  overflow: hidden;
+}
+.profileProduct-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+.profileProduct-title {
+  margin: 10px 3px;
+  text-align: left;
+  font-size: 1em;
+}
+.profileProduct-price {
+  color: #7d4b0f;
+
+  margin: 3px 3px;
+  font-size: 0.9em;
+  font-weight: bold;
+}
