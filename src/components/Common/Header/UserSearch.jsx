@@ -6,7 +6,11 @@ export default function UserSearch() {
   return (
     <header className={styles['header-wrap']}>
       <button className={styles['btn-back']}>
-        <img src={IconArrowLeft} alt="뒤로가기" />
+        <img
+          className={styles['img-back']}
+          src={IconArrowLeft}
+          alt="뒤로가기"
+        />
       </button>
       <input
         className={styles['inp-userSearch']}

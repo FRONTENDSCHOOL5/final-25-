@@ -58,6 +58,10 @@ header {
 }
 
 /* UserSearch 스타일 */
+/* 다른건 크기조정안해도 유저서치안에 있는 이미지만 크기가 작아져서 조정함 */
+.img-back {
+  width: 22px;
+}
 .inp-userSearch {
   width: inherit;
   background-color: var(--bg-color);
