@@ -70,3 +70,14 @@ header {
   font-size: 14px;
   color: #c4c4c4;
 }
+
+/* SaveButton 스타일 */
+.btn-save {
+  width: 90px;
+  height: 32px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 32px;
+  background-color: var(--sub-color-2);
+  margin-right: 18px;
+}
