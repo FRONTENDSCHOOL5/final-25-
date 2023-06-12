@@ -1,9 +1,12 @@
 @import '../../../styles/reset.css';
 @import '../../../styles/global.css';
+@import '../../../assets/font/font.css';
+
+body {
+  font-family: 'Pretendard';
+}
 
 header {
-  width: 390px;
-
   background-color: white;
   /* position: fixed;
   left: 0;
@@ -14,12 +17,13 @@ header {
 .header-wrap {
   width: 100%;
   height: 48px;
-  max-width: calc(100% - 60px);
+  min-width: 390px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid #dbdbdb;
+  margin: 0;
 }
 
 .btn-more,
@@ -49,4 +53,18 @@ header {
   font-size: 18px;
   width: inherit;
   border: none;
+}
+
+/* UserSearch 스타일 */
+.inp-userSearch {
+  width: inherit;
+  background-color: var(--bg-color);
+  border: 1px solid var(--main-color);
+  border-radius: 32px;
+  box-shadow: 0px 4px 4px var(--sub-color-2);
+  margin-left: 20px;
+  margin-right: 16px;
+  padding: 7px 19px;
+  font-size: 14px;
+  color: #c4c4c4;
 }
