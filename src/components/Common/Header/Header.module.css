@@ -43,7 +43,7 @@ header {
   display: none;
 }
 
-/* HomeSearchBar 스타일 */
+/* HomeSearch 스타일 */
 .btn-search {
   background: none;
   margin-right: 16px;
@@ -53,6 +53,8 @@ header {
   font-size: 18px;
   width: inherit;
   border: none;
+  color: #000000;
+  padding: 13px 16px;
 }
 
 /* UserSearch 스타일 */
