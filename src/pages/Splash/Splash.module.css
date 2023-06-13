@@ -1,0 +1,36 @@
+@import '../../styles/reset.css';
+@import '../../styles/global.css';
+@import '../../assets/font/font.css';
+
+body {
+  font-family: 'Pretendard';
+  color: #C4C4C4;
+  text-align: center;
+  background-color: var(--bg-color);
+  
+}
+
+.splash {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 298px;
+  animation: fadeout 0.5s;
+}
+.splash-logo {
+  width: 200px;
+  height: 200px;
+}
+.splash-logo img {
+  width: 100%;
+  vertical-align: top;
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
