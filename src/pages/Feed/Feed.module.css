@@ -1,0 +1,331 @@
+@import '../../styles/reset.css';
+@import '../../styles/global.css';
+@import '../../assets/font/font.css';
+
+
+body {
+  font-family: 'Pretendard';
+  color: #C4C4C4;
+  text-align: center;  
+}
+
+/* ===== 피드 레이아웃 작업 ====== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  /*  */
+}
+
+main.feed-follow-none {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100% - 108px);
+  margin-top: 50px;
+}
+
+main.feed-follow-yes {
+  position: fixed;
+  width: 100%;
+  margin: 50px auto 0px;
+  height: calc(100vh - 108px);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  /*  */
+}
+
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+/* ===== 끝: 피드 레이아웃 작업 ====== */
+
+/* ===== 피드 없을 때 작업 ====== */
+.feed-none {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.feed-none p {
+  color: #767676;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  margin-bottom: 20px;
+}
+
+.feed-none p::before {
+  content: '';
+  display: block;
+  width: 150px;
+  height: 150px;
+  background: url('../../assets/images/symbol-logo-grey.png') center no-repeat;
+  margin: 0 auto;
+}
+
+.btn-search {
+  display: block;
+  width: 120px;
+  height: 44px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+  background: #7D4B0F;
+  border-radius: 44px;
+  padding: 13px 35px;
+}
+
+/* ===== 끝: 피드 없을 때 작업 ====== */
+
+/* ===== 피드 있을 때 작업 ====== */
+.feed {
+  padding: 30px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  
+  
+}
+
+section.post {
+  position: relative;
+  width: 358px;
+  height: 463px;
+  
+}
+.author-profile {
+  width: 42px;
+  height: 42px;
+  margin-right: 9px;
+}
+
+.post-header {
+  
+  display: flex;
+  width: 100%;
+  height: 42px;
+  text-align: left;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+.post-header .post-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+  margin-bottom: 7px;
+}
+.post-header .author-name {
+  font-size: 13px;
+  line-height: 16px;
+  color: #7D4B0F;
+}
+.post-header .author-id {
+  font-size: 10px;
+  line-height: 14px;
+  color: #DCCEBF;
+}
+
+.post-contents {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 20px 0 0 49px;
+}
+.plan-list {
+  display: grid;
+  width: 100%;
+  height: 43px;
+  text-align: left;
+  color: #585858;
+  margin: 20px 0;
+  grid-template-areas: 
+  "a b"
+  "c d";
+}
+.plan-list li::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: bottom;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 2px;
+}
+.plan-list .menu {
+  grid-area: a;
+}
+.plan-list .menu::before {
+  background: url('../../assets/images/menu-icon-16.svg');
+}
+.plan-list span::before {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  border-radius: 10px;
+  background: #DCCEBF;
+  vertical-align:text-bottom;
+  margin: 0 6px;
+}
+
+.plan-list .place {
+  grid-area: b;
+}
+.plan-list .place::before {
+  background: url('../../assets/images/map-16.svg');
+}
+.plan-list .date {
+  grid-area: c;
+}
+.plan-list .date::before {
+  background: url('../../assets/images/icon-calendar-16.svg');
+}
+.plan-list .personnel {
+  grid-area: d;
+}
+.plan-list .personnel::before {
+  background: url('../../assets/images/icon-user-fill-16.svg');
+}
+.plan-list span {
+  font-weight: 600;
+  color: black;
+  
+}
+
+.post-img-container {
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0 23px;
+}
+.post-img-list {
+  width: 300vw;
+  display: flex;
+
+  overflow: hidden;
+  
+}
+.post-img-list li {
+  display: block;
+  width: 304px;
+  height: 228px;
+  border: 0.5px solid #DBDBDB;
+  border-radius: 10px;
+}
+.post-img-list li.on{
+  transform: all 0.5s;
+}
+.post-img-list li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.post-img-control {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.post-img-control li button {
+  width: 6px;
+  height: 6px;
+  margin-right: 3px;
+  background-color: #585858;
+  border-radius: 50%;
+}
+.post-img-control li button.on {
+  background-color: black;
+}
+
+.post-text {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* post footer */
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 19px 0 0 49px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: #767676;
+}
+.btn-like {
+  background: #FFFFFF;
+  border: none;
+  color: inherit
+}
+.btn-like::before,
+.btn-comment::before{
+  content: '';
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.btn-like::before {
+  background: url('../../assets/images/icon-heart.svg');
+}
+.btn-like.active::before {
+  background: url('../../assets/images/icon-heart-fill.svg');
+}
+.btn-comment {
+  margin-left: 16px;
+}
+.btn-comment::before {
+  background: url('../../assets/images/icon-message-circle.svg');
+
+}
+
+.create-date {
+  font-size: 10px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+/* 끝: post footer */
+
+/* 더보기 버튼 */
+.btn-post-more {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+}

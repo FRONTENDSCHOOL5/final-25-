@@ -1,0 +1,134 @@
+@import '../../styles/reset.css';
+@import '../../styles/global.css';
+@import '../../assets/font/font.css';
+@import '../../components/common/TabMenu/TabMenu.module.css';
+
+
+body {
+  font-family: 'Pretendard';
+  color: #C4C4C4;
+  text-align: center;  
+}
+
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+
+/* ===== 피드 레이아웃 작업 ====== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+}
+
+main {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100% - 108px);
+  margin-top: 50px;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+}
+
+/* ===== 피드 레이아웃 작업 끝 ====== */
+
+/* ===== 피드 없을 때 작업====== */
+.feed-none {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.feed-none p {
+  color: #767676;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  margin-bottom: 20px;
+}
+
+.feed-none p::before {
+  content: '';
+  display: block;
+  width: 150px;
+  height: 150px;
+  background: url('../../assets/images/symbol-logo-grey.png') center no-repeat;
+  margin: 0 auto;
+}
+
+.btn-search {
+  display: block;
+  width: 120px;
+  height: 44px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+  background: #7D4B0F;
+  border-radius: 44px;
+  padding: 13px 35px;
+}
+
+/* ===== footer ===== */
+.nav-bar {
+  width: 100%;
+  height: 60px;
+  color: #767676;
+  background: #ffffff;
+  padding: 0 6px;
+}
+
+.menu-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-bar li a {
+  display: inline-block;
+  width: 84px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  padding: 12px 0 6px;
+}
+.nav-bar li a::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 4px;
+}
+.nav-bar .menu-home::before {
+  /* background: url('../../../assets/images/icon-home.svg') center no-repeat; */
+  background: url(../../assets/images/icon-home.svg) center no-repeat;
+}
+.nav-bar .menu-chat::before {
+  background: url('../../assets/images/icon-edit.svg') center no-repeat;
+}
+.nav-bar .menu-post::before {
+  background: url('../../assets/images/icon-edit.svg') center no-repeat;
+}
+.nav-bar .menu-profile::before {
+  background: url('../../assets/images/icon-user.svg') center no-repeat;
+}
+/* ===== footer  끝 ===== */
