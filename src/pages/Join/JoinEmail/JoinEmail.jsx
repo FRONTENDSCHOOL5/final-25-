@@ -17,6 +17,7 @@ export default function JoinEmail() {
                 type="emailInput"
                 id="email"
                 name="email"
+                placeholder="이메일 주소를 입력해주세요."
                 className={styles['EmailInput']}
               />
             </div>
@@ -29,10 +30,11 @@ export default function JoinEmail() {
                 type="password"
                 id="password"
                 name="password"
+                placeholder=" 비밀번호를 입력해주세요."
                 className={styles['PwInput']}
               />
             </div>
-            <div className={styles['EmailWarning']}>
+            <div className={styles['Warning']}>
               *비밀번호는 6자 이상이여야 합니다.
             </div>
             <button className={styles['SubmitBtn']} type="submit">

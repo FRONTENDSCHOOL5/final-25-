@@ -60,7 +60,12 @@
   border-bottom: 1px solid #767676;
 }
 
-.EmailWarning {
+.EmailInput::placeholder,
+.PwInput::placeholder {
+  color: #dbdbdb;
+}
+
+.Warning {
   font-size: 0.8rem;
   color: red;
   margin-bottom: 3rem;
@@ -73,13 +78,6 @@
   /* background-color: #7d4b0f; */
   border-radius: 30px;
   color: #fff;
-}
-
-.Join {
-  color: #767676;
-  font-size: 0.8rem;
-  text-align: center;
-  margin-top: 2rem;
 }
 
 .a11y-hidden {
