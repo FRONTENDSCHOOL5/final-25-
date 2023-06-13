@@ -1,0 +1,133 @@
+@import '../../styles/reset.css';
+@import '../../styles/global.css';
+@import '../../assets/font/font.css';
+@import '../../components/common/TabMenu/TabMenu.module.css';
+
+.ProductHeader {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #767676;
+  padding: 10px 15px;
+}
+
+.ProductArrow {
+  width: 2.5rem;
+}
+
+.BackIcon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.SearchContain {
+  flex-grow: 1;
+  padding: 0 20px;
+}
+
+.SearchInput {
+  width: 95%;
+  outline: none;
+  border: 1.5px solid rgb(125, 75, 15);
+  box-shadow: 1px 1px 5px rgba(125, 75, 15, 0.5);
+  padding: 10px;
+  border-radius: 2rem;
+  background-color: rgb(255, 252, 241);
+}
+/* ＝＝＝＝＝＝＝＝＝＝＝＝ */
+
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+
+/* 시작: 유저 공통 */
+.user {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  background: #ffffff;
+  width: 100%;
+  height: 50px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+.user .profile-cover {
+  width: 50px;
+  height: 50px;
+}
+.user .user-info {
+  flex-grow: 1;
+  /* margin: 6px 12px 7px; */
+}
+.user .user-info .user-name {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  margin-bottom: 6px;
+  text-align: left;
+  margin-left: 1rem;
+}
+.user .user-info .user-id {
+  color: rgba(118, 118, 118, 0.7);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: left;
+  margin-left: 1rem;
+}
+
+.user-strong {
+  color: #7d4b0f;
+}
+/* ===== footer ===== */
+.nav-bar {
+  width: 100%;
+  height: 60px;
+  color: #767676;
+  background: #ffffff;
+  padding: 0 6px;
+  position: fixed;
+  bottom: 0;
+}
+
+.menu-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-bar li a {
+  display: inline-block;
+  width: 84px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  padding: 12px 0 6px;
+}
+.nav-bar li a::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 24px;
+  margin: 0 auto 4px;
+}
+.nav-bar .menu-home::before {
+  /* background: url('../../../assets/images/icon-home.svg') center no-repeat; */
+  background: url(../../assets/images/icon-home.svg) center no-repeat;
+}
+.nav-bar .menu-chat::before {
+  background: url('../../assets/images/icon-edit.svg') center no-repeat;
+}
+.nav-bar .menu-post::before {
+  background: url('../../assets/images/icon-edit.svg') center no-repeat;
+}
+.nav-bar .menu-profile::before {
+  background: url('../../assets/images/icon-user.svg') center no-repeat;
+}
+/* ===== footer  끝 ===== */
