@@ -1,0 +1,92 @@
+@import '../../../styles/reset.css';
+@import '../../../assets/font/font.css';
+
+.EmailWrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  padding: 50px;
+}
+
+.EmailMain {
+  min-width: 407px;
+}
+
+.EmailHeader {
+  margin: 0.5rem auto 2rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.EmailInput-container {
+  /* border: 1px solid black; */
+  width: 100%;
+  height: 48px;
+  margin-bottom: 2.5rem;
+}
+.Emailfont {
+  font-size: 0.8rem;
+  color: #767676;
+}
+.EmailInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-bottom: 1px solid #767676;
+  padding: 0;
+  outline: none;
+}
+
+.PwInput-container {
+  width: 100%;
+  height: 48px;
+  border: none;
+  padding: 0;
+  outline: none;
+  margin-bottom: 1.5rem;
+}
+
+.Pwfont {
+  font-size: 0.8rem;
+  color: #767676;
+}
+
+.PwInput {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  outline: none;
+  border-bottom: 1px solid #767676;
+}
+
+.EmailInput::placeholder,
+.PwInput::placeholder {
+  color: #dbdbdb;
+}
+
+.Warning {
+  font-size: 0.8rem;
+  color: red;
+  margin-bottom: 3rem;
+}
+
+.SubmitBtn {
+  width: 100%;
+  height: 44px;
+  background-color: #dccebf;
+  /* background-color: #7d4b0f; */
+  border-radius: 30px;
+  color: #fff;
+}
+
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
