@@ -254,6 +254,21 @@ export default function YourProfile() {
             </article>
             <article className={styles['feed-grid-item']}>
               <img src={productImg} alt="피드 사진입니다." />
+            </article>{' '}
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
             </article>
             <article className={styles['feed-grid-item']}>
               <img src={productImg} alt="피드 사진입니다." />
