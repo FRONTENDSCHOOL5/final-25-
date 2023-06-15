@@ -2,22 +2,45 @@
 @import '../../styles/global.css';
 @import '../../assets/font/font.css';
 
+html,
+body {
+  height: 1114px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
 .all-wrapper {
   margin: auto;
-  width: 500px;
+  width: 390px;
+  height: 1114px;
+  margin-bottom: 50px;
   height: 100vh;
-  min-width: 400px;
+  min-height: 100%;
+  overflow-y: scroll;
+}
+
+/* 수직 스크롤 바 숨김 */
+.all-wrapper::-webkit-scrollbar {
+  width: 0.5em;
+  background-color: transparent;
+}
+
+.all-wrapper::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .product-header {
+  height: 48px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid #767676;
-  padding: 10px 15px;
+  padding: 0 10px;
 }
 
 .product-arrow {
-  width: 2.5rem;
+  width: 20px;
+  height: 20px;
 }
 
 .back-icon {
@@ -26,8 +49,8 @@
   object-fit: cover;
 }
 .search-contain {
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
 }
 
 .profile-btn {
@@ -41,7 +64,7 @@
 }
 
 .profile-main {
-  padding: 1rem;
+  height: 335px;
 }
 
 .profile-title {
@@ -68,8 +91,8 @@
   margin-bottom: 1rem;
 }
 .profile-email {
-  font-weight: 600;
-  color: rgba(118, 118, 118, 0.7);
+  font-weight: 400;
+  color: #767676;
   margin-bottom: 1.2rem;
   font-size: 0.8rem;
   text-align: center;
@@ -79,7 +102,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 14px;
+  margin-top: 1.6rem;
 }
 
 .message-btn {
@@ -117,9 +141,10 @@
 
 /* product List 시작*/
 .product-wrapper {
+  height: 208px;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: 0 1rem 1rem;
 }
 
 .product-title {
@@ -128,8 +153,6 @@
 
 .product-carousel {
   width: 100%;
-  /* overflow-x: scroll; */
-  /* border: 1px solid black; */
 }
 .product-carousel-track {
   display: flex;
@@ -144,7 +167,6 @@
 
 .product-carousel-slide {
   flex: 0 0 140px;
-  /* border: 1px solid black; */
 }
 
 .product {
@@ -223,24 +245,22 @@ main.feed-follow-none {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: calc(100% - 108px);
+  height: calc(100vw - 108px);
   margin-top: 50px;
 }
 
 main.feed-follow-yes {
-  /* position: fixed; */
   width: 100%;
-  height: 100vh;
-  /* margin: 50px auto 0p x; */
-  height: calc(100vh - 108px);
+  /* height: 508px;
+  height: calc(100vh - 108px); */
+  padding-bottom: auto;
 }
 .feed-btn-wrapper {
   border-bottom: 1.2px solid #dbdbdb;
   display: flex;
   justify-content: end;
   gap: 1.2rem;
-  padding: 1rem;
-  margin-bottom: 30px;
+  padding: 10px;
 }
 .feed-btn-three {
   width: 1.5rem;
@@ -259,7 +279,7 @@ footer {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 390px;
   height: 60px;
   /*  */
 }
@@ -335,8 +355,6 @@ footer {
 article.post {
   position: relative;
   width: 100%;
-  /* height: ; */
-  /* border: 1px solid red; */
 }
 .author-profile {
   width: 42px;
@@ -357,7 +375,6 @@ article.post {
   font-size: 16px;
   line-height: 19px;
   color: #000000;
-  /* margin-bottom: 7px; */
 }
 .post-header .author-name {
   font-size: 13px;
@@ -566,6 +583,34 @@ article.post {
   top: 0;
   right: 0;
 }
+/* 여기가 그리드 css 입니다 */
+.feed-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 114px); /* 3개의 열을 동일한 비율로 설정 */
+  grid-template-rows: repeat(3, 114px); /* 3개의 행을 동일한 비율로 설정 */
+  gap: 10px; /* 아이템 사이의 간격 */
+  justify-content: center;
+  padding: 10px;
+}
+
+.feed-grid-item {
+  background-color: #ccc;
+  text-align: center;
+  position: relative;
+}
+
+.feed-grid-item::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-image: url(../../assets/images/iccon-img-layers.svg);
+}
+
+/* 그리드 css 끝 입니다. */
 
 /* ===== footer ===== */
 .nav-bar {
@@ -579,8 +624,13 @@ article.post {
 }
 
 .menu-list {
+  margin: auto;
+  width: 390px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
 }
 
 .nav-bar li a {
@@ -589,7 +639,7 @@ article.post {
   font-size: 14px;
   font-weight: 400;
   line-height: 14px;
-  padding: 12px 0 6px;
+  /* padding: 12px 0 6px; */
   text-align: center;
 }
 .nav-bar li a::before {

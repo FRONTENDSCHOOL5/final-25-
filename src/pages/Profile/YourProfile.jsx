@@ -133,7 +133,7 @@ export default function YourProfile() {
             <button className={styles['feed-btn-four']}></button>
           </section>
           <h2 className={styles['a11y-hidden']}>감귤마켓 피드</h2>
-          <section className={styles.feed}>
+          {/* <section className={styles.feed}>
             <article className={styles.post}>
               <div className={styles['post-header']}>
                 <img
@@ -240,7 +240,38 @@ export default function YourProfile() {
                 </svg>
               </button>
             </article>
+          </section> */}
+          {/* 여기가 그리드 입니다. */}
+          <section className={styles['feed-grid-wrapper']}>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
+            <article className={styles['feed-grid-item']}>
+              <img src={productImg} alt="피드 사진입니다." />
+            </article>
           </section>
+          {/* 여기가 그리드 끝입니다. */}
         </main>
         <footer>
           <nav className={styles['nav-bar']}>
