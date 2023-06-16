@@ -14,11 +14,19 @@ export default function YourProfile() {
       <main>
         {/* <!-- 사용자 프로필 --> */}
         <section className={styles['user-profile']}>
-          <img className={styles['user-profile-cover']} src={basicProfileImg} alt="프로필 사진" />
+          <img
+            className={styles['user-profile-cover']}
+            src={basicProfileImg}
+            alt="프로필 사진"
+          />
           <div className={styles['user-profile-info']}>
-            <strong className={styles['user-profile-name']}>이오에서만은 디자인왕</strong>
+            <strong className={styles['user-profile-name']}>
+              이오에서만은 디자인왕
+            </strong>
             <span className={styles['user-profile-id']}>@ e5_designKing99</span>
-            <span className={styles['user-profile-intro']}>애월읍 감귤 전국 배송, 귤따기 체험, 감귤 농장</span>
+            <span className={styles['user-profile-intro']}>
+              애월읍 감귤 전국 배송, 귤따기 체험, 감귤 농장
+            </span>
           </div>
           <div className={styles['user-count']}>
             <button type="button" className={styles['btn-followers']}>
