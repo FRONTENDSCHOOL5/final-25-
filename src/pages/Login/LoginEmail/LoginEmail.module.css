@@ -1,85 +1,60 @@
 @import '../../../styles/reset.css';
 @import '../../../assets/font/font.css';
 
-.EmailWrapper {
-  width: 100vw;
-  height: 100vh;
-  background-color: #fff;
-  padding: 50px;
-}
-
-.EmailMain {
-  min-width: 407px;
-}
-
-.EmailHeader {
-  margin: 0.5rem auto 2rem;
+.login-header {
+  width: 390px;
+  margin: 31px auto 40px;
   font-size: 1.5em;
   text-align: center;
+  font-weight: bold;
+}
+.login-main {
+  width: 390px;
+  margin: auto;
 }
 
-.EmailInput-container {
-  /* border: 1px solid black; */
+.login-main-input {
   width: 100%;
   height: 48px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 16px;
 }
-.Emailfont {
+
+.login-font {
   font-size: 0.8rem;
   color: #767676;
+  margin-bottom: 33px;
 }
-.EmailInput {
+
+.login-input {
+  display: block;
   width: 100%;
-  height: 100%;
+  height: 33px;
   border: none;
   border-bottom: 1px solid #767676;
   padding: 0;
   outline: none;
+  margin-bottom: 16px;
 }
 
-.PwInput-container {
-  width: 100%;
-  height: 48px;
-  border: none;
-  padding: 0;
-  outline: none;
-  margin-bottom: 1.5rem;
-}
-
-.Pwfont {
-  font-size: 0.8rem;
-  color: #767676;
-}
-
-.PwInput {
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0;
-  outline: none;
-  border-bottom: 1px solid #767676;
-}
-
-.EmailWarning {
+.login-message-warning {
   font-size: 0.8rem;
   color: red;
   margin-bottom: 3rem;
 }
 
-.SubmitBtn {
+.submit-btn {
   width: 100%;
   height: 44px;
   background-color: #dccebf;
-  /* background-color: #7d4b0f; */
   border-radius: 30px;
   color: #fff;
 }
 
-.Join {
+.login-join {
   color: #767676;
   font-size: 0.8rem;
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 21px;
 }
 
 .a11y-hidden {

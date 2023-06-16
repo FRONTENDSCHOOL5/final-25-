@@ -1,32 +1,48 @@
 @import '../../../styles/reset.css';
 @import '../../../assets/font/font.css';
 
-.LoginMain-wrapper {
-  width: 100vw;
-  height: 100vh;
+.login-main-wrapper {
+  width: 390px;
+  margin: auto;
   background-color: #7d4b0f;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden;
 }
 
-.LoginMain-img {
+.login-header {
+  width: 390px;
+  height: 100vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #7d4b0f;
+}
+
+.login-header-img {
+  display: inline-block;
   width: 190px;
   height: 190px;
-  margin: auto;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.LoginMain-Modal {
+.login-main {
+  width: 100%;
+  height: 320px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
   background-color: #fff;
   border-radius: 15px 15px 0 0;
-  padding: 50px 35px 100px;
+  padding: 51px 34px 82px;
+  /* position: absolute;
+  bottom: 0; */
+  /* z-index: 30; */
 }
-.btn {
-  min-width: 310px;
-  height: 44px;
+.login-btn {
+  min-width: 322px;
+  height: 33px;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -36,17 +52,17 @@
   align-items: center;
 }
 
-.btn::before {
+.login-btn::before {
   content: '';
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   position: absolute;
   top: 10px;
   left: 10px;
 }
 
-.LoginMain-ka {
+.login-btn-kakao {
   height: 44px;
   border-radius: 30px;
   background-color: #fff;
@@ -54,13 +70,13 @@
   color: #767676;
   position: relative;
 }
-.LoginMain-ka::before {
-  background-image: url(../../../assets/images/kakao.png);
+.login-btn-kakao::before {
+  background-image: url(../../../assets/images/message-circle.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
-.LoginMain-google {
+.login-btn-google {
   height: 44px;
   border-radius: 30px;
   background-color: #fff;
@@ -72,27 +88,27 @@
   position: relative;
 }
 
-.LoginMain-google::before {
+.login-btn-google::before {
   background-image: url(../../../assets/images/google.png);
   background-size: cover;
 }
-.LoginMain-facebook {
+.login-btn-facebook {
   height: 44px;
   border-radius: 30px;
   background-color: #fff;
   border: 1.5px solid #2d9cdb;
   color: #767676;
 }
-.LoginMain-facebook::before {
+.login-btn-facebook::before {
   background-image: url(../../../assets/images/facebook.png);
   background-size: cover;
 }
 
-.LoginMain-link-wrapper {
+.login-main-link {
   display: flex;
   justify-content: center;
   gap: 10px;
   color: #767676;
   font-size: 14px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
