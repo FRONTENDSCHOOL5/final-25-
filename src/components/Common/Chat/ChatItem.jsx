@@ -4,11 +4,11 @@ import ProfileImg from '../../../assets/images/basic-profile-img.png';
 
 export default function ChatItem({ chat }) {
   return (
-    <li className={styles['chatItem']}>
-      <div className={styles['chatInfo']}>
-        <div className={styles['profileImgWrapper']}>
+    <li className={styles['chat-item']}>
+      <div className={styles['chat-info']}>
+        <div className={styles['profile-img-wrapper']}>
           <img
-            className={styles['profileImg']}
+            className={styles['profile-img']}
             src={ProfileImg}
             alt="프로필 이미지"
           />
