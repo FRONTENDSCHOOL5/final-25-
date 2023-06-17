@@ -1,0 +1,25 @@
+@import '../../../styles/global.css';
+@import '../../../assets/font/font.css';
+
+body {
+  font-family: 'Pretendard';
+  color: #C4C4C4;
+  text-align: center;  
+}
+/* 포스트 */
+.btn-group {
+  text-align: right;
+  padding: 9px 21px;
+  border-bottom: 0.5px solid #DBDBDB;
+}
+.btn-group button {
+  background: transparent;
+  margin-left: 15px;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+}

@@ -1,0 +1,234 @@
+@import '../../../styles/global.css';
+@import '../../../assets/font/font.css';
+
+/* 포스트 */
+.btn-group {
+  text-align: right;
+  border-bottom: 0.5px solid #DBDBDB;
+  padding: 9px 21px;
+}
+.btn-group button {
+  background: transparent;
+  margin-left: 15px;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+}
+
+.post-item {
+  position: relative;
+  width: 358px;
+  height: 463px;
+}
+
+.author-profile {
+  width: 42px;
+  height: 42px;
+  margin-right: 9px;
+}
+
+.post-header {
+  display: flex;
+  width: 100%;
+  height: 42px;
+  text-align: left;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+.post-header .post-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+  margin-bottom: 7px;
+}
+.post-header .author-name {
+  font-size: 13px;
+  line-height: 16px;
+  color: var(--main-color);
+}
+.post-header .author-id {
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--sub-color-2);
+  margin-left: 4px;
+}
+
+.post-contents {
+  font-size: 12px;
+  font-weight: 400;
+  margin: 20px 0 0 49px;
+}
+.plan-list {
+  display: grid;
+  width: 100%;
+  height: 43px;
+  text-align: left;
+  color: #585858;
+  margin: 20px 0;
+  grid-template-areas: 
+  "a b"
+  "c d";
+}
+.plan-list li::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  vertical-align: bottom;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 2px;
+}
+.plan-list .menu {
+  grid-area: a;
+}
+.plan-list .menu::before {
+  background: url('../../../assets/images/menu-icon-16.svg');
+}
+.plan-list span::before {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  border-radius: 10px;
+  background: var(--sub-color-2);
+  vertical-align:text-bottom;
+  margin: 0 6px;
+}
+
+.plan-list .place {
+  grid-area: b;
+}
+.plan-list .place::before {
+  background: url('../../../assets/images/map-16.svg');
+}
+.plan-list .date {
+  grid-area: c;
+}
+.plan-list .date::before {
+  background: url('../../../assets/images/icon-calendar-16.svg');
+}
+.plan-list .personnel {
+  grid-area: d;
+}
+.plan-list .personnel::before {
+  background: url('../../../assets/images/icon-user-fill-16.svg');
+}
+.plan-list span {
+  font-weight: 600;
+  color: black;
+}
+
+.post-img-container {
+  position: relative;
+  overflow: hidden;
+  margin: 20px 0 23px;
+}
+.post-img-list {
+  width: max-content;
+  display: flex;
+}
+.post-img-list li {
+  display: block;
+  width: 309px;
+  height: 228px;
+  border: 0.5px solid #DBDBDB;
+  border-radius: 10px;
+}
+.post-img-list li.on{
+  transform: all 0.5s;
+}
+.post-img-list li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.post-img-control {
+  display: flex;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.post-img-control li button {
+  width: 6px;
+  height: 6px;
+  margin-right: 3px;
+  background-color: var(--bg-color);
+  border-radius: 50%;
+}
+.post-img-control li button.on {
+  background-color: var(--main-color);
+}
+
+.post-text {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #000000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* post footer */
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin: 19px 0 0 49px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: #767676;
+}
+.btn-like {
+  background: #FFFFFF;
+  border: none;
+  color: inherit;
+}
+.btn-like::before,
+.btn-comment::before{
+  content: '';
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.btn-like::before {
+  background: url('../../../assets/images/icon-heart.svg');
+}
+.btn-like.active::before {
+  background: url('../../../assets/images/icon-heart-fill.svg');
+}
+.btn-comment {
+  margin-left: 16px;
+}
+.btn-comment::before {
+  background: url('../../../assets/images/icon-message-circle.svg');
+}
+
+.create-date {
+  font-size: 10px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+/* 끝: post footer */
+
+/* 더보기 버튼 */
+.btn-post-more {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
