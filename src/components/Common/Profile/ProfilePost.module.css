@@ -1,11 +1,3 @@
-@import '../../../styles/global.css';
-@import '../../../assets/font/font.css';
-
-body {
-  font-family: 'Pretendard';
-  color: #C4C4C4;
-  text-align: center;  
-}
 /* 포스트 */
 .btn-group {
   text-align: right;
