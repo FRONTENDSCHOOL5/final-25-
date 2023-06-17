@@ -13,6 +13,9 @@ export default function Header() {
     case '/profile':
       type = 'header';
       break;
+    case '/post':
+      type = 'header';
+      break;
     case '/chat':
       type = 'chat';
       break;
