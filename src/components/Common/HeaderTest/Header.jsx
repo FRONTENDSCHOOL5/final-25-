@@ -4,7 +4,22 @@ import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
 
-export default function Header({ type = 'none' }) {
+export default function Header() {
+  let type;
+  switch (document.location.pathname) {
+    case '/':
+      type = 'homeSearch';
+      break;
+    case '/profile':
+      type = 'header';
+      break;
+    case '/chat':
+      type = 'chat';
+      break;
+    default:
+      type = 'none';
+      break;
+  }
   const HeaderUI = {
     none: <></>,
     header: (
