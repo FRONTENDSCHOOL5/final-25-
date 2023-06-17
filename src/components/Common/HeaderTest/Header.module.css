@@ -1,0 +1,84 @@
+@import '../../../styles/global.css';
+@import '../../../assets/font/font.css';
+
+body {
+  font-family: 'Pretendard';
+}
+
+.header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #dbdbdb;
+}
+
+.btn-more,
+.btn-back {
+  background: none;
+}
+
+.btn-back {
+  margin-left: 16px;
+}
+
+.btn-more {
+  margin-right: 12px;
+}
+
+.test {
+  display: none;
+}
+
+/* HomeSearch 스타일 */
+.btn-search {
+  background: none;
+  margin-right: 16px;
+}
+
+.inp-search {
+  font-size: 18px;
+  width: inherit;
+  border: none;
+  color: #000000;
+  padding: 13px 16px;
+}
+
+/* UserSearch 스타일 */
+/* 다른건 크기조정안해도 유저서치안에 있는 이미지만 크기가 작아져서 조정함 */
+.img-back {
+  width: 22px;
+}
+.inp-userSearch {
+  width: inherit;
+  background-color: var(--bg-color);
+  border: 1px solid var(--main-color);
+  border-radius: 32px;
+  box-shadow: 0px 4px 4px var(--sub-color-2);
+  margin-left: 20px;
+  margin-right: 16px;
+  padding: 7px 19px;
+  font-size: 14px;
+  color: #c4c4c4;
+}
+
+/* SaveButton 스타일 */
+.btn-save {
+  width: 90px;
+  height: 32px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 32px;
+  background-color: var(--sub-color-2);
+  margin-right: 18px;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-title {
+  font-size: 14px;
+}
