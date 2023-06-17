@@ -24,5 +24,6 @@ footer {
 main {
   width: 390px;
   min-width: 390px;
-  margin: 48px auto 60px;
+  /* 피드에서 30px의 상단 마진이 추가로 있어서 적용했습니다. */
+  margin: 78px auto 60px;
 }
