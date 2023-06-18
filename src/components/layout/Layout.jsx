@@ -22,7 +22,7 @@ export default function Layout({ children }) {
       footerType = 'comment';
       break;
     case '/chat':
-      headerType = 'chat';
+      headerType = 'header';
       footerType = 'chat';
       break;
     case '/search':
