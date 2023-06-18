@@ -1,9 +1,8 @@
 import React from 'react';
 import styles from './ChatList.module.css';
-import Header from '../../../components/common/Header/Header';
-import TabMenu from '../../../components/common/TabMenu/TabMenu';
 import ProfileImg from '../../../assets/images/profile-img42.png';
 import ChatItem from '../../../components/common/Chat/ChatItem';
+import Layout from '../../../components/layout/Layout';
 
 export default function ChatList() {
   const chats = [
@@ -37,26 +36,15 @@ export default function ChatList() {
     },
   ];
   return (
-    <div>
-      {/* 헤더 부분 */}
-      <header>
-        <h1 className={styles['a11y-hidden']}>채팅방 목록</h1>
-        <Header />
-      </header>
-
-      {/* 메인 부분 */}
-      <main>
+    <Layout>
+      <h1 className="a11y-hidden">채팅목록</h1>
+      <div className={styles['main-top']}>
         <ul className={styles['chat-list']}>
           {chats.map(chat => (
             <ChatItem key={chat.id} chat={chat} />
           ))}
         </ul>
-      </main>
-
-      {/* 하단탭메뉴 부분 */}
-      <footer>
-        <TabMenu />
-      </footer>
-    </div>
+      </div>
+    </Layout>
   );
 }
