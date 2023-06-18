@@ -7,8 +7,8 @@ export default function ChatRoom() {
   return (
     <>
       <Header />
+      <h1 className="a11y-hidden">채팅방</h1>
       <main className={styles.chatroom}>
-        {/* <h2 className={styles['a11y-hidden']}>채팅방</h2> */}
         <ul className={`${styles['received']} ${styles['first']}`}>
           <li className={styles['received-chat']}>
             옷을 인생을 그러므로 없으면 것은 이상은 것은 우리의 위하여, 뿐이다.
