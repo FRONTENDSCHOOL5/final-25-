@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Upload.module.css';
-import Header from '../../components/common/Header/UploadButton.jsx';
+import Header from '../../components/common/Header/SaveButton';
 import pofileproduct from '../../assets/images/pofileproduct.png';
 
 function Upload() {
