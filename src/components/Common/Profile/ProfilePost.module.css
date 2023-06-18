@@ -1,4 +1,7 @@
 /* 포스트 */
+.post {
+  background-color: #ffffff;
+}
 .btn-group {
   text-align: right;
   padding: 9px 21px;
@@ -13,5 +16,5 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 16px;
+  padding: 30px 16px;
 }
