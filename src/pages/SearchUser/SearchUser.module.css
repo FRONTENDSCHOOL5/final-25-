@@ -1,47 +1,34 @@
-@import '../../styles/reset.css';
 @import '../../styles/global.css';
 @import '../../assets/font/font.css';
 @import '../../components/common/TabMenu/TabMenu.module.css';
 
-/* ＝＝＝＝＝＝＝＝＝＝＝＝ */
-* {
-  box-sizing: border-box;
-}
-
-.a11y-hidden {
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-}
-.search-wrapper {
-  width: 390px;
-  margin: auto;
-}
-
-.search-header {
+/* ===== 피드 레이아웃 작업 ====== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin: auto;
+  height: 48px;
+  background-color: #ffffff;
+  z-index: 10;
 }
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+}
+
+main {
+  max-width: 390px;
+  margin: 48px auto 60px;
+}
+
 .search-main {
-  width: 390px;
-  /* min-width: 390px; */
-  margin: auto;
+  padding: 20px 16px;
   display: flex;
   flex-direction: column;
   gap: 16px;
-  text-align: left;
-  padding: 20px 16px;
-  /* border: 1px solid red; */
 }
-.search-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  margin: auto;
-}
-/* 시작: 유저 공통 */

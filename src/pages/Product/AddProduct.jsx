@@ -5,18 +5,17 @@ import SaveButton from '../../components/common/Header/SaveButton';
 export default function AddProduct() {
   return (
     <>
-      <header className={styles['product-header']}>
+      <header>
         <SaveButton />
       </header>
       <main className={styles['product-main']}>
         <section className={styles['product-image-container']}>
-          <div>이미지 등록</div>
           <form action="">
             <label
               className={styles['product-file-upload']}
               for="Input"
             ></label>
-            <input className={styles['a11y-hidden']} type="file" id="Input" />
+            <input className="a11y-hidden" type="file" id="Input" />
           </form>
         </section>
         <section className={styles['product-title']}>

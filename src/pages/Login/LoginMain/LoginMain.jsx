@@ -5,8 +5,7 @@ import logo from '../../../assets/images/symbol-logo.png';
 export default function LoginMain() {
   return (
     <>
-      {/* <section className={styles['login-main-wrapper']}> */}
-      <header className={styles['login-header']}>
+      <main className={styles['login-header']}>
         <img
           className={styles['login-header-img']}
           src={logo}
@@ -34,7 +33,7 @@ export default function LoginMain() {
             <a href="/">회원 가입</a>
           </article>
         </section>
-      </header>
+      </main>
     </>
   );
 }

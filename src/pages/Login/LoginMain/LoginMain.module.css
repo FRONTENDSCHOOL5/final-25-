@@ -1,13 +1,6 @@
 @import '../../../styles/reset.css';
 @import '../../../assets/font/font.css';
 
-.login-main-wrapper {
-  width: 390px;
-  margin: auto;
-  background-color: #7d4b0f;
-  overflow: hidden;
-}
-
 .login-header {
   width: 390px;
   height: 100vh;
@@ -36,9 +29,6 @@
   background-color: #fff;
   border-radius: 15px 15px 0 0;
   padding: 51px 34px 82px;
-  /* position: absolute;
-  bottom: 0; */
-  /* z-index: 30; */
 }
 .login-btn {
   min-width: 322px;

@@ -3,14 +3,12 @@ import styles from './LoginEmail.module.css';
 export default function LoginEmail() {
   return (
     <>
-      <header className={styles['login-header']}>
-        <h1>로그인</h1>
-      </header>
       <main className={styles['login-main']}>
+        <h1 className={styles['login-main-head']}>로그인</h1>
         <form action="">
           <section className={styles['login-main-input']}>
             <span className={styles['login-font']}>이메일</span>
-            <label className={styles['a11y-hidden']} htmlFor={'email'}></label>
+            <label className="a11y-hidden" htmlFor={'email'}></label>
             <input
               type="email"
               id="email"
@@ -21,7 +19,7 @@ export default function LoginEmail() {
           </section>
           <section className={styles['login-main-input']}>
             <span className={styles['login-font']}>비밀번호 </span>
-            <label className={styles['a11y-hidden']} htmlFor="password"></label>
+            <label className="a11y-hidden" htmlFor="password"></label>
             <input
               type="password"
               id="password"
@@ -37,10 +35,10 @@ export default function LoginEmail() {
             로그인
           </button>
         </form>
+        <a className={styles['login-join']} href="/">
+          이메일로 회원가입
+        </a>
       </main>
-      <footer className={styles['login-join']}>
-        <a href="/">이메일로 회원가입</a>
-      </footer>
     </>
   );
 }

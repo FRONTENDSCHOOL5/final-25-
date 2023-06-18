@@ -6,7 +6,7 @@ import TabMenu from '../../components/common/TabMenu/TabMenu';
 export default function SearchUser() {
   return (
     <>
-      <header className={styles['search-header']}>
+      <header>
         <Search />
       </header>
       <main className={styles['search-main']}>
@@ -15,7 +15,7 @@ export default function SearchUser() {
         <UserSearch />
         <UserSearch />
       </main>
-      <footer className={styles['search-footer']}>
+      <footer>
         <TabMenu />
       </footer>
     </>
