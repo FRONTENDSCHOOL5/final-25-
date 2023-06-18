@@ -139,6 +139,7 @@
   height: 228px;
   border: 0.5px solid #DBDBDB;
   border-radius: 10px;
+  margin-right: 2px;
 }
 .post-img-list li.on{
   transform: all 0.5s;

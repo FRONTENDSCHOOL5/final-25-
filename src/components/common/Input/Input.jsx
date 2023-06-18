@@ -16,7 +16,10 @@ export default function Input({ type }) {
       placeholder: '댓글 입력하기...',
       inputClassName: styles['input-comment'],
       btnTxt: '게시',
-      btnClassName: inputValue === '' ? styles['btn-add'] : `${styles['btn-add']} ${styles['on']}`,
+      btnClassName:
+        inputValue === ''
+          ? styles['btn-add']
+          : `${styles['btn-add']} ${styles['on']}`,
     },
     chat: {
       id: 'inputMessage',
@@ -24,18 +27,31 @@ export default function Input({ type }) {
       placeholder: '메시지 입력하기...',
       inputClassName: styles['input-message'],
       btnTxt: '전송',
-      btnClassName: inputValue === '' ? styles['btn-add'] : `${styles['btn-add']} ${styles['on']}`,
+      btnClassName:
+        inputValue === ''
+          ? styles['btn-add']
+          : `${styles['btn-add']} ${styles['on']}`,
     },
   };
 
   return (
     <>
       <div className={styles['input']}>
-        <img className={styles['profile-cover']} src={profileImg} alt="프로필 이미지" />
+        <img
+          className={styles['profile-cover']}
+          src={profileImg}
+          alt="프로필 이미지"
+        />
         <label htmlFor={InputUI[type]['inputComment']} className="a11y-hidden">
           {InputUI[type]['labelTxt']}
         </label>
-        <input type="text" placeholder={InputUI[type]['placeholder']} id={InputUI[type]['id']} className={InputUI[type]['inputClassName']} onChange={handleInput} />
+        <input
+          type="text"
+          placeholder={InputUI[type]['placeholder']}
+          id={InputUI[type]['id']}
+          className={InputUI[type]['inputClassName']}
+          onChange={handleInput}
+        />
         <button className={InputUI[type]['btnClassName']} type="button">
           {InputUI[type]['btnTxt']}
         </button>

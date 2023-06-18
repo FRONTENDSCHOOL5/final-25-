@@ -10,7 +10,9 @@ export default function ProfilePost() {
     case '/':
       type = 'feed';
       break;
-
+    case '/post':
+      type = 'post';
+      break;
     default:
       type = 'none';
       break;
@@ -29,7 +31,7 @@ export default function ProfilePost() {
         </div>
         <ul className={styles['post-list']}>
           <li>
-            <Post></Post>
+            <Post />
           </li>
         </ul>
       </section>
@@ -38,9 +40,14 @@ export default function ProfilePost() {
       <section className={styles.post}>
         <ul className={styles['post-list']}>
           <li>
-            <Post></Post>
+            <Post />
           </li>
         </ul>
+      </section>
+    ),
+    post: (
+      <section className={styles.post}>
+        <Post />
       </section>
     ),
   };

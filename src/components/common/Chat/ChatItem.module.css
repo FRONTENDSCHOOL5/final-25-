@@ -1,0 +1,68 @@
+@import '../../../styles/reset.css';
+@import '../../../styles/global.css';
+@import '../../../assets/font/font.css';
+
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
+
+body {
+  color: #000000;
+  font-family: 'Pretendard';
+  background-color: #fff;
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  max-width: 25rem;
+  /* justify-content: center; */
+}
+
+.chat-info {
+  display: flex;
+  align-items: center;
+}
+
+.profile-img {
+  width: 2.625rem;
+  height: 2.625rem;
+  object-fit: cover;
+  margin-right: 10px;
+  position: relative;
+}
+
+.chat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-name {
+  font-weight: bold;
+  text-align: left;
+}
+
+.chat-message {
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 12px;
+  color: #767676;
+  text-align: left;
+}
+
+.chat-date {
+  margin-left: auto;
+  color: lightgray;
+  font-weight: 400;
+  font-size: 10px;
+  /* 세로 기준 아래 정렬이 왜 안되지..? */
+  vertical-align: bottom;
+}
