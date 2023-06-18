@@ -1,44 +1,11 @@
-@import '../../../styles/reset.css';
-@import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
 
-.a11y-hidden {
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-}
-
-body {
+/* body {
   color: #000000;
   font-family: 'Pretendard';
   background-color: #fff;
-}
+} */
 
-/* 레이아웃 */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  border-top: 0.0625rem solid #dbdbdb;
-}
-
-main {
-  padding-top: 4.375rem;
-}
-
-.chat-list {
-  /* 페이지 커지면 가운대 될 수 있게해야함 */
+.main-top {
+  margin-top: 1.5rem;
 }
