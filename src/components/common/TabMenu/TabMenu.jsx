@@ -1,22 +1,7 @@
 import React from 'react';
 import styles from './TabMenu.module.css';
 
-export default function TabMenu() {
-  let type;
-  switch (document.location.pathname) {
-    case '/':
-      type = 'home';
-      break;
-    case '/profile':
-      type = 'profile';
-      break;
-    case '/chat':
-      type = 'chat';
-      break;
-    default:
-      type = 'none';
-      break;
-  }
+export default function TabMenu({ type }) {
   const TabMenuUI = {
     none: <></>,
     home: (

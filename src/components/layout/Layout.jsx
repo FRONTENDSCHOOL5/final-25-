@@ -5,21 +5,44 @@ import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
 export default function Layout({ children }) {
-  let type;
-  switch (document.location.pathname) {
-    case '/post':
-      type = 'input';
-      break;
+  let headerType;
+  let footerType;
 
+  switch (document.location.pathname) {
+    case '/':
+      headerType = 'header';
+      footerType = 'home';
+      break;
+    case '/profile':
+      headerType = 'header';
+      footerType = 'profile';
+      break;
+    case '/post':
+      headerType = 'header';
+      footerType = 'comment';
+      break;
+    case '/chat':
+      headerType = 'chat';
+      footerType = 'chat';
+      break;
+    case '/search':
+      headerType = 'userSearch';
+      break;
     default:
+      headerType = 'none';
+      footerType = 'none';
       break;
   }
   return (
     <>
-      <Header />
+      <Header type={headerType} />
       <main>{children}</main>
       <footer>
-        {type === 'input' ? <Input type="comment" /> : <TabMenu />}
+        {footerType === 'input' || footerType === 'comment' ? (
+          <Input type={footerType} />
+        ) : (
+          <TabMenu type={footerType} />
+        )}
       </footer>
     </>
   );
