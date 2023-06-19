@@ -1,16 +1,11 @@
 import React from 'react';
 import styles from './ChatRoom.module.css';
 import Layout from '../../../components/layout/Layout';
-import Header from '../../../components/common/Header/ChatHeader';
-import sendedphoto from '../../../assets/images/pofileProduct.png';
 
 export default function ChatRoom() {
-  // const comment = []
-
   return (
     <>
       <Layout>
-        <Header />
         <h1 className="a11y-hidden">채팅방</h1>
         <section className={styles.chatroom}>
           <ul className={`${styles['received']} ${styles['first']}`}>
@@ -36,7 +31,7 @@ export default function ChatRoom() {
             <li className={styles['sended-photo-wrap']}>
               <img
                 className={styles['sended-photo']}
-                src={sendedphoto}
+                src={'https://picsum.photos/200'}
                 alt="보낸사진"
               />
             </li>

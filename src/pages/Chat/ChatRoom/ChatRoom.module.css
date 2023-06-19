@@ -1,13 +1,10 @@
-/* 채팅방 배경색 */
-body{
-  background: #F2F2F2;
-}
-/* 채팅방 전체 정렬 */
+/* 채팅방 전체 */
 .chatroom {
   display: flex;
   width: 100%;
   flex-direction: column;
   justify-content: flex-end;
+  background-color: #F2F2F2;
 }
 /* 채팅메시지 그룹 레이아웃 */
 .received,
@@ -16,11 +13,11 @@ body{
   margin-bottom: 9px;
 }
 .received {
-  width: 100%;
-  margin-right: 15px;
+  width: 327px;
+  margin-right: 48px;
 }
 .first { 
-  margin-top: 224px;
+  padding-top: 294px;
 }
 /* 받은채팅, 보낸채팅 공통 레이아웃 */
 .received-chat,
@@ -28,12 +25,14 @@ body{
   width: 100%;
   height: 100%;
   padding: 15px;
+  font-size: 14px;
   box-sizing: border-box;
 }
 /* 받은채팅 상세 레이아웃 */
 .received-chat {
   position: relative; 
   margin-left: 70px;
+  width: 240px;
   background-color: #fff;
   border: 1px solid #c4c4c4;
   border-radius: 0px 10px 10px 10px;
@@ -43,7 +42,7 @@ body{
 .received::before {
   content: '';
   position: absolute;
-  left: 15px;
+  left: 16px;
   width: 42px;
   height: 42px;
   background: url(../../../assets/images/profile-img42.png) no-repeat center;
@@ -54,6 +53,8 @@ body{
 .sended-time {
   margin-top: auto;
   margin-left: 6px;
+  font-size: 10px;
+  color: #767676;
 }
 .sended-time {
   margin-right: 6px;
@@ -77,7 +78,10 @@ body{
   margin-right: 16px;
   width: 100%;
   height: 100%;
-  border-radius: 10px 0px 10px 10px;
   color: #fff;
   box-sizing: border-box;
+}
+
+.sended-photo {
+border-radius: 10px 0px 10px 10px;
 }

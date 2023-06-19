@@ -21,7 +21,7 @@ export default function Input({ type }) {
           ? styles['btn-add']
           : `${styles['btn-add']} ${styles['on']}`,
     },
-    chat: {
+    chatting: {
       id: 'inputMessage',
       labelTxt: '메시지 입력',
       placeholder: '메시지 입력하기...',
