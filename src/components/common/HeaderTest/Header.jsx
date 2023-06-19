@@ -74,6 +74,19 @@ export default function Header({ type }) {
         </button>
       </header>
     ),
+    followers: (
+      <header className={styles['header-wrap']}>
+        <div className={styles['left']}>
+          <button className={styles['btn-back']}>
+            <img src={IconArrowLeft} alt="뒤로가기" />
+          </button>
+          <span className={['chat-title']}>Followers</span>
+        </div>
+        <button className={styles['btn-more']}>
+          <img src={IconMoreVertical} alt="메뉴보기" />
+        </button>
+      </header>
+    ),
   };
   return HeaderUI[type];
 }

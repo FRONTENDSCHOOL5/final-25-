@@ -33,6 +33,10 @@ export default function Layout({ children }) {
       headerType = 'header';
       footerType = 'comment';
       break;
+    case '/post/upload':
+      headerType = 'uploadButton';
+      footerType = 'none';
+      break;
     case '/chat':
       headerType = 'header';
       footerType = 'chat';
