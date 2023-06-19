@@ -18,7 +18,7 @@ header {
   width: 100%;
   height: 48px;
   min-width: 390px;
-  margin: auto;
+  /* margin: auto; */
   display: flex;
   justify-content: space-between;
   align-items: center;

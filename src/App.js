@@ -6,6 +6,7 @@ import SearchUser from './pages/SearchUser/SearchUser.jsx';
 import Join from './pages/Join/JoinEmail/JoinEmail';
 import JoinProfileSetting from './pages/Join/JoinProfileSetting/JoinProfileSetting';
 import MyProfile from './pages/Profile/MyProfile/MyProfile';
+import Followers from './pages/Profile/Followers';
 import ProfileModification from './pages/ProfileModification/ProfileModification';
 import AddProduct from './pages/Product/AddProduct';
 import YourProfile from './pages/Profile/YourProfile';
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/profile">
             <Route index element={<MyProfile />} />
             <Route path="m" element={<ProfileModification />} />
+            <Route path="product/followers" element={<Followers />} />
             <Route path="product/add" element={<AddProduct />} />
             {/* AddProduct와 ProductModi 페이지 분리 필요! 또는 공통된 이름으로 파일명을 바꾸고, 안에서 조건에 따라 렌더링 되도록 하는 등의 분리가 필요함 */}
             <Route path="product/m" element={<AddProduct />} />
