@@ -77,7 +77,7 @@ export default function Header({ type }) {
         <button className={styles['btn-save-color']}>업로드</button>
       </header>
     ),
-    chat: (
+    chatHeader: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
           <button className={styles['btn-back']}>

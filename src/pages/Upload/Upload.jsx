@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Upload.module.css';
 import Layout from '../../components/layout/Layout';
-import Header from '../../components/common/Header/UploadButton';
 
 function Upload() {
   return (

@@ -45,6 +45,10 @@ export default function Layout({ children }) {
       headerType = 'header';
       footerType = 'chat';
       break;
+    case '/chat/1234':
+      headerType = 'chatHeader';
+      footerType = 'chatting';
+      break;
     case '/search':
       headerType = 'userSearch';
       break;
@@ -58,7 +62,9 @@ export default function Layout({ children }) {
       <Header type={headerType} />
       <main>{children}</main>
       <footer>
-        {footerType === 'input' || footerType === 'comment' ? (
+        {footerType === 'input' ||
+        footerType === 'comment' ||
+        footerType === 'chatting' ? (
           <Input type={footerType} />
         ) : (
           <TabMenu type={footerType} />
