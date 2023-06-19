@@ -3,51 +3,30 @@
 @import '';
 
 /* common */
-.input-title {
-  font-size: 0.8rem;
-  color: #767676;
+main {
+  width: 390px;
+  min-width: 390px;
+  margin: 48px auto 60px;
+  background-color: #ffffff;
 }
 
-.input {
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0;
-  outline: none;
-  border-bottom: 1px solid #767676;
-}
-
-.input::placeholder {
-  color: #dbdbdb;
-  font-size: 0.875rem;
-}
-
-.a11y-hidden {
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-}
 /* common 끝*/
 
-.profile-wrapper {
+/* .profile-wrapper {
   width: 100vw;
   height: 100vh;
   background-color: #fff;
   padding: 50px;
-}
+} */
 
+/* 프로필 사진 */
 .header {
   margin: 0.5rem auto 12px;
   font-size: 1.5rem;
   text-align: center;
 }
 
-.sub {
+.sub-title {
   font-size: 14px;
   margin-bottom: 1.875rem;
   color: #767676;
@@ -76,36 +55,47 @@
   cursor: pointer;
 }
 
-.name-input-wrapper {
+/* input 요소 스타일 */
+
+.input {
   width: 100%;
-  height: 48px;
+  border: none;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 0;
+  outline: none;
+  margin-top: 0.625rem;
+}
+
+.input-title {
+  font-size: 0.875rem;
+  color: #767676;
+  display: block;
+  text-align: left;
+}
+
+.input-wrapper {
   margin-bottom: 2.5rem;
 }
 
-.id-input-wrapper {
-  width: 100%;
-  height: 48px;
-  border: none;
-  padding: 0;
-  outline: none;
-  margin-bottom: 2.5rem;
+.input::placeholder {
+  color: #dbdbdb;
+  font-size: 0.875rem;
 }
 
-.introduce-wrapper {
-  width: 100%;
-  height: 48px;
-  border: none;
-  padding: 0;
-  outline: none;
+.input:focus-within {
+  border-bottom: 1px solid var(--main-color);
+}
+
+.input[aria-invalid='true'] {
+  border-bottom-color: red; /* 에러가 발생한 경우 빨간색으로 변경 */
+}
+.error-message {
+  color: red;
+  font-size: 0.8rem;
   margin-bottom: 3rem;
 }
 
-.warning {
-  font-size: 0.8rem;
-  color: red;
-  margin-top: 6px;
-}
-
+/* 버튼 */
 .submit-btn {
   width: 100%;
   height: 44px;
@@ -113,4 +103,17 @@
   /* background-color: #7d4b0f; */
   border-radius: 30px;
   color: #fff;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 44px;
+  background-color: var(--sub-color-2);
+  /* background-color: #7d4b0f; */
+  border-radius: 30px;
+  color: #fff;
+}
+
+.submit-btn-active {
+  background-color: var(--main-color);
 }
