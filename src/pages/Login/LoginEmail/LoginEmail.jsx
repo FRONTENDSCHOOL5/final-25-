@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './LoginEmail.module.css';
+import { Link } from 'react-router-dom';
 export default function LoginEmail() {
   return (
     <>
@@ -35,9 +36,9 @@ export default function LoginEmail() {
             로그인
           </button>
         </form>
-        <a className={styles['login-join']} href="/">
+        <Link className={styles['login-join']} to="/join">
           이메일로 회원가입
-        </a>
+        </Link>
       </main>
     </>
   );

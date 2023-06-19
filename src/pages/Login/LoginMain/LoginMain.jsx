@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './LoginMain.module.css';
 import logo from '../../../assets/images/symbol-logo.png';
+import { Link } from 'react-router-dom';
 
 export default function LoginMain() {
   return (
@@ -28,9 +29,9 @@ export default function LoginMain() {
             <a href="/">페이스북 계정으로 로그인 </a>
           </article>
           <article className={styles['login-main-link']}>
-            <a href="/">이메일로 로그인</a>
+            <Link to="/login/email">이메일로 로그인</Link>
             <span>&#124;</span>
-            <a href="/">회원 가입</a>
+            <Link to="/join">회원 가입</Link>
           </article>
         </section>
       </main>

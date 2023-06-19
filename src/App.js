@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './styles/reset.css';
 import LoginMain from './pages/Login/LoginMain/LoginMain';
+import LoginEmail from './pages/Login/LoginEmail/LoginEmail';
 import Feed from './pages/Feed/Feed';
 import SearchUser from './pages/SearchUser/SearchUser.jsx';
 import Join from './pages/Join/JoinEmail/JoinEmail';
@@ -22,7 +23,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Feed />}></Route>
           <Route path="/search" element={<SearchUser />}></Route>
-          <Route path="/login" element={<LoginMain />}></Route>
+          <Route path="/login">
+            <Route index element={<LoginMain />} />
+            <Route path="email" element={<LoginEmail />}></Route>
+          </Route>
           <Route path="/join">
             <Route index element={<Join />} />
             <Route path="profile" element={<JoinProfileSetting />} />
