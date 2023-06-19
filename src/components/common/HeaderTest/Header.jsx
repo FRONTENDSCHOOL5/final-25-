@@ -61,6 +61,22 @@ export default function Header({ type }) {
         <button className={styles['btn-save-color']}>저장</button>
       </header>
     ),
+    uploadButton: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-save']}>업로드</button>
+      </header>
+    ),
+    uploadColorButton: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-save-color']}>업로드</button>
+      </header>
+    ),
     chat: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
