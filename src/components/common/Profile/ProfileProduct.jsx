@@ -1,21 +1,18 @@
 import React from 'react';
 import styles from './ProfileProduct.module.css';
-import logo from '../../../assets/images/pofileproduct.png';
+import Product from '../Product/Product';
 
-export default function ProfileProduct() {
+export default function ProductList() {
   return (
     <>
-      <article className={styles['profileProduct-wrapper']}>
-        <div className={styles['profileProduct-pic-contain']}>
-          <img
-            className={styles['profileProduct-pic']}
-            src={logo}
-            alt="어떤 사진입니다."
-          />
-        </div>
-        <div className={styles['profileProduct-title']}>마딛는음식</div>
-        <div className={styles['profileProduct-price']}>35,000원</div>
-      </article>
+      <section className={styles.product}>
+        <h2 className={styles['product-title']}>공구 중인 상품</h2>
+        <ul className={styles['product-list']}>
+          <li>
+            <Product />
+          </li>
+        </ul>
+      </section>
     </>
   );
 }
