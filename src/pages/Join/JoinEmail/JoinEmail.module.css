@@ -1,92 +1,65 @@
-@import '../../../styles/reset.css';
 @import '../../../assets/font/font.css';
 
-.EmailWrapper {
-  width: 100vw;
-  height: 100vh;
-  background-color: #fff;
-  padding: 50px;
+main {
+  width: 390px;
+  min-width: 390px;
+  margin: 48px auto 60px;
+  background-color: #ffffff;
 }
 
-.EmailMain {
-  min-width: 407px;
-}
-
-.EmailHeader {
+.email-header {
   margin: 0.5rem auto 2rem;
   font-size: 1.5rem;
   text-align: center;
 }
 
-.EmailInput-container {
-  /* border: 1px solid black; */
-  width: 100%;
-  height: 48px;
+/* input 스타일 */
+.input-wrapper {
   margin-bottom: 2.5rem;
 }
-.Emailfont {
-  font-size: 0.8rem;
+
+.input-title {
+  font-size: 0.875rem;
   color: #767676;
+  display: block;
+  text-align: left;
 }
-.EmailInput {
+.input {
   width: 100%;
-  height: 100%;
   border: none;
-  border-bottom: 1px solid #767676;
-  padding: 0;
+  border-bottom: 1px solid #dbdbdb;
+  /* padding: 0; */
   outline: none;
+  margin-top: 0.625rem;
+}
+.input:focus-within {
+  border-bottom: 1px solid var(--main-color);
 }
 
-.PwInput-container {
-  width: 100%;
-  height: 48px;
-  border: none;
-  padding: 0;
-  outline: none;
-  margin-bottom: 1.5rem;
+.input[aria-invalid='true'] {
+  border-bottom-color: red; /* 에러가 발생한 경우 빨간색으로 변경 */
 }
 
-.Pwfont {
-  font-size: 0.8rem;
-  color: #767676;
-}
-
-.PwInput {
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0;
-  outline: none;
-  border-bottom: 1px solid #767676;
-}
-
-.EmailInput::placeholder,
+.input::placeholder,
 .PwInput::placeholder {
   color: #dbdbdb;
 }
 
-.Warning {
-  font-size: 0.8rem;
+.error-message {
   color: red;
+  font-size: 0.8rem;
   margin-bottom: 3rem;
 }
 
-.SubmitBtn {
+.submit-btn {
   width: 100%;
   height: 44px;
-  background-color: #dccebf;
+  background-color: var(--sub-color-2);
   /* background-color: #7d4b0f; */
   border-radius: 30px;
   color: #fff;
 }
 
-.a11y-hidden {
-  clip: rect(1px, 1px, 1px, 1px);
-  clip-path: inset(50%);
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
+.submit-btn-active {
+  background-color: var(--main-color);
 }
