@@ -21,6 +21,10 @@ export default function Layout({ children }) {
       headerType = 'saveButton';
       footerType = 'none';
       break;
+    case '/profile/m':
+      headerType = 'saveButton';
+      footerType = 'none';
+      break;
     case '/profile/product/m':
       headerType = 'colorButton';
       footerType = 'none';
