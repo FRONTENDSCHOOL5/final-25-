@@ -53,6 +53,14 @@ export default function Header({ type }) {
         <button className={styles['btn-save']}>저장</button>
       </header>
     ),
+    colorButton: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-save-color']}>저장</button>
+      </header>
+    ),
     chat: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
