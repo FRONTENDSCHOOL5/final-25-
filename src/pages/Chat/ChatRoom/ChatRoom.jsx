@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './ChatRoom.module.css';
 import Header from '../../../components/common/Header/ChatHeader';
-import sendedphoto from '../../../assets/images/pofileproduct.png';
+import sendedphoto from '../../../assets/images/pofileProduct.png';
 
 export default function ChatRoom() {
   return (
