@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './styles/reset.css';
-// import LoginMain from './pages/Login/LoginMain/LoginMain';
+import LoginMain from './pages/Login/LoginMain/LoginMain';
+import LoginEmail from './pages/Login/LoginEmail/LoginEmail';
 import Feed from './pages/Feed/Feed';
 import SearchUser from './pages/SearchUser/SearchUser.jsx';
 import Join from './pages/Join/JoinEmail/JoinEmail';
@@ -9,6 +10,7 @@ import MyProfile from './pages/Profile/MyProfile/MyProfile';
 import Followers from './pages/Profile/Followers';
 import ProfileModification from './pages/ProfileModification/ProfileModification';
 import AddProduct from './pages/Product/AddProduct';
+import ProductModi from './pages/Product/ProductModi';
 import YourProfile from './pages/Profile/YourProfile';
 import PostDetail from './pages/Post/PostDetail';
 import Upload from './pages/Upload/Upload';
@@ -22,7 +24,10 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Feed />}></Route>
           <Route path="/search" element={<SearchUser />}></Route>
-          {/* <Route path="/login" element={<LoginMain />}></Route> */}
+          <Route path="/login">
+            <Route index element={<LoginMain />} />
+            <Route path="email" element={<LoginEmail />}></Route>
+          </Route>
           <Route path="/join">
             <Route index element={<Join />} />
             <Route path="profile" element={<JoinProfileSetting />} />
@@ -33,7 +38,7 @@ export default function App() {
             <Route path="product/followers" element={<Followers />} />
             <Route path="product/add" element={<AddProduct />} />
             {/* AddProduct와 ProductModi 페이지 분리 필요! 또는 공통된 이름으로 파일명을 바꾸고, 안에서 조건에 따라 렌더링 되도록 하는 등의 분리가 필요함 */}
-            <Route path="product/m" element={<AddProduct />} />
+            <Route path="product/m" element={<ProductModi />} />
             {/* 변경 예정:  profile/{id} */}
             <Route path="profile/1234" element={<YourProfile />} />
           </Route>

@@ -82,3 +82,25 @@ body {
 .chat-title {
   font-size: 14px;
 }
+
+/* colorButton */
+.btn-save-color {
+  width: 90px;
+  height: 32px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 32px;
+  background-color: var(--main-color);
+  margin-right: 18px;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.chat-title {
+  font-size: 14px;
+}
