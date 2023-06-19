@@ -6,11 +6,14 @@ import postListOn from '../../assets/images/icon-post-list-on.svg';
 import postListOff from '../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../assets/images/icon-post-album-off.svg';
+import Header from '../../components/common/Header/Header';
 
 export default function YourProfile() {
   return (
     <>
-      <header></header>
+      <header>
+        <Header />
+      </header>
       <main>
         {/* <!-- 사용자 프로필 --> */}
         <section className={styles['user-profile']}>
