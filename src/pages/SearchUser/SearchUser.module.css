@@ -2,30 +2,6 @@
 @import '../../assets/font/font.css';
 @import '../../components/common/TabMenu/TabMenu.module.css';
 
-/* ===== 피드 레이아웃 작업 ====== */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 48px;
-  background-color: #ffffff;
-  z-index: 10;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-}
-
-main {
-  max-width: 390px;
-  margin: 48px auto 60px;
-}
-
 .search-main {
   padding: 20px 16px;
   display: flex;
