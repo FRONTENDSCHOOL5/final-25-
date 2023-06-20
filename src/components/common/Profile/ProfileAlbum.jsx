@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from './ProfileAlbum.module.css';
-import postListOn from '../../../assets/images/icon-post-list-on.svg';
-import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
+import postListOff from '../../../assets/images/icon-post-list-off.svg';
+import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 
 export default function ProfileAlbum() {
   return (
     <>
       <div className={styles['btn-group']}>
         <button type="button" className={styles['btn-list']}>
-          <img src={postListOn} alt="리스트로 보기" />
+          <img src={postListOff} alt="리스트로 보기" />
         </button>
         <button type="button" className={styles['btn-album']}>
-          <img src={postAlbumOff} alt="앨범으로 보기" />
+          <img src={postAlbumOn} alt="앨범으로 보기" />
         </button>
       </div>
       <ul className={styles['post-album']}>

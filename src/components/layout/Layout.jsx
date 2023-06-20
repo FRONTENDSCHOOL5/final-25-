@@ -55,6 +55,7 @@ export default function Layout({ children }) {
       break;
     case '/search':
       headerType = 'userSearch';
+      footerType = 'home';
       break;
     default:
       headerType = 'none';
