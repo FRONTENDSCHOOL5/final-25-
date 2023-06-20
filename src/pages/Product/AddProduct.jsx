@@ -32,6 +32,7 @@ export default function AddProduct() {
             className={styles['product-title-input']}
             type="number"
             placeholder="숫자만 입력 가능합니다."
+            step="any"
             required
           />
         </section>
