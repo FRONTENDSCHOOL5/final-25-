@@ -58,9 +58,11 @@ body {
   margin-right: 16px;
   padding: 7px 19px;
   font-size: 14px;
-  color: #c4c4c4;
 }
 
+.inp-userSearch::placeholder {
+  color: #c4c4c4;
+}
 /* SaveButton 스타일 */
 .btn-save {
   width: 90px;
