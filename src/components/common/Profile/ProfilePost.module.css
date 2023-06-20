@@ -1,5 +1,13 @@
 /* 포스트 */
+.feed {
+  background-color: #ffffff;
+  padding: 30px 16px;
+}
 .post {
+  background-color: #ffffff;
+  padding: 20px 16px;
+}
+.profile {
   background-color: #ffffff;
 }
 .btn-group {
@@ -16,5 +24,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 16px;
+}
+
+.profile .post-list { 
+  padding: 16px
 }

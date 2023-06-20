@@ -19,8 +19,22 @@ export default function ProfilePost() {
   }
 
   const ProfilePostUI = {
-    none: (
+    feed: (
+      <section className={styles.feed}>
+        <ul className={styles['post-list']}>
+          <li>
+            <Post />
+          </li>
+        </ul>
+      </section>
+    ),
+    post: (
       <section className={styles.post}>
+        <Post />
+      </section>
+    ),
+    profile: (
+      <section className={styles.profile}>
         <div className={styles['btn-group']}>
           <button type="button" className={styles['btn-list']}>
             <img src={postListOn} alt="리스트로 보기" />
@@ -34,20 +48,6 @@ export default function ProfilePost() {
             <Post />
           </li>
         </ul>
-      </section>
-    ),
-    feed: (
-      <section className={styles.post}>
-        <ul className={styles['post-list']}>
-          <li>
-            <Post />
-          </li>
-        </ul>
-      </section>
-    ),
-    post: (
-      <section className={styles.post}>
-        <Post />
       </section>
     ),
   };
