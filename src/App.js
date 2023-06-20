@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './styles/reset.css';
 import LoginMain from './pages/Login/LoginMain/LoginMain';
-import LoginEmail from './pages/Login/LoginEmail/LoginEmail';
 import Feed from './pages/Feed/Feed';
 import SearchUser from './pages/SearchUser/SearchUser.jsx';
 import Join from './pages/Join/JoinEmail/JoinEmail';
@@ -22,25 +21,24 @@ export default function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Feed />}></Route>
-          <Route path="/search" element={<SearchUser />}></Route>
-          <Route path="/login">
-            <Route index element={<LoginMain />} />
-            <Route path="email" element={<LoginEmail />}></Route>
-          </Route>
+          <Route path="/login" element={<LoginMain />} />
           <Route path="/join">
             <Route index element={<Join />} />
             <Route path="profile" element={<JoinProfileSetting />} />
           </Route>
+          <Route path="/" element={<Feed />} />
+          <Route path="/search" element={<SearchUser />} />
           <Route path="/profile">
             <Route index element={<MyProfile />} />
             <Route path="m" element={<ProfileModification />} />
-            <Route path="product/followers" element={<Followers />} />
-            <Route path="product/add" element={<AddProduct />} />
-            {/* AddProduct와 ProductModi 페이지 분리 필요! 또는 공통된 이름으로 파일명을 바꾸고, 안에서 조건에 따라 렌더링 되도록 하는 등의 분리가 필요함 */}
-            <Route path="product/m" element={<ProductModi />} />
-            {/* 변경 예정:  profile/{id} */}
-            <Route path="profile/1234" element={<YourProfile />} />
+            {/* 변경예정: {userid}/followers */}
+            <Route path="followers" element={<Followers />} />
+            {/* 변경예정:  {userid}*/}
+            <Route path="1234" element={<YourProfile />} />
+          </Route>
+          <Route path="/product">
+            <Route index element={<AddProduct />} />
+            <Route path="m" element={<ProductModi />} />
           </Route>
           <Route path="/post">
             <Route index element={<PostDetail />} />
