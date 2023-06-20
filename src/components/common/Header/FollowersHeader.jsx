@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './Header.module.css';
 import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
-import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 
 export default function FollowersHeader() {
   return (
@@ -12,9 +11,6 @@ export default function FollowersHeader() {
         </button>
         <span className={['chat-title']}>Followers</span>
       </div>
-      <button className={styles['btn-more']}>
-        <img src={IconMoreVertical} alt="메뉴보기" />
-      </button>
     </header>
   );
 }

@@ -1,8 +1,8 @@
 @import '../../assets/font/font.css';
 /* 팔로워목록 */
 .followers-list {
-  width: 100%;
-  padding: 24px 16px;
+  padding-top: 24px;
+  margin: 0px 16px 0px 16px;
 }
 /* 팔로워 */
 .followers {
@@ -27,7 +27,7 @@
 }
 /* 팔로워의 이름,소개,버튼을 묶은 그룹*/
 .followers-inner {
-  margin-left: -50px;
+  margin-left: -45px;
   height: 18px;
   text-align: left;
   overflow: hidden;
