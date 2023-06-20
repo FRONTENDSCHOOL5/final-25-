@@ -51,16 +51,16 @@ export default function JoinProfileSetting({
               aria-invalid={
                 !isDirty ? undefined : errors.userNameInput ? 'true' : 'false'
               }
-              {...register('userNameInput ', {
+              {...register('userNameInput', {
                 required: '사용자 이름은 필수 입력입니다.',
                 minLength: {
                   value: 2,
-                  message: '사용자 이름은 2자리 이상이여야 합니다.',
+                  message: '*사용자 이름은 2자리 이상이여야 합니다.',
                 },
-                // maxLength: {
-                //   value: 10,
-                //   message: '사용자 이름은 10자리 이내여야 합니다.',
-                // },
+                maxLength: {
+                  value: 10,
+                  message: '*사용자 이름은 10자리 이내여야 합니다.',
+                },
               })}
             />
             {errors.userNameInput && (
@@ -77,16 +77,16 @@ export default function JoinProfileSetting({
             <input
               type="text"
               id="idInput"
-              placeholder="영문, 숫자, 특수문자(.),(_)만 사용 가능합니다."
+              placeholder="영문, 숫자, 밑줄 및 마침표만 사용 가능합니다."
               className={styles['input']}
               aria-invalid={
                 !isDirty ? undefined : errors.idInput ? 'true' : 'false'
               }
-              {...register('idInput ', {
-                required: '사용자 이름은 필수 입력입니다.',
+              {...register('idInput', {
+                required: '계정 ID는 필수 입력입니다.',
                 pattern: {
                   value: /^[a-zA-Z0-9._]+$/,
-                  message: '영문, 숫자, 특수문자(.),(_)만 사용 가능합니다.',
+                  message: '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
                 },
               })}
             />
@@ -99,7 +99,7 @@ export default function JoinProfileSetting({
           {/* 소개 입력 */}
           <div className={styles['input-wrapper']}>
             <label className={styles['input-title']} htmlFor="introduceInput">
-              소개입력
+              소개
             </label>
             <input
               type="text"
@@ -109,14 +109,14 @@ export default function JoinProfileSetting({
               aria-invalid={
                 !isDirty ? undefined : errors.introduceInput ? 'true' : 'false'
               }
-              {...register('introduceInput ', {
-                required: '사용자 이름은 필수 입력입니다.',
+              {...register('introduceInput', {
+                required: '소개 필수 입력입니다.',
               })}
             />
           </div>
           {/* 버튼 */}
           <button
-            disabled={isSubmitting || !isFormValid} // 유효성 검사를 통과하지 않으면 버튼 비활성화
+            disabled={isSubmitting || isFormValid} // 유효성 검사를 통과하지 않으면 버튼 비활성화
             className={`${styles['submit-btn']} ${
               isFormValid ? styles['submit-btn-active'] : ''
             }`}
