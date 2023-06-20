@@ -10,7 +10,7 @@ export default function MyProfile() {
       <Layout>
         <UserProfile />
         <ProfileProduct />
-        <ProfilePost />
+        <ProfilePost type="profile" />
       </Layout>
     </>
   );

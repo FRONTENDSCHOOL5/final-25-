@@ -7,7 +7,7 @@ import Comment from '../../components/common/Comment/Comment';
 export default function Post() {
   return (
     <Layout>
-      <ProfilePost />
+      <ProfilePost type="post" />
       <section className={styles['comment-area']}>
         <ul className={styles['comment-list']}>
           <li>
