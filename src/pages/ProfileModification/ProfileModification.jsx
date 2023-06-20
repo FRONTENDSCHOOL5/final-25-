@@ -90,7 +90,7 @@ export default function ProfileModification({
           {/* 소개 입력 */}
           <div className={styles['input-wrapper']}>
             <label className={styles['input-title']} htmlFor="introduceInput">
-              소개입력
+              소개
             </label>
             <input
               type="text"
