@@ -29,3 +29,30 @@
 .profile .post-list { 
   padding: 16px
 }
+
+/* 앨범으로 보기 */
+.post-album {
+  display: grid;
+  grid-template-columns: repeat(3, 114px);
+  grid-template-rows: repeat(3, 114px);
+  gap: 10px;
+  justify-content: center;
+  padding: 16px;
+}
+
+.post-grid-item {
+  position: relative;
+}
+
+.post-album-item::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: url('../../../assets/images/iccon-img-layers.svg') center no-repeat;
+}
+
+/* 앨범으로 보기 끝 */
