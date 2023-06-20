@@ -74,7 +74,7 @@ export default function Header({ type }) {
         <button className={styles['btn-back']}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
-        <button className={styles['btn-save-color']}>업로드</button>
+        <button className={styles['btn-upload-color']}>업로드</button>
       </header>
     ),
     chatHeader: (
@@ -83,7 +83,7 @@ export default function Header({ type }) {
           <button className={styles['btn-back']}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
-          <span className={['chat-title']}>위니브 감귤 농장</span>
+          <span className={['chat-title']}>애월읍 위니브 감귤 농장</span>
         </div>
         <button className={styles['btn-more']}>
           <img src={IconMoreVertical} alt="메뉴보기" />
@@ -98,9 +98,6 @@ export default function Header({ type }) {
           </button>
           <span className={['chat-title']}>Followers</span>
         </div>
-        <button className={styles['btn-more']}>
-          <img src={IconMoreVertical} alt="메뉴보기" />
-        </button>
       </header>
     ),
   };

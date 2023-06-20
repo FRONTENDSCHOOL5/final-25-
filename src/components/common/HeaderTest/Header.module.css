@@ -106,3 +106,13 @@ body {
 .chat-title {
   font-size: 14px;
 }
+
+.btn-upload-color {
+  width: 90px;
+  height: 32px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 32px;
+  background-color: var(--main-color);
+  margin-right: 18px;
+}
