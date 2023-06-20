@@ -1,4 +1,3 @@
-@import '../../../styles/reset.css';
 @import '../../../assets/font/font.css';
 
 .login-header {
@@ -101,4 +100,9 @@
   color: #767676;
   font-size: 14px;
   margin-top: 20px;
+}
+
+.btn-email {
+  background: none;
+  color: inherit;
 }
