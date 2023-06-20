@@ -10,14 +10,14 @@ export default function Layout({ children }) {
 
   switch (document.location.pathname) {
     case '/':
-      headerType = 'header';
+      headerType = 'homeSearch';
       footerType = 'home';
       break;
     case '/profile':
       headerType = 'header';
       footerType = 'profile';
       break;
-    case '/profile/product/add':
+    case '/product/add':
       headerType = 'saveButton';
       footerType = 'none';
       break;
@@ -25,15 +25,15 @@ export default function Layout({ children }) {
       headerType = 'saveButton';
       footerType = 'none';
       break;
-    case '/profile/product/m':
+    case '/product/m':
       headerType = 'colorButton';
       footerType = 'none';
       break;
-    case '/profile/product/followers':
+    case '/profile/followers':
       headerType = 'followers';
       footerType = 'none';
       break;
-    case '/profile/profile/1234':
+    case '/profile/1234':
       headerType = 'header';
       footerType = 'profile';
       break;

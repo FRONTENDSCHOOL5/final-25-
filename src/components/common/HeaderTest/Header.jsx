@@ -35,11 +35,7 @@ export default function Header({ type }) {
     ),
     homeSearch: (
       <header className={styles['header-wrap']}>
-        <input
-          className={styles['inp-search']}
-          type="text"
-          placeholder={'감귤마켓 피드'}
-        />
+        <h1 class={styles['title']}>감귤마켓 피드</h1>
         <button className={styles['btn-search']}>
           <img src={IconSearch} alt="검색하기" />
         </button>
