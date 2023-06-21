@@ -5,7 +5,7 @@ import ProfilePost from '../../components/common/Profile/ProfilePost';
 export default function Feed() {
   return (
     <Layout>
-      <ProfilePost />
+      <ProfilePost type="feed" />
     </Layout>
   );
 }
