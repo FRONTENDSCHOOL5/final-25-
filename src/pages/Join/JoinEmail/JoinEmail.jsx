@@ -77,7 +77,7 @@ export default function JoinEmail() {
           )}
           {!isEmailValid && (
             <small className={styles['error-message']} role="alert">
-              이미 사용 중인 이메일입니다.
+              *이미 사용 중인 이메일입니다.
             </small>
           )}
         </div>
