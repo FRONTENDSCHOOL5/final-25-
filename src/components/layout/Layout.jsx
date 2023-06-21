@@ -4,7 +4,7 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children }) {
+export default function Layout({ children, btnState = false }) {
   let headerType;
   let footerType;
 
@@ -66,15 +66,16 @@ export default function Layout({ children }) {
     <>
       <Header type={headerType} />
       <main>{children}</main>
-      <footer>
-        {footerType === 'input' ||
-        footerType === 'comment' ||
-        footerType === 'chatting' ? (
+
+      {footerType === 'input' ||
+      footerType === 'comment' ||
+      footerType === 'chatting' ? (
+        <footer>
           <Input type={footerType} />
-        ) : (
-          <TabMenu type={footerType} />
-        )}
-      </footer>
+        </footer>
+      ) : (
+        <TabMenu type={footerType} />
+      )}
     </>
   );
 }
