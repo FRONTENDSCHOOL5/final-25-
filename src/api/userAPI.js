@@ -43,6 +43,7 @@ const userAPI = {
   },
 
   async checkEmailValid(email) {
+    console.log('userApi.js-email :', email);
     const response = await fetch(`${BASE_URL}/user/emailvalid`, {
       method: 'POST',
       headers: {
@@ -58,22 +59,20 @@ const userAPI = {
     return data;
   },
 
-  async checkAccountValid(email) {
-    console.log('userApi.js-email :', email);
-
-    const response = await fetch(`${BASE_URL}/user/emailvalid`, {
+  async checkAccountValid(accountname) {
+    const response = await fetch(`${BASE_URL}/user/accountnamevalid`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
       body: JSON.stringify({
         user: {
-          email: email,
+          accountname,
         },
       }),
     });
-    const responseJson = await response.json();
-    return responseJson;
+    const data = await response.json();
+    return data;
   },
 
   async getMyInfo(token) {

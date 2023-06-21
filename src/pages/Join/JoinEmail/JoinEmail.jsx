@@ -20,13 +20,12 @@ export default function JoinEmail() {
   const handleEmailChange = event => {
     const email = event.target.value;
     setValue('email', email); // Update form value
-    setIsEmailValid(true); // Reset email validation
   };
 
   const onSubmit = async data => {
     try {
       const email = data.email;
-      const response = await userAPI.checkAccountValid(email);
+      const response = await userAPI.checkEmailValid(email);
       console.log(response.message);
 
       if (response.message === '사용 가능한 이메일 입니다.') {
