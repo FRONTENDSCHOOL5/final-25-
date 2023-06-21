@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from '../Post/Post';
 import styles from './ProfilePost.module.css';
 import postListOn from '../../../assets/images/icon-post-list-on.svg';
@@ -6,7 +6,11 @@ import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
+import { useFeedAPI } from '../../../api/feedAPI';
+
 export default function ProfilePost({ type }) {
+  const { post } = useFeedAPI();
+
   // false가 리스트로 보기
   // true가 앨범으로 보기
   const [option, setOption] = useState('리스트로 보기');
@@ -23,13 +27,57 @@ export default function ProfilePost({ type }) {
     }
   };
 
+  // 게시글 목록 API: 'https://api.mandarin.weniv.co.kr/post/:accountname/userpost'
+  const [myPost, setMyPost] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const url = 'https://api.mandarin.weniv.co.kr';
+  useEffect(() => {
+    async function fetchMyPost() {
+      setIsLoading(true);
+      try {
+        const response = await fetch(url + '/post/sunbin5/userpost', {
+          method: 'GET',
+          headers: {
+            Authorization:
+              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjM1NDE4NywiaWF0IjoxNjg3MTcwMTg3fQ.MiyMMGRaddraLYS_d-o-LwaSVduR4MacYWqjUL5SFFA',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('네트워크에 문제가 있습니다!');
+        }
+        const data = await response.json();
+        setMyPost(data['post']);
+        setIsLoading(false);
+        console.log('내 포스트', data);
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    }
+    fetchMyPost();
+  }, []);
+
+  const postImgArray = [];
+  myPost.forEach(element => {
+    // console.log(element);
+    element['image'] !== ''
+      ? postImgArray.push(element['image'])
+      : console.log('이미지 없어유');
+  });
+  // console.log(postImgArray);
+
   const ProfilePostUI = {
     feed: (
       <section className={styles.feed}>
         <ul className={styles['post-list']}>
-          <li>
-            <Post />
-          </li>
+          {post.map(item => {
+            return (
+              <li>
+                <Post data={item} />
+              </li>
+            );
+          })}
         </ul>
       </section>
     ),
@@ -83,9 +131,13 @@ export default function ProfilePost({ type }) {
               </button>
             </div>
             <ul className={styles['post-list']}>
-              <li>
-                <Post />
-              </li>
+              {myPost.map(item => {
+                return (
+                  <li>
+                    <Post data={item} />
+                  </li>
+                );
+              })}
             </ul>
           </>
         )}
