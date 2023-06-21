@@ -35,10 +35,10 @@ export default function JoinEmail({
               !isDirty ? undefined : errors.email ? 'true' : 'false'
             }
             {...register('email', {
-              required: '이메일은 필수 입력입니다.',
+              required: '*이메일은 필수 입력입니다.',
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: '이메일 형식에 맞지 않습니다.',
+                message: '*이메일 형식에 맞지 않습니다.',
               },
             })}
           />
@@ -64,10 +64,10 @@ export default function JoinEmail({
               !isDirty ? undefined : errors.password ? 'true' : 'false'
             }
             {...register('password', {
-              required: '비밀번호는 필수 입력입니다.',
+              required: '*비밀번호는 필수 입력입니다.',
               minLength: {
                 value: 6,
-                message: '비밀번호는 6자리 이상 사용하세요.',
+                message: '*비밀번호는 6자리 이상 사용하세요.',
               },
             })}
           />

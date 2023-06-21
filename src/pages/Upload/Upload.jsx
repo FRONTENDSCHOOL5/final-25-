@@ -14,7 +14,7 @@ function Upload() {
           <article>
             <textarea
               className={styles['text-box']}
-              placeholder=" 용용선생에서 마라전골 같이 드실 분?  0/50자"
+              placeholder=" 용용선생에서 마라전골 같이 드실 분?"
               cols="15"
               rows="6"
               maxLength="50"

@@ -10,7 +10,7 @@ export default function Comment() {
         src={profileImg}
         alt="댓글 작성자 프로필"
       />
-      <div className={styles['commnet-container']}>
+      <div className={styles['comment-container']}>
         <div className={styles['comment-info']}>
           <strong className={styles['comment-author']}>제주 감귤 농장</strong>
           <span className={styles['comment-create-time']}>· 5분 전</span>
