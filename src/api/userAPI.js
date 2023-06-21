@@ -12,6 +12,7 @@ const userAPI = {
         image,
       },
     };
+    console.log('userData : ', userData);
 
     const response = await fetch(`${BASE_URL}/user`, {
       method: 'POST',
@@ -60,6 +61,7 @@ const userAPI = {
   },
 
   async checkAccountValid(accountname) {
+    console.log('userApi.js-accountname :', accountname);
     const response = await fetch(`${BASE_URL}/user/accountnamevalid`, {
       method: 'POST',
       headers: {
