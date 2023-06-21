@@ -107,9 +107,13 @@ export default function ProfilePost({ type }) {
               </button>
             </div>
             <ul className={styles['post-album']}>
-              <li className={styles['post-album-item']}>
-                <img src="https://picsum.photos/200" alt="포스트 썸네일" />
-              </li>
+              {postImgArray.map(item => {
+                return (
+                  <li className={styles['post-album-item']}>
+                    <img src={item} alt="포스트 썸네일" />
+                  </li>
+                );
+              })}
             </ul>
           </>
         ) : (
