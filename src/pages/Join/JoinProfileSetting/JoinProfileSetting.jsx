@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import styles from './JoinProfileSettiong.module.css';
 import BasicProfile from '../../../assets/images/basic-profile-img.png';
 import ImgButton from '../../../assets/images/img-button.png';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function JoinProfileSetting({
   onSubmit = async data => {
@@ -17,6 +18,10 @@ export default function JoinProfileSetting({
   } = useForm();
 
   const isFormValid = isDirty && Object.keys(errors).length === 0;
+  // join 페이지에서 navigate로 보낸 값을 여기서 받아서 씀
+  const location = useLocation();
+  const data = location.state;
+  console.log('data:', data);
 
   return (
     <main>
