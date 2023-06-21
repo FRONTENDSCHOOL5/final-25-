@@ -1,6 +1,6 @@
 @import '../../../assets/font/font.css';
+@import '../../../styles/global.css'; /* ===== 피드 레이아웃 작업 ====== */
 
-/* ===== 피드 레이아웃 작업 ====== */
 header {
   position: fixed;
   top: 0;
@@ -56,6 +56,13 @@ main {
   padding: 0;
   outline: none;
   margin-bottom: 16px;
+}
+.login-input:focus {
+  border-bottom: 2px solid var(--main-color);
+}
+
+.login-input:-internal-autofill-selected {
+  background-color: none;
 }
 
 .login-message-warning {

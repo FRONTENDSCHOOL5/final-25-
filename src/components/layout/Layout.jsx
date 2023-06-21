@@ -17,7 +17,10 @@ export default function Layout({ children }) {
       headerType = 'header';
       footerType = 'profile';
       break;
-    case '/product/add':
+
+    case '/product':
+
+  
       headerType = 'saveButton';
       footerType = 'none';
       break;
