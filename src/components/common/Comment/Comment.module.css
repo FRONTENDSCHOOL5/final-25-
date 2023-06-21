@@ -1,0 +1,45 @@
+.comment {
+  display: flex;
+  width: 100%;
+  position: relative;
+}
+
+.comment-author-profile {
+  width: 36px;
+  height: 36px;
+  margin-right: 12px;
+}
+.comment-info {
+  display: flex;
+  align-items: center;
+}
+.comment-author {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+.comment-create-time {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #767676;
+  margin-left: 6px;
+}
+
+.comment-txt {
+  color: #333333;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: left;
+  margin-top: 17px;
+}
+
+.btn-post-more {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent url('../../../assets/images/s-icon-more-vertical.svg');
+}

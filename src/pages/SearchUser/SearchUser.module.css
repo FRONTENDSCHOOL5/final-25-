@@ -1,0 +1,10 @@
+@import '../../styles/global.css';
+@import '../../assets/font/font.css';
+@import '../../components/common/TabMenu/TabMenu.module.css';
+
+.search-main {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

@@ -1,8 +1,56 @@
-function App() {
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './styles/reset.css';
+import LoginMain from './pages/Login/LoginMain/LoginMain';
+import Feed from './pages/Feed/Feed';
+import SearchUser from './pages/SearchUser/SearchUser.jsx';
+import Join from './pages/Join/JoinEmail/JoinEmail';
+import JoinProfileSetting from './pages/Join/JoinProfileSetting/JoinProfileSetting';
+import MyProfile from './pages/Profile/MyProfile/MyProfile';
+import Followers from './pages/Profile/Followers';
+import ProfileModification from './pages/ProfileModification/ProfileModification';
+import AddProduct from './pages/Product/AddProduct';
+import ProductModi from './pages/Product/ProductModi';
+import YourProfile from './pages/Profile/YourProfile';
+import PostDetail from './pages/Post/PostDetail';
+import Upload from './pages/Upload/Upload';
+import ChatRoom from './pages/Chat/ChatRoom/ChatRoom';
+import ChatList from './pages/Chat/ChatList/ChatList';
+
+export default function App() {
   return (
-    <div>
-      hello world
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<LoginMain />} />
+          <Route path="/join">
+            <Route index element={<Join />} />
+            <Route path="profile" element={<JoinProfileSetting />} />
+          </Route>
+          <Route path="/" element={<Feed />} />
+          <Route path="/search" element={<SearchUser />} />
+          <Route path="/profile">
+            <Route index element={<MyProfile />} />
+            <Route path="m" element={<ProfileModification />} />
+            {/* 변경예정: {userid}/followers */}
+            <Route path="followers" element={<Followers />} />
+            {/* 변경예정:  {userid}*/}
+            <Route path="1234" element={<YourProfile />} />
+          </Route>
+          <Route path="/product">
+            <Route index element={<AddProduct />} />
+            <Route path="m" element={<ProductModi />} />
+          </Route>
+          <Route path="/post">
+            <Route index element={<PostDetail />} />
+            <Route path="upload" element={<Upload />} />
+          </Route>
+          <Route path="/chat">
+            <Route index element={<ChatList />} />
+            {/* 변경 예정:  chat/{id} */}
+            <Route path="1234" element={<ChatRoom />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
-export default App;

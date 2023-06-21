@@ -1,0 +1,101 @@
+import React from 'react';
+import styles from './Header.module.css';
+import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
+import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
+import IconSearch from '../../../assets/images/icon-search.svg';
+
+export default function Header({ type }) {
+  const HeaderUI = {
+    none: <></>,
+    header: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-more']}>
+          <img src={IconMoreVertical} alt="메뉴보기" />
+        </button>
+      </header>
+    ),
+    userSearch: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img
+            className={styles['img-back']}
+            src={IconArrowLeft}
+            alt="뒤로가기"
+          />
+        </button>
+        <input
+          className={styles['inp-userSearch']}
+          type="text"
+          placeholder={'계정검색'}
+        />
+      </header>
+    ),
+    homeSearch: (
+      <header className={styles['header-wrap']}>
+        <h1 class={styles['title']}>감귤마켓 피드</h1>
+        <button className={styles['btn-search']}>
+          <img src={IconSearch} alt="검색하기" />
+        </button>
+      </header>
+    ),
+    saveButton: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-save']}>저장</button>
+      </header>
+    ),
+    colorButton: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-save-color']}>저장</button>
+      </header>
+    ),
+    uploadButton: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-save']}>업로드</button>
+      </header>
+    ),
+    uploadColorButton: (
+      <header className={styles['header-wrap']}>
+        <button className={styles['btn-back']}>
+          <img src={IconArrowLeft} alt="뒤로가기" />
+        </button>
+        <button className={styles['btn-upload-color']}>업로드</button>
+      </header>
+    ),
+    chatHeader: (
+      <header className={styles['header-wrap']}>
+        <div className={styles['left']}>
+          <button className={styles['btn-back']}>
+            <img src={IconArrowLeft} alt="뒤로가기" />
+          </button>
+          <span className={['chat-title']}>애월읍 위니브 감귤 농장</span>
+        </div>
+        <button className={styles['btn-more']}>
+          <img src={IconMoreVertical} alt="메뉴보기" />
+        </button>
+      </header>
+    ),
+    followers: (
+      <header className={styles['header-wrap']}>
+        <div className={styles['left']}>
+          <button className={styles['btn-back']}>
+            <img src={IconArrowLeft} alt="뒤로가기" />
+          </button>
+          <span className={['chat-title']}>Followers</span>
+        </div>
+      </header>
+    ),
+  };
+  return HeaderUI[type];
+}

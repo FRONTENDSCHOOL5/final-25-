@@ -1,0 +1,30 @@
+@import '../../../styles/global.css';
+@import '../../../assets/font/font.css';
+
+/* ===== 공구중인 상품 ===== */
+.product {
+  height: 208px;
+  text-align: left;
+  padding: 21px 0 20px 16px;
+  border-top: 3px solid #DBDBDB;
+  border-bottom: 3px solid #DBDBDB;
+  background: #ffffff;
+}
+.product-title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.product-list {
+  display: flex;
+  gap: 10px;
+  overflow-x:scroll;
+}
+.product-list::-webkit-scrollbar {
+  display: none;
+}
+/* 끝 공구중인 상품 */

@@ -1,0 +1,81 @@
+@import '../../../assets/font/font.css';
+
+/* ===== 피드 레이아웃 작업 ====== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background-color: #ffffff;
+  z-index: 10;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+}
+
+main {
+  max-width: 390px;
+  margin: 48px auto 60px;
+}
+
+.login-main {
+  text-align: left;
+}
+
+.login-main-head {
+  font-size: 24px;
+  text-align: center;
+  color: #000;
+  margin-bottom: 40px;
+}
+
+.login-main-input {
+  width: 100%;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+.login-font {
+  font-size: 0.8rem;
+  color: #767676;
+  margin-bottom: 33px;
+}
+
+.login-input {
+  display: block;
+  width: 100%;
+  height: 33px;
+  border: none;
+  border-bottom: 1px solid #767676;
+  padding: 0;
+  outline: none;
+  margin-bottom: 16px;
+}
+
+.login-message-warning {
+  font-size: 0.8rem;
+  color: red;
+  margin-bottom: 3rem;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 44px;
+  background-color: #dccebf;
+  border-radius: 30px;
+  color: #fff;
+}
+
+.login-join {
+  display: block;
+  color: #767676;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 21px;
+}
