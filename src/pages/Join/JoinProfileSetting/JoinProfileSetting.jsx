@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './JoinProfileSettiong.module.css';
 import BasicProfile from '../../../assets/images/basic-profile-img.png';
-import ImgButton from '../../../assets/images/img-button.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import userAPI from '../../../api/userAPI';
+import imageAPI from '../../../api/imageAPI';
 
 export default function JoinProfileSetting() {
   const navigate = useNavigate();
@@ -14,20 +14,18 @@ export default function JoinProfileSetting() {
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
     setValue,
-    trigger,
     watch,
   } = useForm({ mode: 'onBlur' });
 
   const [isFormValid, setIsFormValid] = useState(true);
-
   console.log('isFormValid:', isFormValid);
+
+  const [profileImg, setProfileImg] = useState(null);
+  const profileInputRef = useRef(null);
 
   const userName = watch('userNameInput');
   const accountName = watch('idInput');
   const intro = watch('introduceInput');
-  const image = BasicProfile;
-
-  // const isFormValid = isDirty && Object.keys(errors).length === 0;
 
   const handleIdChange = event => {
     const userId = event.target.value;
@@ -40,7 +38,15 @@ export default function JoinProfileSetting() {
   const joinData = location.state;
   console.log('joinData:', joinData);
 
-  // 계정 ID 중복검사 api
+  // 이미지 저장 api
+  const handleImageChange = async event => {
+    const imageSrc = await imageAPI.uploadImg(event);
+
+    setProfileImg(imageSrc);
+    console.log('profileImg: ', profileImg);
+  };
+
+  // ----------------- 계정 ID 중복검사 api-----------------
   const checkAccount = async accountData => {
     try {
       const accountName = accountData.accountname;
@@ -59,7 +65,7 @@ export default function JoinProfileSetting() {
     }
   };
 
-  // 최종 등록하는 api
+  // -----------------최종 등록하는 api-----------------
   const onSubmit = async data => {
     console.log('joinData : ', joinData);
     console.log('userName :', userName);
@@ -70,13 +76,12 @@ export default function JoinProfileSetting() {
         joinData.password,
         accountName,
         intro,
-        image,
+        profileImg,
       );
       console.log(response.message);
 
       if (response.message === '회원가입 성공') {
-        // 통신성공할경우 api에 이메일, 비번까지해서 등록해야함
-        // 뭘가져가야함..?
+        // 뭘가져가야할지 한번 더 체크하고  state로 넘길 수 있음
         navigate('/');
       } else {
         setIsFormValid(false);
@@ -94,24 +99,33 @@ export default function JoinProfileSetting() {
       <p className={`${styles['header']} ${styles['sub-title']}`}>
         나중에 언제든지 변경할 수 있습니다.
       </p>
-      {/* 프로필 사진 넣는 곳 */}
-      <div className={styles['profile-img-wrapper']}>
-        <label htmlFor=""></label>
-        <input
-          id="profil"
-          className={styles['profile-img']}
-          type="file"
-          accept="image/jpg, image/jpeg, image/png"
-          // src={BasicProfile}
-          // alt="프로필 사진"
-        />
-        <button className={styles['img-button']}>
-          <img src={ImgButton} alt="사진추가 버튼" />
-        </button>
-      </div>
-      <section>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          {/* 사용자 이름 입력 */}
+      {/* ----------------- 프로필 사진 넣는 곳 -----------------*/}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles['profile-img-wrapper']}>
+          <label htmlFor="profile" className="a11y-hidden">
+            <input
+              id="profile"
+              type="file"
+              accept="image/jpg, image/jpeg, image/png"
+              ref={profileInputRef}
+              onChange={handleImageChange}
+            />
+          </label>
+          <button
+            className={styles['img-button']}
+            type="button"
+            onClick={() => profileInputRef.current.click()}
+          >
+            <img
+              className={styles['profile-img']}
+              src={profileImg || BasicProfile}
+              alt="프로필 사진"
+            />
+          </button>
+        </div>
+
+        <section>
+          {/*----------------- 사용자 이름 입력----------------- */}
           <div className={styles['input-wrapper']}>
             <label className={styles['input-title']} htmlFor={'userNameInput'}>
               사용자 이름
@@ -144,7 +158,7 @@ export default function JoinProfileSetting() {
               </small>
             )}
           </div>
-          {/* 계정 ID 입력 */}
+          {/* -----------------계정 ID 입력----------------- */}
           <div className={styles['input-wrapper']}>
             <label className={styles['input-title']} htmlFor="idInput">
               계정 ID
@@ -175,7 +189,7 @@ export default function JoinProfileSetting() {
               </small>
             )}
           </div>
-          {/* 소개 입력 */}
+          {/*----------------- 소개 입력 -----------------*/}
           <div className={styles['input-wrapper']}>
             <label className={styles['input-title']} htmlFor="introduceInput">
               소개
@@ -193,7 +207,7 @@ export default function JoinProfileSetting() {
               })}
             />
           </div>
-          {/* 버튼 */}
+          {/*----------------- 버튼 -----------------*/}
           <button
             disabled={isSubmitting} // 유효성 검사를 통과하지 않으면 버튼 비활성화
             className={`${styles['submit-btn']} ${
@@ -203,8 +217,8 @@ export default function JoinProfileSetting() {
           >
             먹을사람 시작하기
           </button>
-        </form>
-      </section>
+        </section>
+      </form>
     </main>
   );
 }
