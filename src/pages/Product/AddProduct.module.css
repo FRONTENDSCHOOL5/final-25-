@@ -65,3 +65,8 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
+.error-message {
+  color: red;
+  margin: 10px 0;
+}

@@ -8,9 +8,13 @@ export default function AddProduct() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [saleLink, setSaleLink] = useState('');
+  // 에러
   const [nameError, setNameError] = useState('');
   const [productPriceError, setProductPriceError] = useState('');
   const [saleLinkError, setSaleLinkError] = useState('');
+  //제출 할것인지?
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [btnState, setBtnstate] = useState(false);
   const navigate = useNavigate();
 
   const handleName = e => {
@@ -18,10 +22,12 @@ export default function AddProduct() {
     if (value.length >= 2 && value.length <= 15) {
       setProductName(value);
       setNameError('');
+      setIsFormValid(value !== '');
       console.log(value);
     } else {
       setProductName(value);
-      setNameError('이름은 2~15자 이내여야 합니다.');
+      setNameError(value !== '' ? '이름은 2~15자 이내여야 합니다.' : '');
+      setIsFormValid(false);
     }
   };
 
@@ -33,7 +39,7 @@ export default function AddProduct() {
       setProductPriceError('');
       console.log(formattedPrice);
     } else {
-      setProductPrice('');
+      setProductPrice(value);
       setProductPriceError('가격은 최대 9자리 숫자로 입력해주세요.');
     }
   };
@@ -46,11 +52,17 @@ export default function AddProduct() {
       console.log(value);
     } else {
       setSaleLink(value);
-      setSaleLinkError('유효한 URL을 입력해주세요.');
+      setSaleLinkError(value !== '' ? '유효한 URL을 입력해주세요.' : '');
     }
   };
 
   const isValidUrl = url => {
+    const urlRegex =
+      /(http[s]?|ftp):\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}/g;
+    return urlRegex.test(url);
+  };
+
+  const isURLValid = url => {
     try {
       new URL(url);
       return true;
@@ -84,13 +96,29 @@ export default function AddProduct() {
       console.log(error);
     }
   };
-
+  const handler = () => {
+    if (
+      productName !== '' &&
+      productPrice !== '' &&
+      saleLink !== '' &&
+      productImg !== ''
+    ) {
+      setBtnstate(true);
+      return true;
+      // 모두 유효하면 버튼 상태를 true로 설정
+    } else {
+      setBtnstate(false);
+      return false;
+    }
+  };
   const token = localStorage.getItem('token');
 
   const handleSubmit = e => {
     e.preventDefault();
-    // 폼 제출 논리 구현
-    // handleImageInput()
+
+    if (!isFormValid) {
+      return; // 폼이 유효하지 않으면 제출하지 않음
+    }
     fetch('https://api.mandarin.weniv.co.kr/product', {
       method: 'POST',
       headers: {
@@ -100,7 +128,7 @@ export default function AddProduct() {
       body: JSON.stringify({
         product: {
           itemName: productName,
-          price: parseInt(productPrice), //1원 이상
+          price: parseInt(productPrice.replace(/,/g, '')), //1원 이상
           link: saleLink,
           itemImage: productImg,
         },
@@ -109,6 +137,7 @@ export default function AddProduct() {
       .then(response => response.json())
       .then(result => {
         console.log(result);
+        navigate('/');
       })
       .catch(error => console.log(error));
   };
@@ -116,7 +145,7 @@ export default function AddProduct() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Layout>
+        <Layout btnHandler={handler} btn={btnState}>
           <section className={styles['product-image-container']}>
             <div className={styles['product-file-font']}>이미지 등록</div>
             {/* <form onSubmit={handleSubmit}> */}
@@ -145,20 +174,21 @@ export default function AddProduct() {
                 id="productName"
                 onChange={handleName}
               />
-              {Boolean(nameError) && (
+              {Boolean(nameError) && nameError !== '' && (
                 <p className={styles['error-message']}>{nameError}</p>
               )}
             </section>
+
             <section className={styles['product-title']}>
               <div>가격</div>
               <label htmlFor="productPrice" className="a11y-hidden"></label>
               <input
                 className={styles['product-title-input']}
-                type="number"
+                type="text"
                 placeholder="숫자만 입력 가능합니다."
-                step="any"
                 required
                 id="productPrice"
+                value={productPrice}
                 onChange={handlePrice}
               />
               {productPriceError && (
@@ -176,13 +206,10 @@ export default function AddProduct() {
                 id="saleLink"
                 onChange={handleSaleLink}
               />
+              {saleLinkError && (
+                <p className={styles['error-message']}>{saleLinkError}</p>
+              )}
             </section>
-            {saleLinkError && (
-              <p style={{ color: 'red', fontSize: '12px', textAlign: 'left' }}>
-                {saleLinkError}
-              </p>
-            )}
-            {/* </form> */}
           </section>
         </Layout>
       </form>
