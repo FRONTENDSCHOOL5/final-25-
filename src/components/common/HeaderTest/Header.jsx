@@ -39,7 +39,7 @@ export default function Header({ type }) {
     homeSearch: (
       <header className={styles['header-wrap']}>
         <a href="/#" class={styles['title']}>
-          감귤마켓 피드
+          같이드실? 피드
         </a>
         <button className={styles['btn-search']}>
           <img src={IconSearch} alt="검색하기" />
