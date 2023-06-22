@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
+import { useNavigate } from 'react-router-dom';
 
-export default function Post({ data }) {
-  // console.log('props로 전달받은 data: ', data);
+export default function Post({ data, accountName }) {
+  console.log(accountName);
+  console.log('props로 전달받은 data: ', data);
+  const navigate = useNavigate();
+
+  const authorClickHandler = event => {
+    const closestArticle = event.target.closest('article');
+    const postAuthor = closestArticle.getAttribute('data-author');
+
+    if (accountName === postAuthor) {
+      navigate('/profile');
+    } else {
+      navigate(`/profile/${postAuthor}`);
+    }
+  };
 
   const date = new Date(data['createdAt']);
   const year = date.getFullYear();
@@ -18,16 +32,19 @@ export default function Post({ data }) {
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
 
-  // console.log('같이드실 컨텐츠', foundText);
-
   return (
     <>
-      <article className={styles['post-item']}>
-        <div className={styles['post-header']}>
+      <article
+        className={styles['post-item']}
+        data-id={data['id']}
+        data-author={data['author']['accountname']}
+      >
+        <div className={styles['post-header']} onClick={authorClickHandler}>
           <img
             className={styles['author-profile']}
             src={data['author']['image']}
             alt="작성자 프로필 이미지"
+            onError={basicProfileImg}
           />
           <div className={styles['author-info']}>
             {planContents && (

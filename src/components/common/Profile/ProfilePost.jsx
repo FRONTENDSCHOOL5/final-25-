@@ -8,6 +8,9 @@ import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
+const userAccountName = '';
+const token = '';
+
 export default function ProfilePost({ type }) {
   // false가 리스트로 보기
   // true가 앨범으로 보기
@@ -26,16 +29,12 @@ export default function ProfilePost({ type }) {
   };
 
   // 유저 게시글 목록
+  const [accountName, setAccountName] = useState(userAccountName);
   const [feedList, setFeedList] = useState([]);
   const [userPost, setUserPost] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const accountName = 'sunbin5';
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjMyNjM4MiwiaWF0IjoxNjg3MTQyMzgyfQ.CPlbun9R6RlVAG-yAkfiLusCqVqrbYyw5iAf3hjGksg';
-    // const token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTAyZTE3YjJjYjIwNTY2MzNjODFlZSIsImV4cCI6MTY5MjM1NTA3NCwiaWF0IjoxNjg3MTcxMDc0fQ.PMMMcwMQ0vb7dPv4xYZikUs6yKLUJ1oCBRtVLc0us30';
     const fetchFeed = async () => {
       const data = await postAPI.getFeed(token);
       // setIsLoading(false);
@@ -78,7 +77,7 @@ export default function ProfilePost({ type }) {
             {feedList.map(item => {
               return (
                 <li>
-                  <Post data={item} />
+                  <Post data={item} account={accountName} />
                 </li>
               );
             })}
@@ -141,8 +140,8 @@ export default function ProfilePost({ type }) {
             <ul className={styles['post-list']}>
               {userPost.map(item => {
                 return (
-                  <li>
-                    <Post data={item} />
+                  <li key={item.id}>
+                    <Post data={item} accountName={accountName} />
                   </li>
                 );
               })}
