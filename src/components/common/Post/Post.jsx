@@ -1,50 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
-export default function Post() {
+export default function Post({ data }) {
+  // console.log('props로 전달받은 data: ', data);
+
+  const date = new Date(data['createdAt']);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const formattedDate = `${year}년 ${month}월 ${day}일`;
+
+  const contentTxt = data['content'];
+  const regex = /\{(.+?)\}/;
+  const match = contentTxt.match(regex);
+
+  const foundText = match ? match[0] : null;
+  const planContents = foundText ? JSON.parse(foundText) : null;
+
+  // console.log('같이드실 컨텐츠', foundText);
+
   return (
     <>
       <article className={styles['post-item']}>
         <div className={styles['post-header']}>
           <img
             className={styles['author-profile']}
-            src={basicProfileImg}
+            src={data['author']['image']}
             alt="작성자 프로필 이미지"
           />
           <div className={styles['author-info']}>
-            <h4 className={styles['post-title']}>고기 먹을 사람?</h4>
+            {planContents && (
+              <h4 className={styles['post-title']}>{planContents['title']}</h4>
+            )}
             <strong className={styles['author-name']}>
-              이오에서만은 디자인왕
+              {data['author']['username']}
             </strong>
-            <span className={styles['author-id']}>@ e5_designKing99</span>
+            <span className={styles['author-id']}>
+              @ {data['author']['accountname']}
+            </span>
           </div>
         </div>
         <div className={styles['post-contents']}>
-          <ul className={styles['plan-list']}>
-            <li className={styles.menu}>
-              메뉴<span className={styles['menu-value']}>고기</span>
-            </li>
-            <li className={styles.place}>
-              장소
-              <span className={styles['place-value']}>제줏간 방이점</span>
-            </li>
-            <li className={styles.date}>
-              일시
-              <span className={styles['date-value']}>오늘, 오후 6시</span>
-            </li>
-            <li className={styles.personnel}>
-              인원<span className={styles['personnel-value']}>4명</span>
-            </li>
-          </ul>
+          {planContents && (
+            <ul className={styles['plan-list']}>
+              <li className={styles.menu}>
+                메뉴
+                <span className={styles['menu-value']}>
+                  {planContents['menu']}
+                </span>
+              </li>
+              <li className={styles.place}>
+                장소
+                <span className={styles['place-value']}>
+                  {planContents['place']}
+                </span>
+              </li>
+              <li className={styles.date}>
+                일시
+                <span className={styles['date-value']}>
+                  {planContents['date']}
+                </span>
+              </li>
+              <li className={styles.personnel}>
+                인원
+                <span className={styles['personnel-value']}>
+                  {planContents['people']}
+                </span>
+              </li>
+            </ul>
+          )}
+
           <div className={styles['post-img-container']}>
             <ul className={styles['post-img-list']}>
-              <li className={`${styles['post-img']} ${styles['on']}`}>
-                <img src="https://picsum.photos/200" alt="음식 사진" />
-              </li>
-              <li className={styles['post-img']}>
-                <img src="https://picsum.photos/200" alt="음식 사진" />
-              </li>
+              {data['image'] ? (
+                <li className={`${styles['post-img']} ${styles['on']}`}>
+                  <img src={data['image']} alt="음식 사진" />
+                </li>
+              ) : (
+                <></>
+              )}
             </ul>
             <ul className={styles['post-img-control']}>
               <li>
@@ -56,23 +91,25 @@ export default function Post() {
             </ul>
           </div>
           <p className={styles['post-text']}>
-            마라전골 맛잇쪄마라전골 맛잇쪄마라전골 맛잇쪄마라전골 맛잇쪄마라전골
-            맛잇쪄마라전골 맛잇쪄마라전골 맛잇쪄마라전골 맛잇쪄마라전골
-            맛잇쪄마라전골 맛잇쪄
+            {planContents
+              ? data['content'].replace(foundText, '')
+              : data['content']}
           </p>
         </div>
         <div className={styles['post-footer']}>
           <div className={styles['post-reaction']}>
             <button type="button" className={styles['btn-like']}>
               <span className="a11y-hidden">좋아요 버튼</span>
-              <span className={styles['like-count']}>0</span>
+              <span className={styles['like-count']}>{data['heartCount']}</span>
             </button>
             <a href="/post" className={styles['btn-comment']}>
               <span className="a11y-hidden">댓글 쓰러가기 버튼</span>
-              <span className={styles['comment-count']}>0</span>
+              <span className={styles['comment-count']}>
+                {data['commentCount']}
+              </span>
             </a>
           </div>
-          <span className={styles['create-date']}>2023년 06월 06일</span>
+          <span className={styles['create-date']}>{formattedDate}</span>
         </div>
         <button className={styles['btn-post-more']} type="button">
           <span className="a11y-hidden">포스트 메뉴</span>
