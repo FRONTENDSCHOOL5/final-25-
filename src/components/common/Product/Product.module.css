@@ -1,16 +1,10 @@
-@import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
-
-body {
-  font-family: 'Pretendard';
-  color: #C4C4C4;
-  text-align: center;  
-}
 
 .product-item {
   background-color: #FFFFFF;
   width: 140px;
   height: 132px;
+  cursor: pointer;
 }
 .product-img-container {
   width: 140px;
