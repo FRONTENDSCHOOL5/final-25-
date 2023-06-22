@@ -42,6 +42,7 @@ export default function ProfilePost({ type }) {
     };
 
     const fetchUserPost = async () => {
+      console.log(accountName);
       const data = await postAPI.getUserpost(token, accountName);
       setIsLoading(false);
       setUserPost(data['post']);
@@ -89,67 +90,70 @@ export default function ProfilePost({ type }) {
         <Post />
       </section>
     ),
-    profile: (
-      <section className={styles.profile}>
-        {isOptionClicked ? (
-          <>
-            <div className={styles['btn-group']}>
-              <button
-                type="button"
-                className={styles['btn-list']}
-                onClick={optionHandler}
-              >
-                <img src={postListOff} alt="리스트로 보기" />
-              </button>
-              <button
-                type="button"
-                className={styles['btn-album']}
-                onClick={optionHandler}
-              >
-                <img src={postAlbumOn} alt="앨범으로 보기" />
-              </button>
-            </div>
-            <ul className={styles['post-album']}>
-              {userPostImgArray.map(item => {
-                return (
-                  <li className={styles['post-album-item']}>
-                    <img src={item} alt="포스트 썸네일" />
-                  </li>
-                );
-              })}
-            </ul>
-          </>
-        ) : (
-          <>
-            <div className={styles['btn-group']}>
-              <button
-                type="button"
-                className={styles['btn-list']}
-                onClick={optionHandler}
-              >
-                <img src={postListOn} alt="리스트로 보기" />
-              </button>
-              <button
-                type="button"
-                className={styles['btn-album']}
-                onClick={optionHandler}
-              >
-                <img src={postAlbumOff} alt="앨범으로 보기" />
-              </button>
-            </div>
-            <ul className={styles['post-list']}>
-              {userPost.map(item => {
-                return (
-                  <li key={item.id}>
-                    <Post data={item} accountName={accountName} />
-                  </li>
-                );
-              })}
-            </ul>
-          </>
-        )}
-      </section>
-    ),
+    profile:
+      userPost.length === 0 ? (
+        <></>
+      ) : (
+        <section className={styles.profile}>
+          {isOptionClicked ? (
+            <>
+              <div className={styles['btn-group']}>
+                <button
+                  type="button"
+                  className={styles['btn-list']}
+                  onClick={optionHandler}
+                >
+                  <img src={postListOff} alt="리스트로 보기" />
+                </button>
+                <button
+                  type="button"
+                  className={styles['btn-album']}
+                  onClick={optionHandler}
+                >
+                  <img src={postAlbumOn} alt="앨범으로 보기" />
+                </button>
+              </div>
+              <ul className={styles['post-album']}>
+                {userPostImgArray.map(item => {
+                  return (
+                    <li className={styles['post-album-item']}>
+                      <img src={item} alt="포스트 썸네일" />
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          ) : (
+            <>
+              <div className={styles['btn-group']}>
+                <button
+                  type="button"
+                  className={styles['btn-list']}
+                  onClick={optionHandler}
+                >
+                  <img src={postListOn} alt="리스트로 보기" />
+                </button>
+                <button
+                  type="button"
+                  className={styles['btn-album']}
+                  onClick={optionHandler}
+                >
+                  <img src={postAlbumOff} alt="앨범으로 보기" />
+                </button>
+              </div>
+              <ul className={styles['post-list']}>
+                {userPost.map(item => {
+                  return (
+                    <li key={item.id}>
+                      <Post data={item} accountName={accountName} />
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+        </section>
+      ),
   };
   return ProfilePostUI[type];
 }
