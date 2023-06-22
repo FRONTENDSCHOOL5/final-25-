@@ -4,7 +4,7 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children }) {
+export default function Layout({ children, btnHandler }) {
   let headerType;
   let footerType;
 
@@ -17,15 +17,12 @@ export default function Layout({ children }) {
       headerType = 'header';
       footerType = 'profile';
       break;
-
-    case '/product':
-
-  
+    case '/profile/m':
       headerType = 'saveButton';
       footerType = 'none';
       break;
-    case '/profile/m':
-      headerType = 'saveButton';
+    case '/product':
+      headerType = btnHandler() ? 'colorButton' : 'saveButton';
       footerType = 'none';
       break;
     case '/product/m':
@@ -67,7 +64,7 @@ export default function Layout({ children }) {
   }
   return (
     <>
-      <Header type={headerType} />
+      <Header type={headerType} btnHandler={btnHandler} />
       <main>{children}</main>
       <footer>
         {footerType === 'input' ||

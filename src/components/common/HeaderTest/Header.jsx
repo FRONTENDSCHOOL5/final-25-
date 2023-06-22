@@ -4,7 +4,7 @@ import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
 
-export default function Header({ type, isButtonEnabled }) {
+export default function Header({ type, btnHandler, btn }) {
   const HeaderUI = {
     none: <></>,
     header: (
@@ -46,7 +46,9 @@ export default function Header({ type, isButtonEnabled }) {
         <button className={styles['btn-back']}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
-        <button className={styles['btn-save']}>저장</button>
+        <button className={styles['btn-save']} disabled>
+          저장
+        </button>
       </header>
     ),
     colorButton: (
