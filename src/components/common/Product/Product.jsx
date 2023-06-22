@@ -5,7 +5,11 @@ export default function ProfileProduct({ data }) {
   const price = data['price'].toLocaleString();
 
   const productClickHandelr = () => {
-    window.open(data['link'], '_blank');
+    if (document.location.pathname === '/profile') {
+      console.log('모달');
+    } else {
+      window.open(data['link'], '_blank');
+    }
   };
   return (
     <>
