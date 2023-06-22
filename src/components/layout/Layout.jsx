@@ -67,15 +67,16 @@ export default function Layout({ children }) {
     <>
       <Header type={headerType} />
       <main>{children}</main>
-      <footer>
-        {footerType === 'input' ||
-        footerType === 'comment' ||
-        footerType === 'chatting' ? (
+
+      {footerType === 'input' ||
+      footerType === 'comment' ||
+      footerType === 'chatting' ? (
+        <footer>
           <Input type={footerType} />
-        ) : (
-          <TabMenu type={footerType} />
-        )}
-      </footer>
+        </footer>
+      ) : (
+        <TabMenu type={footerType} />
+      )}
     </>
   );
 }

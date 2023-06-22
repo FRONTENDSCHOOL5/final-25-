@@ -1,15 +1,18 @@
 import React from 'react';
+import useGoBack from '../../../hooks/useGoBack';
 import styles from './Header.module.css';
 import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
 
 export default function Header({ type, isButtonEnabled }) {
+  const goBack = useGoBack();
+  
   const HeaderUI = {
     none: <></>,
     header: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']}>
+        <button className={styles['btn-back']} onClick={goBack}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-more']}>
@@ -19,7 +22,7 @@ export default function Header({ type, isButtonEnabled }) {
     ),
     userSearch: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']}>
+        <button className={styles['btn-back']} onClick={goBack}>
           <img
             className={styles['img-back']}
             src={IconArrowLeft}
@@ -35,7 +38,9 @@ export default function Header({ type, isButtonEnabled }) {
     ),
     homeSearch: (
       <header className={styles['header-wrap']}>
-        <h1 class={styles['title']}>감귤마켓 피드</h1>
+        <a href="/#" class={styles['title']}>
+          같이드실? 피드
+        </a>
         <button className={styles['btn-search']}>
           <img src={IconSearch} alt="검색하기" />
         </button>
@@ -43,7 +48,7 @@ export default function Header({ type, isButtonEnabled }) {
     ),
     saveButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']}>
+        <button className={styles['btn-back']} onClick={goBack}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save']}>저장</button>
@@ -51,7 +56,7 @@ export default function Header({ type, isButtonEnabled }) {
     ),
     colorButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']}>
+        <button className={styles['btn-back']} onClick={goBack}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save-color']} type="submit">
@@ -61,7 +66,7 @@ export default function Header({ type, isButtonEnabled }) {
     ),
     uploadButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']}>
+        <button className={styles['btn-back']} onClick={goBack}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save']}>업로드</button>
@@ -69,7 +74,7 @@ export default function Header({ type, isButtonEnabled }) {
     ),
     uploadColorButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']}>
+        <button className={styles['btn-back']} onClick={goBack}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-upload-color']}>업로드</button>
@@ -78,7 +83,7 @@ export default function Header({ type, isButtonEnabled }) {
     chatHeader: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
-          <button className={styles['btn-back']}>
+          <button className={styles['btn-back']} onClick={goBack}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
           <span className={['chat-title']}>애월읍 위니브 감귤 농장</span>
@@ -91,7 +96,7 @@ export default function Header({ type, isButtonEnabled }) {
     followers: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
-          <button className={styles['btn-back']}>
+          <button className={styles['btn-back']} onClick={goBack}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
           <span className={['chat-title']}>Followers</span>

@@ -13,6 +13,7 @@
 .btn-group {
   text-align: right;
   padding: 9px 21px;
+  border-top: 0.5px solid #DBDBDB;
   border-bottom: 0.5px solid #DBDBDB;
 }
 .btn-group button {
@@ -42,6 +43,12 @@
 
 .post-grid-item {
   position: relative;
+}
+
+.post-album-item img {
+  width: 114px;
+  height: 114px;
+  object-fit: cover;
 }
 
 .post-album-item::after {
