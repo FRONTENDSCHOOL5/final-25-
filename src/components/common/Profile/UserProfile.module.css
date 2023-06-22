@@ -1,11 +1,4 @@
-@import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
-
-body {
-  font-family: 'Pretendard';
-  color: #C4C4C4;
-  text-align: center;  
-}
 
 .user-profile {
   background-color: #ffffff;
@@ -20,6 +13,7 @@ body {
 .user-profile-cover {
   width: 110px;
   height: 110px;
+  border-radius: 50%;
 }
 
 .user-profile-info {

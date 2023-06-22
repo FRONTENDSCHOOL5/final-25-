@@ -1,37 +1,28 @@
-import { useState, useEffect } from 'react';
+import BASE_URL from '../utils/baseUrl';
 
-// 내 프로필 API: 'https://api.mandarin.weniv.co.kr/user/myinfo'
+const profileAPI = {
+  // 내 프로필 정보
+  async getMyProfile(token) {
+    console.log('유저정보');
+    try {
+      const response = await fetch(BASE_URL + '/user/myinfo', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-export const useProfileAPI = () => {
-  const [profile, setProfile] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const url = 'https://api.mandarin.weniv.co.kr';
-
-  useEffect(() => {
-    async function fetchProfile() {
-      setIsLoading(true);
-      try {
-        const response = await fetch(url + '/user/myinfo', {
-          method: 'GET',
-          headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjM1NDE4NywiaWF0IjoxNjg3MTcwMTg3fQ.MiyMMGRaddraLYS_d-o-LwaSVduR4MacYWqjUL5SFFA',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error('네트워크에 문제가 있습니다!');
-        }
-        const data = await response.json();
-        setProfile(data['user']);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
+      if (!response.ok) {
+        throw new Error('네트워크에 문제가 있습니다!');
       }
-    }
-    fetchProfile();
-  }, []);
+      const data = await response.json();
+      console.log('profielAPI.getProfile, 내 프로필 정보: ', data);
 
-  return { profile };
+      return data;
+    } catch (error) {
+      console.error('데이터를 가져오는 데 문제가 생겼습니다.', error);
+    }
+  },
 };
+
+export default profileAPI;

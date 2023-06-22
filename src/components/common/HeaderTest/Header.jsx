@@ -7,7 +7,7 @@ import IconSearch from '../../../assets/images/icon-search.svg';
 
 export default function Header({ type, isButtonEnabled }) {
   const goBack = useGoBack();
-  
+
   const HeaderUI = {
     none: <></>,
     header: (
