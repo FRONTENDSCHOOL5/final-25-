@@ -27,6 +27,7 @@ export default function ProfilePost({ type }) {
 
   // 유저 게시글 목록
   const [feedList, setFeedList] = useState([]);
+  const [userPost, setUserPost] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,14 +42,31 @@ export default function ProfilePost({ type }) {
       setFeedList(data['posts']);
     };
 
+    const fetchUserPost = async () => {
+      const data = await postAPI.getUserpost(token, accountName);
+      setIsLoading(false);
+      setUserPost(data['post']);
+    };
+
     switch (type) {
       case 'feed':
         fetchFeed();
         break;
+      case 'profile':
+        fetchUserPost();
+        break;
+
       default:
         break;
     }
   }, [type]);
+
+  const userPostImgArray = [];
+  userPost.forEach(element => {
+    element['image'] !== ''
+      ? userPostImgArray.push(element['image'])
+      : console.log('이미지 없어유');
+  });
 
   const ProfilePostUI = {
     feed:
@@ -93,7 +111,7 @@ export default function ProfilePost({ type }) {
               </button>
             </div>
             <ul className={styles['post-album']}>
-              {postImgArray.map(item => {
+              {userPostImgArray.map(item => {
                 return (
                   <li className={styles['post-album-item']}>
                     <img src={item} alt="포스트 썸네일" />
@@ -121,7 +139,7 @@ export default function ProfilePost({ type }) {
               </button>
             </div>
             <ul className={styles['post-list']}>
-              {myPost.map(item => {
+              {userPost.map(item => {
                 return (
                   <li>
                     <Post data={item} />
