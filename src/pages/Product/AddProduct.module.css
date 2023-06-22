@@ -17,7 +17,6 @@
   text-align: center;
   border-radius: 15px;
   background-color: #dbdbdb;
-  /* background-image: url(../../assets/images/눈물.png); */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -65,4 +64,9 @@
 .product-title-input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.error-message {
+  color: red;
+  margin: 10px 0;
 }
