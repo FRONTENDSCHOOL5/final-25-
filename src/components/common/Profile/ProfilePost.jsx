@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../Post/Post';
 import styles from './ProfilePost.module.css';
+import postAPI from '../../../api/postAPI';
+import FeedNone from '../../../pages/Feed/FeedNone';
 import postListOn from '../../../assets/images/icon-post-list-on.svg';
 import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
-import { useFeedAPI } from '../../../api/feedAPI';
-
 export default function ProfilePost({ type }) {
-  const { post } = useFeedAPI();
-
   // false가 리스트로 보기
   // true가 앨범으로 보기
   const [option, setOption] = useState('리스트로 보기');
@@ -27,60 +25,48 @@ export default function ProfilePost({ type }) {
     }
   };
 
-  // 게시글 목록 API: 'https://api.mandarin.weniv.co.kr/post/:accountname/userpost'
-  const [myPost, setMyPost] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const url = 'https://api.mandarin.weniv.co.kr';
+  // 유저 게시글 목록
+  const [feedList, setFeedList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    async function fetchMyPost() {
-      setIsLoading(true);
-      try {
-        const response = await fetch(url + '/post/sunbin5/userpost', {
-          method: 'GET',
-          headers: {
-            Authorization:
-              'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjM1NDE4NywiaWF0IjoxNjg3MTcwMTg3fQ.MiyMMGRaddraLYS_d-o-LwaSVduR4MacYWqjUL5SFFA',
-          },
-        });
+    const accountName = 'sunbin5';
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjMyNjM4MiwiaWF0IjoxNjg3MTQyMzgyfQ.CPlbun9R6RlVAG-yAkfiLusCqVqrbYyw5iAf3hjGksg';
+    // const token =
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTAyZTE3YjJjYjIwNTY2MzNjODFlZSIsImV4cCI6MTY5MjM1NTA3NCwiaWF0IjoxNjg3MTcxMDc0fQ.PMMMcwMQ0vb7dPv4xYZikUs6yKLUJ1oCBRtVLc0us30';
+    const fetchFeed = async () => {
+      const data = await postAPI.getFeed(token);
+      // setIsLoading(false);
+      setFeedList(data['posts']);
+    };
 
-        if (!response.ok) {
-          throw new Error('네트워크에 문제가 있습니다!');
-        }
-        const data = await response.json();
-        setMyPost(data['post']);
-        setIsLoading(false);
-        console.log('내 포스트', data);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
+    switch (type) {
+      case 'feed':
+        fetchFeed();
+        break;
+      default:
+        break;
     }
-    fetchMyPost();
-  }, []);
-
-  const postImgArray = [];
-  myPost.forEach(element => {
-    // console.log(element);
-    element['image'] !== ''
-      ? postImgArray.push(element['image'])
-      : console.log('이미지 없어유');
-  });
-  // console.log(postImgArray);
+  }, [type]);
 
   const ProfilePostUI = {
-    feed: (
-      <section className={styles.feed}>
-        <ul className={styles['post-list']}>
-          {post.map(item => {
-            return (
-              <li>
-                <Post data={item} />
-              </li>
-            );
-          })}
-        </ul>
-      </section>
-    ),
+    feed:
+      feedList.length === 0 ? (
+        <FeedNone />
+      ) : (
+        <section className={styles.feed}>
+          <ul className={styles['post-list']}>
+            {feedList.map(item => {
+              return (
+                <li>
+                  <Post data={item} />
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ),
     post: (
       <section className={styles.post}>
         <Post />
