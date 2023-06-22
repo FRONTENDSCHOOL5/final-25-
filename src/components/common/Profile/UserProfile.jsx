@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './UserProfile.module.css';
 import profileAPI from '../../../api/profileAPI';
-import { useNavigate } from 'react-router-dom';
+
+const token = '';
 
 export default function UserProfile() {
   const [userProfile, setUserProfle] = useState([]);
@@ -9,11 +11,6 @@ export default function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjMyNjM4MiwiaWF0IjoxNjg3MTQyMzgyfQ.CPlbun9R6RlVAG-yAkfiLusCqVqrbYyw5iAf3hjGksg';
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTAyZTE3YjJjYjIwNTY2MzNjODFlZSIsImV4cCI6MTY5MjM1NTA3NCwiaWF0IjoxNjg3MTcxMDc0fQ.PMMMcwMQ0vb7dPv4xYZikUs6yKLUJ1oCBRtVLc0us30';
-
     const fetchMyProfile = async () => {
       const data = await profileAPI.getMyProfile(token);
       setUserProfle(data['user']);
