@@ -67,15 +67,6 @@ export default function AddProduct() {
     return urlRegex.test(url);
   };
 
-  const isURLValid = url => {
-    try {
-      new URL(url);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  };
-
   const handleImageInput = async e => {
     const formData = new FormData();
     const imageFile = e.target.files[0];
@@ -101,6 +92,7 @@ export default function AddProduct() {
       console.log(error);
     }
   };
+  // 버튼 핸들러
   const handler = () => {
     if (
       productName !== '' &&
@@ -156,6 +148,7 @@ export default function AddProduct() {
             <label
               className={styles['product-file-upload']}
               htmlFor="productImg"
+              accept="image/jpg, image/jpeg, image/png"
               style={{
                 backgroundImage: `url(${productImg})`,
                 backgroundSize: 'cover',
