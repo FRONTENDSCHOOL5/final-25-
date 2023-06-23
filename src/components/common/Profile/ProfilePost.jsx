@@ -11,7 +11,7 @@ import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 const userAccountName = '';
 const token = '';
 
-export default function ProfilePost({ type }) {
+export default function ProfilePost({ type, postDetailId }) {
   // false가 리스트로 보기
   // true가 앨범으로 보기
   const [option, setOption] = useState('리스트로 보기');
@@ -30,7 +30,9 @@ export default function ProfilePost({ type }) {
 
   // 유저 게시글 목록
   const [accountName, setAccountName] = useState(userAccountName);
+  const [postId, setPostDetailId] = useState(postDetailId);
   const [feedList, setFeedList] = useState([]);
+  const [postDetail, setPostDetail] = useState();
   const [userPost, setUserPost] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -41,8 +43,12 @@ export default function ProfilePost({ type }) {
       setFeedList(data['posts']);
     };
 
+    const fetchPostDetail = async () => {
+      const data = await postAPI.getPostDetail(token, postId);
+      setPostDetail(data['post']);
+    };
+
     const fetchUserPost = async () => {
-      console.log(accountName);
       const data = await postAPI.getUserpost(token, accountName);
       setIsLoading(false);
       setUserPost(data['post']);
@@ -51,6 +57,9 @@ export default function ProfilePost({ type }) {
     switch (type) {
       case 'feed':
         fetchFeed();
+        break;
+      case 'post':
+        fetchPostDetail();
         break;
       case 'profile':
         fetchUserPost();
@@ -77,7 +86,7 @@ export default function ProfilePost({ type }) {
           <ul className={styles['post-list']}>
             {feedList.map(item => {
               return (
-                <li>
+                <li id={item.id}>
                   <Post data={item} account={accountName} />
                 </li>
               );
@@ -87,7 +96,11 @@ export default function ProfilePost({ type }) {
       ),
     post: (
       <section className={styles.post}>
-        <Post />
+        {postDetail && accountName ? (
+          <Post data={postDetail} accountName={accountName} />
+        ) : (
+          '로딩중'
+        )}
       </section>
     ),
     profile:
