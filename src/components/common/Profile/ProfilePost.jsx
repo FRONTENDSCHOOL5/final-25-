@@ -8,7 +8,10 @@ import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
-export default function ProfilePost({ type }) {
+const userAccountName = '';
+const token = '';
+
+export default function ProfilePost({ type, postDetailId }) {
   // false가 리스트로 보기
   // true가 앨범으로 보기
   const [option, setOption] = useState('리스트로 보기');
@@ -26,29 +29,53 @@ export default function ProfilePost({ type }) {
   };
 
   // 유저 게시글 목록
+  const [accountName, setAccountName] = useState(userAccountName);
+  const [postId, setPostDetailId] = useState(postDetailId);
   const [feedList, setFeedList] = useState([]);
+  const [postDetail, setPostDetail] = useState();
+  const [userPost, setUserPost] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const accountName = 'sunbin5';
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjMyNjM4MiwiaWF0IjoxNjg3MTQyMzgyfQ.CPlbun9R6RlVAG-yAkfiLusCqVqrbYyw5iAf3hjGksg';
-    // const token =
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTAyZTE3YjJjYjIwNTY2MzNjODFlZSIsImV4cCI6MTY5MjM1NTA3NCwiaWF0IjoxNjg3MTcxMDc0fQ.PMMMcwMQ0vb7dPv4xYZikUs6yKLUJ1oCBRtVLc0us30';
     const fetchFeed = async () => {
       const data = await postAPI.getFeed(token);
       // setIsLoading(false);
       setFeedList(data['posts']);
     };
 
+    const fetchPostDetail = async () => {
+      const data = await postAPI.getPostDetail(token, postId);
+      setPostDetail(data['post']);
+    };
+
+    const fetchUserPost = async () => {
+      const data = await postAPI.getUserpost(token, accountName);
+      setIsLoading(false);
+      setUserPost(data['post']);
+    };
+
     switch (type) {
       case 'feed':
         fetchFeed();
         break;
+      case 'post':
+        fetchPostDetail();
+        break;
+      case 'profile':
+        fetchUserPost();
+        break;
+
       default:
         break;
     }
   }, [type]);
+
+  const userPostImgArray = [];
+  userPost.forEach(element => {
+    element['image'] !== ''
+      ? userPostImgArray.push(element['image'])
+      : console.log('이미지 없어유');
+  });
 
   const ProfilePostUI = {
     feed:
@@ -59,8 +86,8 @@ export default function ProfilePost({ type }) {
           <ul className={styles['post-list']}>
             {feedList.map(item => {
               return (
-                <li>
-                  <Post data={item} />
+                <li id={item.id}>
+                  <Post data={item} account={accountName} />
                 </li>
               );
             })}
@@ -69,70 +96,77 @@ export default function ProfilePost({ type }) {
       ),
     post: (
       <section className={styles.post}>
-        <Post />
-      </section>
-    ),
-    profile: (
-      <section className={styles.profile}>
-        {isOptionClicked ? (
-          <>
-            <div className={styles['btn-group']}>
-              <button
-                type="button"
-                className={styles['btn-list']}
-                onClick={optionHandler}
-              >
-                <img src={postListOff} alt="리스트로 보기" />
-              </button>
-              <button
-                type="button"
-                className={styles['btn-album']}
-                onClick={optionHandler}
-              >
-                <img src={postAlbumOn} alt="앨범으로 보기" />
-              </button>
-            </div>
-            <ul className={styles['post-album']}>
-              {postImgArray.map(item => {
-                return (
-                  <li className={styles['post-album-item']}>
-                    <img src={item} alt="포스트 썸네일" />
-                  </li>
-                );
-              })}
-            </ul>
-          </>
+        {postDetail && accountName ? (
+          <Post data={postDetail} accountName={accountName} />
         ) : (
-          <>
-            <div className={styles['btn-group']}>
-              <button
-                type="button"
-                className={styles['btn-list']}
-                onClick={optionHandler}
-              >
-                <img src={postListOn} alt="리스트로 보기" />
-              </button>
-              <button
-                type="button"
-                className={styles['btn-album']}
-                onClick={optionHandler}
-              >
-                <img src={postAlbumOff} alt="앨범으로 보기" />
-              </button>
-            </div>
-            <ul className={styles['post-list']}>
-              {myPost.map(item => {
-                return (
-                  <li>
-                    <Post data={item} />
-                  </li>
-                );
-              })}
-            </ul>
-          </>
+          '로딩중'
         )}
       </section>
     ),
+    profile:
+      userPost.length === 0 ? (
+        <></>
+      ) : (
+        <section className={styles.profile}>
+          {isOptionClicked ? (
+            <>
+              <div className={styles['btn-group']}>
+                <button
+                  type="button"
+                  className={styles['btn-list']}
+                  onClick={optionHandler}
+                >
+                  <img src={postListOff} alt="리스트로 보기" />
+                </button>
+                <button
+                  type="button"
+                  className={styles['btn-album']}
+                  onClick={optionHandler}
+                >
+                  <img src={postAlbumOn} alt="앨범으로 보기" />
+                </button>
+              </div>
+              <ul className={styles['post-album']}>
+                {userPostImgArray.map(item => {
+                  return (
+                    <li className={styles['post-album-item']}>
+                      <img src={item} alt="포스트 썸네일" />
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          ) : (
+            <>
+              <div className={styles['btn-group']}>
+                <button
+                  type="button"
+                  className={styles['btn-list']}
+                  onClick={optionHandler}
+                >
+                  <img src={postListOn} alt="리스트로 보기" />
+                </button>
+                <button
+                  type="button"
+                  className={styles['btn-album']}
+                  onClick={optionHandler}
+                >
+                  <img src={postAlbumOff} alt="앨범으로 보기" />
+                </button>
+              </div>
+              <ul className={styles['post-list']}>
+                {userPost.map(item => {
+                  return (
+                    <li key={item.id}>
+                      <Post data={item} accountName={accountName} />
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
+          )}
+        </section>
+      ),
   };
   return ProfilePostUI[type];
 }

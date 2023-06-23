@@ -1,9 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
-export default function Post({ data }) {
-  // console.log('props로 전달받은 data: ', data);
+export default function Post({ data, accountName }) {
+  console.log('props로 전달받은 data: ', data);
+  const navigate = useNavigate();
+
+  const authorClickHandler = event => {
+    const closestArticle = event.target.closest('article');
+    const postAuthor = closestArticle.getAttribute('data-author');
+
+    if (accountName === postAuthor) {
+      navigate('/profile');
+    } else {
+      navigate(`/profile/${postAuthor}`);
+    }
+  };
+
+  const commentClick = event => {
+    const closestArticle = event.target.closest('article');
+    const postId = closestArticle.getAttribute('data-id');
+    navigate(`/post/${postId}`);
+  };
 
   const date = new Date(data['createdAt']);
   const year = date.getFullYear();
@@ -13,21 +32,25 @@ export default function Post({ data }) {
 
   const contentTxt = data['content'];
   const regex = /\{(.+?)\}/;
-  const match = contentTxt.match(regex);
+  // 예외처리
+  const match = contentTxt?.match(regex);
 
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
 
-  // console.log('같이드실 컨텐츠', foundText);
-
   return (
     <>
-      <article className={styles['post-item']}>
-        <div className={styles['post-header']}>
+      <article
+        className={styles['post-item']}
+        data-id={data['id']}
+        data-author={data['author']['accountname']}
+      >
+        <div className={styles['post-header']} onClick={authorClickHandler}>
           <img
             className={styles['author-profile']}
             src={data['author']['image']}
             alt="작성자 프로필 이미지"
+            onError={basicProfileImg}
           />
           <div className={styles['author-info']}>
             {planContents && (
@@ -102,12 +125,16 @@ export default function Post({ data }) {
               <span className="a11y-hidden">좋아요 버튼</span>
               <span className={styles['like-count']}>{data['heartCount']}</span>
             </button>
-            <a href="/post" className={styles['btn-comment']}>
+            <div
+              href="/post/1234"
+              className={styles['comment']}
+              onClick={commentClick}
+            >
               <span className="a11y-hidden">댓글 쓰러가기 버튼</span>
               <span className={styles['comment-count']}>
                 {data['commentCount']}
               </span>
-            </a>
+            </div>
           </div>
           <span className={styles['create-date']}>{formattedDate}</span>
         </div>

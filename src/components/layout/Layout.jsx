@@ -7,8 +7,20 @@ import Input from '../common/Input/Input';
 export default function Layout({ children, btnHandler }) {
   let headerType;
   let footerType;
+  let pathToCheck;
 
-  switch (document.location.pathname) {
+  const path = document.location.pathname;
+  if (path.includes('/profile/')) {
+    pathToCheck = '/profile/:accountname';
+  } else if (path.includes('/followers/')) {
+    pathToCheck = '/followers';
+  } else if (path.includes('/post/')) {
+    pathToCheck = '/post';
+  } else {
+    pathToCheck = path;
+  }
+
+  switch (pathToCheck) {
     case '/':
       headerType = 'homeSearch';
       footerType = 'home';
@@ -29,13 +41,13 @@ export default function Layout({ children, btnHandler }) {
       headerType = 'colorButton';
       footerType = 'none';
       break;
-    case '/profile/followers':
+    case '/followers':
       headerType = 'followers';
       footerType = 'none';
       break;
-    case '/profile/1234':
+    case '/profile/:accountname':
       headerType = 'header';
-      footerType = 'profile';
+      footerType = 'home';
       break;
     case '/post':
       headerType = 'header';
