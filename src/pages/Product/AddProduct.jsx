@@ -32,15 +32,20 @@ export default function AddProduct() {
   };
 
   const handlePrice = e => {
-    const value = e.target.value.replace(/,/g, '');
+    let value = e.target.value.replace(/,/g, '');
+    if (value.length > 9) {
+      value = value.slice(0, 9);
+    }
     if (/^[0-9]{0,9}$/.test(value)) {
       const formattedPrice = Number(value).toLocaleString('en-US');
       setProductPrice(formattedPrice);
       setProductPriceError('');
+      setIsFormValid(value !== '');
       console.log(formattedPrice);
     } else {
       setProductPrice(value);
       setProductPriceError('가격은 최대 9자리 숫자로 입력해주세요.');
+      setIsFormValid(false);
     }
   };
 
@@ -137,7 +142,7 @@ export default function AddProduct() {
       .then(response => response.json())
       .then(result => {
         console.log(result);
-        navigate('/');
+        navigate('/profile');
       })
       .catch(error => console.log(error));
   };
@@ -148,7 +153,6 @@ export default function AddProduct() {
         <Layout btnHandler={handler} btn={btnState}>
           <section className={styles['product-image-container']}>
             <div className={styles['product-file-font']}>이미지 등록</div>
-            {/* <form onSubmit={handleSubmit}> */}
             <label
               className={styles['product-file-upload']}
               htmlFor="productImg"
