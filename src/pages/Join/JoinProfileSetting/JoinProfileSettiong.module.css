@@ -23,26 +23,33 @@ main {
 }
 
 .profile-img-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
+  margin: 0 auto;
 }
 
 .profile-img {
-  max-width: 6.875rem;
-  max-height: 6.875rem;
+  width: 6.875rem;
+  height: 6.875rem;
+  object-fit: cover;
+  border-radius: 50%;
   margin: auto;
   margin-bottom: 30px;
 }
 
 .img-button {
-  width: 2.25rem;
-  height: 2.25rem;
-  position: absolute;
-  transform: translate(90%, 60%);
-  background-color: transparent;
-  cursor: pointer;
+  position: relative;
+  background-color: #fff;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    bottom: 0;
+    right: 0;
+    transform: translate(10%, -90%);
+    background: url(../../../assets/images/img-button.png) no-repeat center /
+      cover;
+  }
 }
 
 /* input 요소 스타일 */
