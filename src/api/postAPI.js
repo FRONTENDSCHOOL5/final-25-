@@ -42,6 +42,27 @@ const postAPI = {
       console.error(error);
     }
   },
+  async getPostDetail(token, postId) {
+    console.log('API에서 postId', postId);
+    try {
+      const response = await fetch(BASE_URL + `/post/${postId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('네트워크에 문제가 있습니다!');
+      }
+      const data = await response.json();
+      console.log('postAPI.getPostDetail 게시글: ', data);
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 export default postAPI;
