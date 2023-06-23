@@ -12,21 +12,24 @@ export default function JoinEmail() {
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
     setValue,
-    watch,
-  } = useForm();
+    trigger,
+  } = useForm({ mode: 'onBlur' });
 
   const [isEmailValid, setIsEmailValid] = useState(true);
 
   const handleEmailChange = event => {
     const email = event.target.value;
-    setValue('email', email); // Update form value
-    setIsEmailValid(true); // Reset email validation
+    setValue('email', email);
+  };
+
+  const handleEmailBlur = async () => {
+    await trigger('email');
   };
 
   const onSubmit = async data => {
     try {
       const email = data.email;
-      const response = await userAPI.checkAccountValid(email);
+      const response = await userAPI.checkEmailValid(email);
       console.log(response.message);
 
       if (response.message === '사용 가능한 이메일 입니다.') {
@@ -62,6 +65,7 @@ export default function JoinEmail() {
             className={styles['input']}
             aria-invalid={!isEmailValid}
             onChange={handleEmailChange}
+            onBlur={handleEmailBlur} // 수정: onBlur 이벤트 핸들러 추가
             {...register('email', {
               required: '*이메일은 필수 입력입니다.',
               pattern: {
@@ -92,9 +96,7 @@ export default function JoinEmail() {
             type="password"
             placeholder="비밀번호를 입력해주세요."
             className={styles['input']}
-            aria-invalid={
-              !isDirty ? undefined : errors.password ? 'true' : 'false'
-            }
+            aria-invalid={!!errors.password}
             {...register('password', {
               required: '*비밀번호는 필수 입력입니다.',
               minLength: {

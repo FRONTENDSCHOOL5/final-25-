@@ -31,19 +31,15 @@ export default function App() {
           <Route path="/profile">
             <Route index element={<MyProfile />} />
             <Route path="m" element={<ProfileModification />} />
-            {/* 변경예정: {userid}/followers */}
-            <Route path="followers" element={<Followers />} />
-            {/* 변경예정:  {userid}*/}
-            <Route path="1234" element={<YourProfile />} />
+            <Route path=":accountname" element={<YourProfile />} />
           </Route>
+          <Route path="followers/:accountname" element={<Followers />} />
           <Route path="/product">
             <Route index element={<AddProduct />} />
             <Route path="m" element={<ProductModi />} />
           </Route>
-          <Route path="/post">
-            <Route index element={<PostDetail />} />
-            <Route path="upload" element={<Upload />} />
-          </Route>
+          <Route path="/post/:postid" element={<PostDetail />} />
+          <Route path="/post/upload" element={<Upload />} />
           <Route path="/chat">
             <Route index element={<ChatList />} />
             {/* 변경 예정:  chat/{id} */}

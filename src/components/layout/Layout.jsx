@@ -4,11 +4,23 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children }) {
+export default function Layout({ children, btnHandler }) {
   let headerType;
   let footerType;
+  let pathToCheck;
 
-  switch (document.location.pathname) {
+  const path = document.location.pathname;
+  if (path.includes('/profile/')) {
+    pathToCheck = '/profile/:accountname';
+  } else if (path.includes('/followers/')) {
+    pathToCheck = '/followers';
+  } else if (path.includes('/post/')) {
+    pathToCheck = '/post';
+  } else {
+    pathToCheck = path;
+  }
+
+  switch (pathToCheck) {
     case '/':
       headerType = 'homeSearch';
       footerType = 'home';
@@ -17,26 +29,25 @@ export default function Layout({ children }) {
       headerType = 'header';
       footerType = 'profile';
       break;
-
-    case '/product':
+    case '/profile/m':
       headerType = 'saveButton';
       footerType = 'none';
       break;
-    case '/profile/m':
-      headerType = 'saveButton';
+    case '/product':
+      headerType = btnHandler() ? 'colorButton' : 'saveButton';
       footerType = 'none';
       break;
     case '/product/m':
       headerType = 'colorButton';
       footerType = 'none';
       break;
-    case '/profile/followers':
+    case '/followers':
       headerType = 'followers';
       footerType = 'none';
       break;
-    case '/profile/1234':
+    case '/profile/:accountname':
       headerType = 'header';
-      footerType = 'profile';
+      footerType = 'home';
       break;
     case '/post':
       headerType = 'header';
@@ -65,17 +76,18 @@ export default function Layout({ children }) {
   }
   return (
     <>
-      <Header type={headerType} />
+      <Header type={headerType} btnHandler={btnHandler} />
       <main>{children}</main>
-      <footer>
-        {footerType === 'input' ||
-        footerType === 'comment' ||
-        footerType === 'chatting' ? (
+
+      {footerType === 'input' ||
+      footerType === 'comment' ||
+      footerType === 'chatting' ? (
+        <footer>
           <Input type={footerType} />
-        ) : (
-          <TabMenu type={footerType} />
-        )}
-      </footer>
+        </footer>
+      ) : (
+        <TabMenu type={footerType} />
+      )}
     </>
   );
 }
