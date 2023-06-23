@@ -1,25 +1,20 @@
-@import '../../styles/reset.css';
-@import '../../styles/global.css';
 @import '../../assets/font/font.css';
-
-body {
-  font-family: 'Pretendard';
-  color: #C4C4C4;
-  text-align: center;
-  background-color: var(--bg-color);
-  
-}
 
 .splash {
   width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  padding-top: 298px;
-  animation: fadeout 0.5s;
+  /* padding-top: 298px; */
+  animation: fadeout 1.3s;
+  color: #C4C4C4;
+  text-align: center;
+  background-color: var(--bg-color);
 }
 .splash-logo {
   width: 200px;
   height: 200px;
+  margin: auto 0;
 }
 .splash-logo img {
   width: 100%;
