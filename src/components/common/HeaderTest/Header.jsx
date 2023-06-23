@@ -5,7 +5,6 @@ import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
 
-
 export default function Header({ type, isButtonEnabled, btnHandler }) {
   const goBack = useGoBack();
 

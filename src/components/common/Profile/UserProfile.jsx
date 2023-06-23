@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './UserProfile.module.css';
 import profileAPI from '../../../api/profileAPI';
 
-const token = '';
+const token = localStorage.getItem('token');
 
 export default function UserProfile() {
   const [userProfile, setUserProfle] = useState([]);

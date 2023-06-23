@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Post from '../Post/Post';
 import styles from './ProfilePost.module.css';
 import postAPI from '../../../api/postAPI';
@@ -8,10 +9,10 @@ import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
-const userAccountName = '';
-const token = '';
-
 export default function ProfilePost({ type, postDetailId }) {
+  const token = localStorage.getItem('token');
+  const userAccountName = localStorage.getItem('accountname');
+
   // false가 리스트로 보기
   // true가 앨범으로 보기
   const [option, setOption] = useState('리스트로 보기');
@@ -40,6 +41,7 @@ export default function ProfilePost({ type, postDetailId }) {
     const fetchFeed = async () => {
       const data = await postAPI.getFeed(token);
       // setIsLoading(false);
+      console.log(data);
       setFeedList(data['posts']);
     };
 
