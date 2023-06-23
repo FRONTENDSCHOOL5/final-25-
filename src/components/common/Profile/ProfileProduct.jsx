@@ -3,14 +3,14 @@ import styles from './ProfileProduct.module.css';
 import productAPI from '../../../api/productAPI';
 import Product from '../Product/Product';
 
-const userAccountName = '';
-const token = '';
-
 export default function ProductList() {
+  const token = localStorage.getItem('token');
+  const userAccountName = localStorage.getItem('accountname');
   // 상품 리스트
   const [accountName, setAccountName] = useState(userAccountName);
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  console.log(accountName);
 
   useEffect(() => {
     const fetchProductList = async () => {
