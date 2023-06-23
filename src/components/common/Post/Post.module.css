@@ -1,4 +1,3 @@
-@import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
 
 /* 포스트 */
@@ -194,13 +193,17 @@
   line-height: 20px;
   color: #767676;
 }
+
+.post-reaction {
+  display: flex;
+}
 .btn-like {
   background: #FFFFFF;
   border: none;
   color: inherit;
 }
 .btn-like::before,
-.btn-comment::before{
+.comment::before{
   content: '';
   width: 20px;
   height: 20px;
@@ -216,10 +219,11 @@
 .btn-like.active::before {
   background: url('../../../assets/images/icon-heart-fill.svg');
 }
-.btn-comment {
+.comment {
   margin-left: 16px;
+  cursor: pointer;
 }
-.btn-comment::before {
+.comment::before {
   background: url('../../../assets/images/icon-message-circle.svg');
 }
 

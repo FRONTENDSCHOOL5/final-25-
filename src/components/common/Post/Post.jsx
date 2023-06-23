@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
-import { useNavigate } from 'react-router-dom';
 
 export default function Post({ data, accountName }) {
-  console.log(accountName);
   console.log('props로 전달받은 data: ', data);
   const navigate = useNavigate();
 
@@ -19,6 +18,12 @@ export default function Post({ data, accountName }) {
     }
   };
 
+  const commentClick = event => {
+    const closestArticle = event.target.closest('article');
+    const postId = closestArticle.getAttribute('data-id');
+    navigate(`/post/${postId}`);
+  };
+
   const date = new Date(data['createdAt']);
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -27,7 +32,8 @@ export default function Post({ data, accountName }) {
 
   const contentTxt = data['content'];
   const regex = /\{(.+?)\}/;
-  const match = contentTxt.match(regex);
+  // 예외처리
+  const match = contentTxt?.match(regex);
 
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
@@ -119,12 +125,16 @@ export default function Post({ data, accountName }) {
               <span className="a11y-hidden">좋아요 버튼</span>
               <span className={styles['like-count']}>{data['heartCount']}</span>
             </button>
-            <a href="/post" className={styles['btn-comment']}>
+            <div
+              href="/post/1234"
+              className={styles['comment']}
+              onClick={commentClick}
+            >
               <span className="a11y-hidden">댓글 쓰러가기 버튼</span>
               <span className={styles['comment-count']}>
                 {data['commentCount']}
               </span>
-            </a>
+            </div>
           </div>
           <span className={styles['create-date']}>{formattedDate}</span>
         </div>
