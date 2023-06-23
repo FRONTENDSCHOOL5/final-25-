@@ -19,8 +19,6 @@ export default function Layout({ children }) {
       break;
 
     case '/product':
-
-  
       headerType = 'saveButton';
       footerType = 'none';
       break;
