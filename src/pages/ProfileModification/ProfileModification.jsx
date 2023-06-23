@@ -84,7 +84,11 @@ export default function ProfileModification() {
 
   // ----------------- 수정된 정보 등록하는 api-----------------
   const onSubmit = async data => {
-    const { userNameInput, idInput, introduceInput, profileImg } = data;
+    const { userNameInput, idInput, introduceInput } = data;
+
+    console.log('찍혀라', profileImg);
+    console.log('찍혀라', profileImg);
+    console.log('찍혀라2', data);
     const response = await profileAPI.putModifyData(
       userNameInput,
       idInput,
