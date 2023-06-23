@@ -13,15 +13,10 @@ export default function ProfileModification() {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(AuthContext);
   const Token = user.token;
-  console.log('toked', Token);
 
-  // const [userName, setUserName] = useState('');
-  // const [profileImg, setProfileImg] = useState(BasicProfile);
-  // const [userAccountName, setUserAccountName] = useState('');
-  // const [userIntro, setUserIntro] = useState('');
-
+  // 유효성 검토 후 제출 여부를 컨트롤
   const [isFormValid, setIsFormValid] = useState(true);
-  console.log('isFormValid:', isFormValid);
+  const [btnState, setBtnstate] = useState(false);
 
   const {
     register,
@@ -49,10 +44,10 @@ export default function ProfileModification() {
   }, [Token, setValue]);
 
   // 계정  ID 바뀌면 api 연결을 위해 업데이트
-  const handleIdChange = event => {
+  const handleIdChange = async event => {
     const userId = event.target.value;
-    setValue('userId', userId);
-    console.log('setValue :', setValue);
+    setValue('idInput', userId);
+    await handleSubmit(checkAccount)(); // ID가 변경될 때마다 중복검사를 수행합니다.
   };
 
   // -----------------이미지 저장 api-----------------
@@ -98,7 +93,7 @@ export default function ProfileModification() {
       Token,
     );
     console.log('수정된 정보 : ', response);
-
+    // 수정된 정보를 로컬스토리지에도 업데이트
     const changeAccount = {
       token: Token,
       accountname: response.user.accountname,
@@ -106,14 +101,32 @@ export default function ProfileModification() {
     localStorage.setItem('accountname', response.user.accountname);
     dispatch({ type: 'login', payload: changeAccount });
     // navigate(`/profile/${response.user.accountname}`);
-    navigate(`/profile`);
+    navigate(`/profile/m`);
   };
 
   console.log('확인필요:', profileInputRef.current);
 
+  //버튼 활성화
+  const handler = () => {
+    const { userNameInput, idInput, introduceInput } = watch();
+    console.log('isSubmitting:', isSubmitting);
+    if (
+      userNameInput !== '' &&
+      idInput !== '' &&
+      introduceInput !== '' &&
+      profileImg !== null
+    ) {
+      setBtnstate(true);
+      return true;
+      // 모두 유효하면 버튼 상태를 true로 설정
+    } else {
+      setBtnstate(false);
+      return false;
+    }
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Layout>
+      <Layout btnHandler={handler} btn={btnState}>
         {/* ----------------- 프로필 사진 넣는 곳 -----------------*/}
         <div className={styles['profile-img-wrapper']}>
           <label htmlFor="profile" className="a11y-hidden">
@@ -222,16 +235,6 @@ export default function ProfileModification() {
               })}
             />
           </div>
-          {/*----------------- 버튼 -----------------*/}
-          <button
-            disabled={isSubmitting || !isFormValid} // 유효성 검사를 통과하지 않으면 버튼 비활성화
-            className={`${styles['submit-btn']} ${
-              isSubmitting ? styles['submit-btn-active'] : ''
-            }`}
-            type="submit"
-          >
-            먹을사람 시작하기
-          </button>
         </section>
       </Layout>
     </form>
