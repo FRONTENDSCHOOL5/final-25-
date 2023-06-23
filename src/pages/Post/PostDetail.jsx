@@ -5,7 +5,7 @@ import ProfilePost from '../../components/common/Profile/ProfilePost';
 import commentAPI from '../../api/commentAPI';
 import Comment from '../../components/common/Comment/Comment';
 
-const token = '';
+const token = localStorage.getItem('token');
 
 export default function Post() {
   const postId = document.location.pathname.replace('/post/', '');

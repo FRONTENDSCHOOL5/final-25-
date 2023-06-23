@@ -10,7 +10,6 @@ export default function ProductList() {
   const [accountName, setAccountName] = useState(userAccountName);
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(accountName);
 
   useEffect(() => {
     const fetchProductList = async () => {
