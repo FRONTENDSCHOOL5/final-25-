@@ -22,7 +22,7 @@ export default function TabMenu({ type }) {
               </a>
             </li>
             <li>
-              <a href="/post" className={styles['menu-post']}>
+              <a href="/post/upload" className={styles['menu-post']}>
                 게시물 작성
               </a>
             </li>
@@ -53,7 +53,7 @@ export default function TabMenu({ type }) {
               </a>
             </li>
             <li>
-              <a href="/post" className={styles['menu-post']}>
+              <a href="/post/upload" className={styles['menu-post']}>
                 게시물 작성
               </a>
             </li>
@@ -82,7 +82,7 @@ export default function TabMenu({ type }) {
             </li>
             <li>
               <a
-                href="/post"
+                href="/post/upload"
                 className={`${styles['menu-post']} ${styles['active']}`}
               >
                 게시물 작성
@@ -112,7 +112,7 @@ export default function TabMenu({ type }) {
               </a>
             </li>
             <li>
-              <a href="/post" className={styles['menu-post']}>
+              <a href="/post/upload" className={styles['menu-post']}>
                 게시물 작성
               </a>
             </li>

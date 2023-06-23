@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from '../Post/Post';
 import styles from './ProfilePost.module.css';
+import postAPI from '../../../api/postAPI';
+import FeedNone from '../../../pages/Feed/FeedNone';
 import postListOn from '../../../assets/images/icon-post-list-on.svg';
 import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
@@ -23,16 +25,48 @@ export default function ProfilePost({ type }) {
     }
   };
 
+  // 유저 게시글 목록
+  const [feedList, setFeedList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const accountName = 'sunbin5';
+    const token =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OGZhNjExYjJjYjIwNTY2MzNhNzUxZCIsImV4cCI6MTY5MjMyNjM4MiwiaWF0IjoxNjg3MTQyMzgyfQ.CPlbun9R6RlVAG-yAkfiLusCqVqrbYyw5iAf3hjGksg';
+    // const token =
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTAyZTE3YjJjYjIwNTY2MzNjODFlZSIsImV4cCI6MTY5MjM1NTA3NCwiaWF0IjoxNjg3MTcxMDc0fQ.PMMMcwMQ0vb7dPv4xYZikUs6yKLUJ1oCBRtVLc0us30';
+    const fetchFeed = async () => {
+      const data = await postAPI.getFeed(token);
+      // setIsLoading(false);
+      setFeedList(data['posts']);
+    };
+
+    switch (type) {
+      case 'feed':
+        fetchFeed();
+        break;
+      default:
+        break;
+    }
+  }, [type]);
+
   const ProfilePostUI = {
-    feed: (
-      <section className={styles.feed}>
-        <ul className={styles['post-list']}>
-          <li>
-            <Post />
-          </li>
-        </ul>
-      </section>
-    ),
+    feed:
+      feedList.length === 0 ? (
+        <FeedNone />
+      ) : (
+        <section className={styles.feed}>
+          <ul className={styles['post-list']}>
+            {feedList.map(item => {
+              return (
+                <li>
+                  <Post data={item} />
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ),
     post: (
       <section className={styles.post}>
         <Post />
@@ -59,9 +93,13 @@ export default function ProfilePost({ type }) {
               </button>
             </div>
             <ul className={styles['post-album']}>
-              <li className={styles['post-album-item']}>
-                <img src="https://picsum.photos/200" alt="포스트 썸네일" />
-              </li>
+              {postImgArray.map(item => {
+                return (
+                  <li className={styles['post-album-item']}>
+                    <img src={item} alt="포스트 썸네일" />
+                  </li>
+                );
+              })}
             </ul>
           </>
         ) : (
@@ -83,9 +121,13 @@ export default function ProfilePost({ type }) {
               </button>
             </div>
             <ul className={styles['post-list']}>
-              <li>
-                <Post />
-              </li>
+              {myPost.map(item => {
+                return (
+                  <li>
+                    <Post data={item} />
+                  </li>
+                );
+              })}
             </ul>
           </>
         )}

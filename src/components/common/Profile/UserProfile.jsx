@@ -1,41 +1,48 @@
 import React from 'react';
 import styles from './UserProfile.module.css';
-import basicProfileImg from '../../../assets/images/basic-profile-img.png';
+import { useProfileAPI } from '../../../api/profileAPI';
 
 export default function UserProfile() {
+  const { profile } = useProfileAPI();
   return (
     <>
       <section className={styles['user-profile']}>
         <img
           className={styles['user-profile-cover']}
-          src={basicProfileImg}
+          src={profile['image']}
           alt="프로필 사진"
         />
         <div className={styles['user-profile-info']}>
           <strong className={styles['user-profile-name']}>
-            이오에서만은 디자인왕
+            {profile['username']}
           </strong>
-          <span className={styles['user-profile-id']}>@ e5_designKing99</span>
+          <span className={styles['user-profile-id']}>
+            @ {profile['accountname']}
+          </span>
           <span className={styles['user-profile-intro']}>
-            애월읍 감귤 전국 배송, 귤따기 체험, 감귤 농장
+            {profile['intro']}
           </span>
         </div>
         <div className={styles['user-count']}>
           <button type="button" className={styles['btn-followers']}>
             <span className={styles['followers']}>followers</span>
-            <span className={styles['followers-number']}>2950</span>
+            <span className={styles['followers-number']}>
+              {profile['followerCount']}
+            </span>
           </button>
 
           <div className={styles['following-area']}>
             <span className={styles['followings']}>followings</span>
-            <span className={styles['followings-number']}>128</span>
+            <span className={styles['followings-number']}>
+              {profile['followingCount']}
+            </span>
           </div>
         </div>
         <div className={styles['button-container']}>
-          <a className={styles['btn-modify-profile']} href="/profile">
+          <a className={styles['btn-modify-profile']} href="/profile/m">
             프로필 수정
           </a>
-          <a className={styles['btn-add-product']} href="/product/add">
+          <a className={styles['btn-add-product']} href="/product">
             상품 등록
           </a>
         </div>
