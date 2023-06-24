@@ -35,7 +35,7 @@ export default function ProfileModification() {
     const getUserInfo = async () => {
       const Data = await userAPI.getMyInfo(Token);
       setValue('userNameInput', Data.user.username);
-      setProfileImg('profile', Data.user.image || BasicProfile);
+      setProfileImg(Data.user.image || BasicProfile);
       setValue('idInput', Data.user.accountname);
       setValue('introduceInput', Data.user.intro);
     };
