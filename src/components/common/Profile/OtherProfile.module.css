@@ -106,13 +106,21 @@
   background: url('../../../assets/images/icon-share.svg') center no-repeat;
 }
 
-.btn-follow {
+.btn-follow,
+.btn-unfollow {
   width: 120px;
   height: 34px;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  border-radius: 30px;
+}
+.btn-follow {
   color: #ffffff;
   background: var(--main-color);
-  border-radius: 30px;
+}
+.btn-unfollow {
+  color: var(--main-color);
+  background: #FFFFFF;
+  border: 1px solid #DBDBDB;
 }
