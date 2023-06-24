@@ -11,7 +11,12 @@ import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
 export default function ProfilePost({ type, postDetailId }) {
   const token = localStorage.getItem('token');
-  const userAccountName = localStorage.getItem('accountname');
+  const pathName = document.location.pathname;
+  const userAccountName = pathName.includes('/profile/')
+    ? document.location.pathname.replace('/profile/', '')
+    : localStorage.getItem('accountname');
+
+  console.log(type, userAccountName);
 
   // false가 리스트로 보기
   // true가 앨범으로 보기

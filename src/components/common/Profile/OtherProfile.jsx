@@ -8,8 +8,6 @@ export default function UserProfile() {
   const [profileInfo, setProfileInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log(userAccountName);
-
   useEffect(() => {
     async function fetchProfile() {
       setIsLoading(true);
@@ -28,7 +26,6 @@ export default function UserProfile() {
           throw new Error('네트워크에 문제가 있습니다!');
         }
         const data = await response.json();
-        console.log('다른계정:', data);
         setProfileInfo(data['profile']);
         setIsLoading(false);
       } catch (error) {
