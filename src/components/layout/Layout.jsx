@@ -10,7 +10,9 @@ export default function Layout({ children, btnHandler }) {
   let pathToCheck;
 
   const path = document.location.pathname;
-  if (path.includes('/profile/')) {
+  if (path.includes('/profile/m')) {
+    pathToCheck = '/profile/m';
+  } else if (path.includes('/profile/')) {
     pathToCheck = '/profile/:accountname';
   } else if (path.includes('/followers/')) {
     pathToCheck = '/followers';

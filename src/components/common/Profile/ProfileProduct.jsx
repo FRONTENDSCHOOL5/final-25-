@@ -5,7 +5,11 @@ import Product from '../Product/Product';
 
 export default function ProductList() {
   const token = localStorage.getItem('token');
-  const userAccountName = localStorage.getItem('accountname');
+  const pathName = document.location.pathname;
+  const userAccountName = pathName.includes('/profile/')
+    ? document.location.pathname.replace('/profile/', '')
+    : localStorage.getItem('accountname');
+
   // 상품 리스트
   const [accountName, setAccountName] = useState(userAccountName);
   const [product, setProduct] = useState([]);

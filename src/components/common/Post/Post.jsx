@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
 export default function Post({ data, accountName }) {
   console.log('props로 전달받은 data: ', data);
+  console.log('hearted', data['hearted']);
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
+  // 게시글 작성자 클릭 이벤트
   const authorClickHandler = event => {
     const closestArticle = event.target.closest('article');
     const postAuthor = closestArticle.getAttribute('data-author');
@@ -18,10 +21,67 @@ export default function Post({ data, accountName }) {
     }
   };
 
+  // 댓글쓰러가기 클릭 이벤트
   const commentClick = event => {
     const closestArticle = event.target.closest('article');
     const postId = closestArticle.getAttribute('data-id');
     navigate(`/post/${postId}`);
+  };
+
+  // 좋아요 이벤트
+  const [likeCount, setLikeCount] = useState(data['heartCount']);
+  const [isLike, setIsLike] = useState(false);
+  const [likeClass, setLikeClass] = useState(styles['btn-like']);
+
+  useEffect(() => {
+    if (data['hearted']) {
+      setIsLike(true);
+      setLikeClass(`${styles['btn-like']} ${styles['active']}`);
+    }
+  }, []);
+
+  const likeClickHandler = event => {
+    const closestArticle = event.target.closest('article');
+    const postId = closestArticle.getAttribute('data-id');
+    if (isLike) {
+      setIsLike(false);
+      setLikeClass(styles['btn-like']);
+      setLikeCount(prev => likeCount - 1);
+
+      fetchLikeMinus();
+      async function fetchLikeMinus() {
+        const response = await fetch(
+          `https://api.mandarin.weniv.co.kr/post/${postId}/unheart`,
+          {
+            method: 'DELETE',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await response.json();
+        console.log('unlike', data);
+      }
+    } else {
+      setIsLike(true);
+      setLikeClass(`${styles['btn-like']} ${styles['active']}`);
+      setLikeCount(prev => likeCount + 1);
+
+      fetchLikePlus();
+      async function fetchLikePlus() {
+        const response = await fetch(
+          `https://api.mandarin.weniv.co.kr/post/${postId}/heart`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await response.json();
+        console.log('like', data);
+      }
+    }
   };
 
   const date = new Date(data['createdAt']);
@@ -121,15 +181,15 @@ export default function Post({ data, accountName }) {
         </div>
         <div className={styles['post-footer']}>
           <div className={styles['post-reaction']}>
-            <button type="button" className={styles['btn-like']}>
-              <span className="a11y-hidden">좋아요 버튼</span>
-              <span className={styles['like-count']}>{data['heartCount']}</span>
-            </button>
-            <div
-              href="/post/1234"
-              className={styles['comment']}
-              onClick={commentClick}
+            <button
+              type="button"
+              className={likeClass}
+              onClick={likeClickHandler}
             >
+              <span className="a11y-hidden">좋아요 버튼</span>
+              <span className={styles['like-count']}>{likeCount}</span>
+            </button>
+            <div className={styles['comment']} onClick={commentClick}>
               <span className="a11y-hidden">댓글 쓰러가기 버튼</span>
               <span className={styles['comment-count']}>
                 {data['commentCount']}
