@@ -32,7 +32,7 @@ export default function Layout({ children, btnHandler }) {
       footerType = 'profile';
       break;
     case '/profile/m':
-      headerType = 'saveButton';
+      headerType = btnHandler() ? 'colorButton' : 'saveButton';
       footerType = 'none';
       break;
     case '/product':
