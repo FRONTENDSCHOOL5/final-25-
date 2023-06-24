@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
 export default function Post({ data, accountName }) {
   console.log('props로 전달받은 data: ', data);
+  const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
   // 게시글 작성자 클릭 이벤트
@@ -30,15 +31,48 @@ export default function Post({ data, accountName }) {
   const [likeCount, setLikeCount] = useState(data['heartCount']);
   const [isLike, setIsLike] = useState(false);
   const [likeClass, setLikeClass] = useState(styles['btn-like']);
+
   const likeClickHandler = event => {
+    const closestArticle = event.target.closest('article');
+    const postId = closestArticle.getAttribute('data-id');
     if (isLike) {
       setIsLike(false);
       setLikeClass(styles['btn-like']);
       setLikeCount(prev => likeCount - 1);
+
+      fetchLikeMinus();
+      async function fetchLikeMinus() {
+        const response = await fetch(
+          `https://api.mandarin.weniv.co.kr/post/${postId}/unheart`,
+          {
+            method: 'DELETE',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await response.json();
+        console.log('unlike', data);
+      }
     } else {
       setIsLike(true);
       setLikeClass(`${styles['btn-like']} ${styles['active']}`);
       setLikeCount(prev => likeCount + 1);
+
+      fetchLikePlus();
+      async function fetchLikePlus() {
+        const response = await fetch(
+          `https://api.mandarin.weniv.co.kr/post/${postId}/heart`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await response.json();
+        console.log('like', data);
+      }
     }
   };
 
