@@ -5,6 +5,7 @@ import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
 export default function Post({ data, accountName }) {
   console.log('props로 전달받은 data: ', data);
+  console.log('hearted', data['hearted']);
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
@@ -27,10 +28,17 @@ export default function Post({ data, accountName }) {
     navigate(`/post/${postId}`);
   };
 
-  // 하트 클릭 이벤트
+  // 좋아요 이벤트
   const [likeCount, setLikeCount] = useState(data['heartCount']);
   const [isLike, setIsLike] = useState(false);
   const [likeClass, setLikeClass] = useState(styles['btn-like']);
+
+  useEffect(() => {
+    if (data['hearted']) {
+      setIsLike(true);
+      setLikeClass(`${styles['btn-like']} ${styles['active']}`);
+    }
+  }, []);
 
   const likeClickHandler = event => {
     const closestArticle = event.target.closest('article');
