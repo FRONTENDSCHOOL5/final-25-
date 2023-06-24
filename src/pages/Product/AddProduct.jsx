@@ -29,6 +29,7 @@ export default function AddProduct() {
       setNameError(value !== '' ? '이름은 2~15자 이내여야 합니다.' : '');
       setIsFormValid(false);
     }
+    handler();
   };
 
   const handlePrice = e => {
@@ -47,6 +48,7 @@ export default function AddProduct() {
       setProductPriceError('가격은 최대 9자리 숫자로 입력해주세요.');
       setIsFormValid(false);
     }
+    handler();
   };
 
   const handleSaleLink = e => {
@@ -54,16 +56,20 @@ export default function AddProduct() {
     if (isValidUrl(value)) {
       setSaleLink(value);
       setSaleLinkError('');
+      setIsFormValid(value !== '');
       console.log(value);
     } else {
       setSaleLink(value);
       setSaleLinkError(value !== '' ? '유효한 URL을 입력해주세요.' : '');
+      setIsFormValid(false);
+      return;
     }
+    handler();
   };
 
   const isValidUrl = url => {
     const urlRegex =
-      /(http[s]?|ftp):\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}/g;
+      /^(http[s]?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(\.[a-zA-Z]{2,6})$/;
     return urlRegex.test(url);
   };
 
