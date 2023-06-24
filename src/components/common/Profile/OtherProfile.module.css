@@ -1,4 +1,3 @@
-@import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
 
 .user-profile {
@@ -14,6 +13,8 @@
 .user-profile-cover {
   width: 110px;
   height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .user-profile-info {
@@ -45,6 +46,7 @@
   line-height: 17px;
   text-align: center;
   color: #767676;
+  object-fit: cover;
 }
 
 .btn-followers,
