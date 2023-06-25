@@ -61,6 +61,7 @@ export default function LoginEmail() {
           console.log(result);
           localStorage.setItem('token', result.user.token);
           localStorage.setItem('username', result.user.username);
+          localStorage.setItem('accountname', result.user.accountname);
           // 페이지 이동!!
           navigate('/');
         } else {
