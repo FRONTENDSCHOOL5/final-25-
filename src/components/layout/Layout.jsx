@@ -56,7 +56,7 @@ export default function Layout({ children, btnHandler }) {
       footerType = 'comment';
       break;
     case '/post/upload':
-      headerType = 'uploadButton';
+      headerType = btnHandler ? 'uploadColorButton' : 'uploadButton';
       footerType = 'none';
       break;
     case '/chat':
