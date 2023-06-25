@@ -69,7 +69,7 @@ export default function AddProduct() {
 
   const isValidUrl = url => {
     const urlRegex =
-      /^(http[s]?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+(\.[a-zA-Z]{2,6})$/;
+      /^(http[s]?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}\/?([^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(\/[\w.-]*)*\/?$/;
     return urlRegex.test(url);
   };
 
