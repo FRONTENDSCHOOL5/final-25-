@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './OtherProfile.module.css';
 
 export default function UserProfile() {
@@ -8,6 +9,7 @@ export default function UserProfile() {
   const [isLoading, setIsLoading] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
   const [isFollow, setIsFollow] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchProfile() {
@@ -76,6 +78,15 @@ export default function UserProfile() {
     }
   };
 
+  const followerClickHandler = event => {
+    console.log(event);
+    navigate(`/followers/${userAccountName}`);
+  };
+  const followingClickHandler = event => {
+    console.log(event);
+    navigate(`/followings/${userAccountName}`);
+  };
+
   return (
     !isLoading && (
       <section className={styles['user-profile']}>
@@ -96,16 +107,23 @@ export default function UserProfile() {
           </span>
         </div>
         <div className={styles['user-count']}>
-          <button type="button" className={styles['btn-followers']}>
+          <button
+            type="button"
+            className={styles['btn-followers']}
+            onClick={followerClickHandler}
+          >
             <span className={styles['followers']}>followers</span>
             <span className={styles['followers-number']}>{followerCount}</span>
           </button>
-          <div className={styles['following-area']}>
+          <button
+            className={styles['following-area']}
+            onClick={followingClickHandler}
+          >
             <span className={styles['followings']}>followings</span>
             <span className={styles['followings-number']}>
               {profileInfo['followingCount']}
             </span>
-          </div>
+          </button>
         </div>
         <div className={styles['button-container']}>
           <a className={styles['btn-chat']} href="/chat">
