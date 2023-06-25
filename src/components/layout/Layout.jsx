@@ -4,7 +4,7 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children }) {
+export default function Layout({ children, btnHandler }) {
   let headerType;
   let footerType;
 
@@ -19,8 +19,6 @@ export default function Layout({ children }) {
       break;
 
     case '/product':
-
-  
       headerType = 'saveButton';
       footerType = 'none';
       break;
@@ -45,7 +43,7 @@ export default function Layout({ children }) {
       footerType = 'comment';
       break;
     case '/post/upload':
-      headerType = 'uploadButton';
+      headerType = btnHandler ? 'uploadColorButton' : 'uploadButton';
       footerType = 'none';
       break;
     case '/chat':
