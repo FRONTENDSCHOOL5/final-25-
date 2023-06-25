@@ -10,7 +10,9 @@ export default function Layout({ children, btnHandler }) {
   let pathToCheck;
 
   const path = document.location.pathname;
-  if (path.includes('/profile/')) {
+  if (path.includes('/profile/m')) {
+    pathToCheck = '/profile/m';
+  } else if (path.includes('/profile/')) {
     pathToCheck = '/profile/:accountname';
   } else if (path.includes('/followers/')) {
     pathToCheck = '/followers';
@@ -30,7 +32,7 @@ export default function Layout({ children, btnHandler }) {
       footerType = 'profile';
       break;
     case '/profile/m':
-      headerType = 'saveButton';
+      headerType = btnHandler() ? 'colorButton' : 'saveButton';
       footerType = 'none';
       break;
     case '/product':
@@ -54,7 +56,7 @@ export default function Layout({ children, btnHandler }) {
       footerType = 'comment';
       break;
     case '/post/upload':
-      headerType = 'uploadButton';
+      headerType = btnHandler ? 'uploadColorButton' : 'uploadButton';
       footerType = 'none';
       break;
     case '/chat':

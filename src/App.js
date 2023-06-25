@@ -34,6 +34,7 @@ export default function App() {
             <Route path=":accountname" element={<YourProfile />} />
           </Route>
           <Route path="followers/:accountname" element={<Followers />} />
+          <Route path="followings/:accountname" element={<Followers />} />
           <Route path="/product">
             <Route index element={<AddProduct />} />
             <Route path="m" element={<ProductModi />} />

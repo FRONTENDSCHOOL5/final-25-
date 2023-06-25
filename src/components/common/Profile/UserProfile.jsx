@@ -23,6 +23,10 @@ export default function UserProfile() {
     console.log(event);
     navigate(`/followers/${accountName}`);
   };
+  const followingClickHandler = event => {
+    console.log(event);
+    navigate(`/followings/${accountName}`);
+  };
 
   return (
     <>
@@ -55,7 +59,10 @@ export default function UserProfile() {
             </span>
           </button>
 
-          <button className={styles['following-area']}>
+          <button
+            className={styles['following-area']}
+            onClick={followingClickHandler}
+          >
             <span className={styles['followings']}>followings</span>
             <span className={styles['followings-number']}>
               {userProfile['followingCount']}
