@@ -16,6 +16,8 @@ export default function Layout({ children, btnHandler }) {
     pathToCheck = '/profile/:accountname';
   } else if (path.includes('/followers/')) {
     pathToCheck = '/followers';
+  } else if (path.includes('/followings/')) {
+    pathToCheck = '/followings';
   } else if (path.includes('/post/')) {
     pathToCheck = '/post';
   } else {
@@ -45,6 +47,10 @@ export default function Layout({ children, btnHandler }) {
       break;
     case '/followers':
       headerType = 'followers';
+      footerType = 'none';
+      break;
+    case '/followings':
+      headerType = 'followings';
       footerType = 'none';
       break;
     case '/profile/:accountname':
