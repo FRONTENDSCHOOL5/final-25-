@@ -105,6 +105,16 @@ export default function Header({ type, isButtonEnabled, btnHandler }) {
         </div>
       </header>
     ),
+    followings: (
+      <header className={styles['header-wrap']}>
+        <div className={styles['left']}>
+          <button className={styles['btn-back']} onClick={goBack}>
+            <img src={IconArrowLeft} alt="뒤로가기" />
+          </button>
+          <span className={['chat-title']}>Followings</span>
+        </div>
+      </header>
+    ),
   };
   return HeaderUI[type];
 }

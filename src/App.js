@@ -7,6 +7,7 @@ import Join from './pages/Join/JoinEmail/JoinEmail';
 import JoinProfileSetting from './pages/Join/JoinProfileSetting/JoinProfileSetting';
 import MyProfile from './pages/Profile/MyProfile/MyProfile';
 import Followers from './pages/Profile/Followers';
+import Followings from './pages/Profile/Followings';
 import ProfileModification from './pages/ProfileModification/ProfileModification';
 import AddProduct from './pages/Product/AddProduct';
 import ProductModi from './pages/Product/ProductModi';
@@ -34,7 +35,7 @@ export default function App() {
             <Route path=":accountname" element={<YourProfile />} />
           </Route>
           <Route path="followers/:accountname" element={<Followers />} />
-          <Route path="followings/:accountname" element={<Followers />} />
+          <Route path="followings/:accountname" element={<Followings />} />
           <Route path="/product">
             <Route index element={<AddProduct />} />
             <Route path="m" element={<ProductModi />} />

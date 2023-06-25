@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { useParams } from 'react-router-dom';
 import profileAPI from '../../api/profileAPI2';
 
-export default function Followings() {
+export default function Followers() {
   const [followers, setFollowers] = useState([]);
   const [buttonStates, setButtonStates] = useState([]);
   const { user } = useContext(AuthContext);
@@ -14,7 +14,7 @@ export default function Followings() {
   useEffect(() => {
     const fetchFollowers = async () => {
       try {
-        const response = await profileAPI.getFollowerList(
+        const response = await profileAPI.getFollowingdata(
           user.token,
           accountname,
         );
@@ -53,7 +53,7 @@ export default function Followings() {
 
   return (
     <Layout>
-      <h2 className="a11y-hidden">팔로잉 목록</h2>
+      <h2 className="a11y-hidden">팔로워 목록</h2>
       <section className={styles['followers-list']}>
         {followers.length > 0 ? (
           followers.map((follower, index) => (
@@ -91,7 +91,7 @@ export default function Followings() {
             </article>
           ))
         ) : (
-          <p>No followings found.</p>
+          <p>No followers found.</p>
         )}
       </section>
     </Layout>
