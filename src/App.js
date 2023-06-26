@@ -16,6 +16,7 @@ import PostDetail from './pages/Post/PostDetail';
 import Upload from './pages/Upload/Upload';
 import ChatRoom from './pages/Chat/ChatRoom/ChatRoom';
 import ChatList from './pages/Chat/ChatList/ChatList';
+import FeedNone from './pages/Feed/FeedNone';
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
           </Route>
           <Route path="/post/:postid" element={<PostDetail />} />
           <Route path="/post/upload" element={<Upload />} />
+          <Route path="/post/:accountname/userpost" element={<PostDetail />} />
           <Route path="/chat">
             <Route index element={<ChatList />} />
             {/* 변경 예정:  chat/{id} */}
