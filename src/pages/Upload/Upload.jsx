@@ -116,17 +116,17 @@ function Upload() {
     })
       .then(response => response.json())
       .then(result => {
-        console.log('Response:', result);
+        console.log(result);
         navigate('/post/:accountname/userpost');
       })
-      .catch(error => console.log('Error:', error));
+      .catch(error => ('Error:', error));
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
         <Layout btnHandler={btnState}>
-          <section>
+          <section className="wrap">
             <h1 className="a11y-hidden">게시물 작성</h1>
             <article className={`${styles['title-wrap']} ${styles['line']}`}>
               <div className={styles['title-inner']}>
@@ -140,119 +140,131 @@ function Upload() {
                 같이 먹을 사람?
               </div>
             </article>
-            <article>
-              <textarea
-                className={styles['text-box']}
-                placeholder="신전떡볶이 패밀리 세트 먹을 사람~ 여기~ 여기~ 붙어라~!"
-                value={textValue}
-                onChange={handleTextChange}
-                maxLength="50"
-              ></textarea>
-              <div className={styles['text-count']}>{textValue.length}/50</div>
-            </article>
-            <article>
-              <ul className={styles['items-wrap']}>
-                <li className={`${styles['item-menu']} ${styles['item-all']}`}>
-                  메뉴
-                  <div className={styles['item-input']}>
-                    <input
-                      type="text"
-                      className={styles['title-user-input-menu']}
-                      value={titleInput}
-                      onChange={handleTitleInputChange}
-                      placeholder="신전떡볶이"
-                      readOnly
-                    />
-                  </div>
-                </li>
-                <li
-                  className={`${styles['item-people']} ${styles['item-all']}`}
-                >
-                  인원
-                  <div
-                    className={`${styles['people-wrap']} ${styles['item-input']}`}
+            <section className="body-wrap">
+              <article>
+                <textarea
+                  className={styles['text-box']}
+                  placeholder="신전떡볶이 패밀리 세트 먹을 사람~ 여기~ 여기~ 붙어라~!"
+                  value={textValue}
+                  onChange={handleTextChange}
+                  maxLength="50"
+                ></textarea>
+                <div className={styles['text-count']}>
+                  {textValue.length}/50
+                </div>
+              </article>
+              <article>
+                <ul className={styles['items-wrap']}>
+                  <li
+                    className={`${styles['item-menu']} ${styles['item-all']}`}
                   >
-                    <button
-                      type="button"
-                      className={`${styles['btn-people']} ${styles['minus']}`}
-                      onClick={handleDecrease}
-                    ></button>
-                    <input
-                      className={`${styles['btn-people-num']}`}
-                      placeholder="0"
-                      type="number"
-                      value={peopleCount}
-                      readOnly
-                    />
-                    <button
-                      type="button"
-                      className={`${styles['btn-people']} ${styles['plus']}`}
-                      onClick={handleIncrease}
-                    ></button>
-                  </div>
-                </li>
-                <li className={`${styles['item-date']} ${styles['item-all']}`}>
-                  날짜
-                  <div className={styles['item-input']}>
-                    <DatePicker
-                      placeholderText="0000/00/00/ 0:00 오전"
-                      className={styles['item-input-date']}
-                      locale={ko}
-                      selected={selectedDate}
-                      onChange={handleDateChange} // handleDateChange 함수를 등록
-                      showTimeSelect
-                      minDate={new Date()}
-                      minTime={new Date().setHours(0, 0, 0)}
-                      maxTime={new Date().setHours(23, 30, 0)}
-                      dateFormat="yyyy/MM/dd/ h:mm aa"
-                    />
-                  </div>
-                </li>
-                <li className={`${styles['item-place']} ${styles['item-all']}`}>
-                  장소
-                  <div className={styles['item-input']}>
-                    <input
-                      type="text"
-                      className={styles['item-input-text']}
-                      value={placeInput}
-                      onChange={event => setPlaceInput(event.target.value)}
-                      placeholder="위니브"
-                    />
-                  </div>
-                </li>
-              </ul>
-            </article>
-            <article className={styles['photo']}>
-              <div className={styles['photo-item']}>
-                {selectedPhoto && (
-                  <>
-                    <img
-                      src={selectedPhoto}
-                      className={styles['photo-img']}
-                      alt=""
-                    />
-                    <button
-                      type="button"
-                      className={styles['btn-close']}
-                      onClick={handleRemovePhoto}
-                    ></button>
-                  </>
-                )}
+                    메뉴
+                    <div className={styles['item-input']}>
+                      <input
+                        type="text"
+                        className={styles['title-user-input-menu']}
+                        value={titleInput}
+                        onChange={handleTitleInputChange}
+                        placeholder="신전떡볶이"
+                        readOnly
+                      />
+                    </div>
+                  </li>
+                  <li
+                    className={`${styles['item-people']} ${styles['item-all']}`}
+                  >
+                    인원
+                    <div
+                      className={`${styles['people-wrap']} ${styles['item-input']}`}
+                    >
+                      <button
+                        type="button"
+                        className={`${styles['btn-people']} ${styles['minus']}`}
+                        onClick={handleDecrease}
+                      ></button>
+                      <input
+                        className={`${styles['btn-people-num']}`}
+                        placeholder="0"
+                        type="number"
+                        value={peopleCount}
+                        readOnly
+                      />
+                      <button
+                        type="button"
+                        className={`${styles['btn-people']} ${styles['plus']}`}
+                        onClick={handleIncrease}
+                      ></button>
+                    </div>
+                  </li>
+                  <li
+                    className={`${styles['item-date']} ${styles['item-all']}`}
+                  >
+                    날짜
+                    <div className={styles['item-input']}>
+                      <DatePicker
+                        placeholderText="0000/00/00/ 오전 0:00"
+                        className={styles['item-input-date']}
+                        locale={ko}
+                        selected={selectedDate}
+                        onChange={handleDateChange} // handleDateChange 함수를 등록
+                        showTimeSelect
+                        minDate={new Date()}
+                        minTime={new Date().setHours(0, 0, 0)}
+                        maxTime={new Date().setHours(23, 30, 0)}
+                        dateFormat="yyyy/MM/dd/ aa h:mm"
+                      />
+                    </div>
+                  </li>
+                  <li
+                    className={`${styles['item-place']} ${styles['item-all']}`}
+                  >
+                    장소
+                    <div className={styles['item-input']}>
+                      <input
+                        type="text"
+                        className={styles['item-input-text']}
+                        value={placeInput}
+                        onChange={event => setPlaceInput(event.target.value)}
+                        placeholder="위니브"
+                      />
+                    </div>
+                  </li>
+                </ul>
+              </article>
+              <article className={styles['photo']}>
+                <div className={styles['photo-item']}>
+                  {selectedPhoto && (
+                    <>
+                      <img
+                        src={selectedPhoto}
+                        className={styles['photo-img']}
+                        alt=""
+                      />
+                      <button
+                        type="button"
+                        className={styles['btn-close']}
+                        onClick={handleRemovePhoto}
+                      ></button>
+                    </>
+                  )}
+                </div>
+              </article>
+            </section>
+            <section className={styles.photos}>
+              <div className={styles['btn-photo']}>
+                <input
+                  type="file"
+                  id="btn-photo-input"
+                  className={styles['btn-photo-input']}
+                  onChange={handlePhotoChange}
+                />
+                <label
+                  htmlFor="btn-photo-input"
+                  className={styles['btn-photo-label']}
+                ></label>
               </div>
-            </article>
-            <div className={styles['btn-photo']}>
-              <input
-                type="file"
-                id="btn-photo-input"
-                className={styles['btn-photo-input']}
-                onChange={handlePhotoChange}
-              />
-              <label
-                htmlFor="btn-photo-input"
-                className={styles['btn-photo-label']}
-              ></label>
-            </div>
-            <p className={styles['upload-photo']}></p>
+              <div className={styles['upload-photo']}></div>
+            </section>
           </section>
         </Layout>
       </form>
