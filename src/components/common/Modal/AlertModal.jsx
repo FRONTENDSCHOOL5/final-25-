@@ -1,7 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './AlertModal.module.css';
 
 export default function AlertModal({ type, modalClose }) {
+  const navigate = useNavigate();
+
+  const logoutAction = event => {
+    modalClose(event);
+    window.localStorage.removeItem('token');
+    window.localStorage.removeItem('accountname');
+    window.localStorage.removeItem('username');
+    navigate('/');
+  };
   const AlertModalUI = {
     'post-delete': (
       <section className={styles.alert}>
@@ -41,7 +51,7 @@ export default function AlertModal({ type, modalClose }) {
             <button
               type="button"
               className={styles['btn-logout']}
-              onClick={modalClose}
+              onClick={logoutAction}
             >
               로그아웃
             </button>
