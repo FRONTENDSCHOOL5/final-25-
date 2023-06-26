@@ -18,6 +18,8 @@ export default function Layout({ children, btnHandler }) {
     pathToCheck = '/followers';
   } else if (path.includes('/followings/')) {
     pathToCheck = '/followings';
+  } else if (path.includes('/post/upload')) {
+    pathToCheck = '/post/upload';
   } else if (path.includes('/post/')) {
     pathToCheck = '/post';
   } else {
