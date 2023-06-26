@@ -9,7 +9,12 @@ import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
-export default function ProfilePost({ type, postDetailId, modalOpen }) {
+export default function ProfilePost({
+  type,
+  postDetailId,
+  modalOpen,
+  getPostId,
+}) {
   const token = localStorage.getItem('token');
   const pathName = document.location.pathname;
   const userAccountName = pathName.includes('/profile/')
@@ -177,6 +182,7 @@ export default function ProfilePost({ type, postDetailId, modalOpen }) {
                         data={item}
                         accountName={accountName}
                         modalOpen={modalOpen}
+                        getPostId={getPostId}
                       />
                     </li>
                   );

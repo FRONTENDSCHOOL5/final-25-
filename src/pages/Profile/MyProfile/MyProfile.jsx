@@ -8,6 +8,7 @@ import Modal from '../../../components/common/Modal/Modal';
 export default function MyProfile() {
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
+  const [postId, setPostId] = useState('');
 
   function modalOpen(menu) {
     setIsModalShow(true);
@@ -20,6 +21,12 @@ export default function MyProfile() {
     }
   }
 
+  function getPostId(event) {
+    const closestArticle = event.target.closest('article');
+    const postid = closestArticle.getAttribute('data-id');
+    setPostId(postid);
+  }
+
   return (
     <>
       <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
@@ -27,9 +34,16 @@ export default function MyProfile() {
         <ProfileProduct />
         <ProfilePost
           type="profile"
-          modalOpen={() => modalOpen(['delete-post', 'edit-post'])}
+          modalOpen={() => modalOpen(['delete-post'])}
+          getPostId={getPostId}
         />
-        {isModalShow && <Modal modalClose={modalClose} modalMenu={modalMenu} />}
+        {isModalShow && (
+          <Modal
+            modalClose={modalClose}
+            modalMenu={modalMenu}
+            postId={postId}
+          />
+        )}
       </Layout>
     </>
   );

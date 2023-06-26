@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AlertModal from './AlertModal';
 import styles from './Modal.module.css';
 
-export default function Modal({ modalClose, modalMenu }) {
+export default function Modal({ modalClose, modalMenu, postId }) {
   const [alertShow, setAlertShow] = useState(false);
   const [alertType, setAlertType] = useState('post-delete');
 
@@ -51,7 +51,9 @@ export default function Modal({ modalClose, modalMenu }) {
           })}
         </ul>
       </section>
-      {alertShow && <AlertModal type={alertType} modalClose={modalClose} />}
+      {alertShow && (
+        <AlertModal type={alertType} modalClose={modalClose} postId={postId} />
+      )}
     </>
   );
 }

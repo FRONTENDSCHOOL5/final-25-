@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
-export default function Post({ data, accountName, modalOpen }) {
+export default function Post({ data, accountName, modalOpen, getPostId }) {
   console.log('props로 전달받은 data: ', data);
   console.log('hearted', data['hearted']);
   const token = localStorage.getItem('token');
@@ -98,6 +98,11 @@ export default function Post({ data, accountName, modalOpen }) {
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
 
+  // ======= postId 전달
+  const moreInfoAction = event => {
+    modalOpen(event);
+    getPostId(event);
+  };
   return (
     <>
       <article
@@ -201,7 +206,7 @@ export default function Post({ data, accountName, modalOpen }) {
         <button
           className={styles['btn-post-more']}
           type="button"
-          onClick={modalOpen}
+          onClick={moreInfoAction}
         >
           <span className="a11y-hidden">포스트 메뉴</span>
           <svg
