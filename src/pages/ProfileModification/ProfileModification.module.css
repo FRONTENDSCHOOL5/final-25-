@@ -62,6 +62,7 @@
   border: none;
   border-bottom: 1px solid #dbdbdb;
   padding: 10px 1px 8px;
+  outline: none;
 }
 
 .input-title {
