@@ -4,10 +4,11 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children, btnHandler }) {
+export default function Layout({ children, btnHandler, modalOpen }) {
   let headerType;
   let footerType;
   let pathToCheck;
+  console.log(modalOpen);
 
   const path = document.location.pathname;
   if (path.includes('/profile/m')) {
@@ -16,6 +17,8 @@ export default function Layout({ children, btnHandler }) {
     pathToCheck = '/profile/:accountname';
   } else if (path.includes('/followers/')) {
     pathToCheck = '/followers';
+  } else if (path.includes('/post/upload')) {
+    pathToCheck = '/post/upload';
   } else if (path.includes('/post/')) {
     pathToCheck = '/post';
   } else {
@@ -78,7 +81,7 @@ export default function Layout({ children, btnHandler }) {
   }
   return (
     <>
-      <Header type={headerType} btnHandler={btnHandler} />
+      <Header type={headerType} btnHandler={btnHandler} modalOpen={modalOpen} />
       <main>{children}</main>
 
       {footerType === 'input' ||

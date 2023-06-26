@@ -1,42 +1,53 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
+import AlertModal from './AlertModal';
 import styles from './Modal.module.css';
 
-export default function Modal() {
-  const modalRef = useRef(null);
-  const [isShow, setIsShow] = useState(true);
+export default function Modal({ modalClose, menu }) {
+  const [alertShow, setAlertShow] = useState(false);
 
-  const handleClickOutside = event => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      // 클릭된 요소가 ul 영역 외의 요소인 경우에만 이벤트 처리
-      setIsShow(false);
-    }
+  const alertOpen = () => {
+    setAlertShow(true);
+    console.log('Alert');
   };
+  console.log(menu);
 
-  const menu = ['delete-post', 'report-post'];
   const menuArr = {
-    'delete-post': <button className={styles['delete-post']}>삭제</button>,
+    'delete-post': (
+      <button className={styles['delete-post']} onClick={() => alertOpen(true)}>
+        삭제
+      </button>
+      //alertShow("type")
+    ),
     'report-post': <button className={styles['report-post']}>신고하기</button>,
     'report-comment': (
       <button className={styles['report-comment']}>신고하기</button>
     ),
     'edit-post': <button className={styles['edit-post']}>수정</button>,
+    setting: (
+      <a href="/profile" className={styles['setting']}>
+        설정 및 개인정보
+      </a>
+    ),
     logout: <button className={styles['logout']}>로그아웃</button>,
     exit: <button className={styles['exit-btn']}>채팅방 나가기</button>,
   };
 
   return (
-    isShow && (
+    <>
       <section
         className={`${styles['hidden-menu']} ${styles['active']}`}
-        onClick={handleClickOutside}
+        onClick={modalClose}
       >
         <h2 className="a11y-hidden">메뉴</h2>
-        <ul className={styles['hidden-menu-list']} ref={modalRef}>
+        <ul className={styles['hidden-menu-list']}>
           {menu.map(item => {
             return <li key={item}>{menuArr[item]}</li>;
           })}
         </ul>
       </section>
-    )
+      {alertShow && <AlertModal />}
+    </>
   );
 }
+
+//Alert을 열고 동작에 필요한 정보를 props로 보내야 합니다.
