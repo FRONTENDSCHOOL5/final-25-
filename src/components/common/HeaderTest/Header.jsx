@@ -6,7 +6,7 @@ import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
 import { useNavigate } from 'react-router-dom';
 
-export default function Header({ type }) {
+export default function Header({ type, chatTitle }) {
   const navigate = useNavigate();
   const goBack = useGoBack();
 
@@ -95,7 +95,7 @@ export default function Header({ type }) {
           <button className={styles['btn-back']} onClick={goBack}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
-          <span className={['chat-title']}>애월읍 위니브 감귤 농장</span>
+          <span className={['chat-title']}>{chatTitle}</span>
         </div>
         <button className={styles['btn-more']}>
           <img src={IconMoreVertical} alt="메뉴보기" />

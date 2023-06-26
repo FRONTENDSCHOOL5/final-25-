@@ -4,7 +4,7 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children, btnHandler }) {
+export default function Layout({ children, btnHandler, chatTitle }) {
   let headerType;
   let footerType;
   let pathToCheck;
@@ -22,6 +22,8 @@ export default function Layout({ children, btnHandler }) {
     pathToCheck = '/post/upload';
   } else if (path.includes('/post/')) {
     pathToCheck = '/post';
+  } else if (path.includes('/chat/')) {
+    pathToCheck = '/chat/:accountname';
   } else {
     pathToCheck = path;
   }
@@ -71,7 +73,7 @@ export default function Layout({ children, btnHandler }) {
       headerType = 'header';
       footerType = 'chat';
       break;
-    case '/chat/1234':
+    case '/chat/:accountname':
       headerType = 'chatHeader';
       footerType = 'chatting';
       break;
@@ -86,7 +88,7 @@ export default function Layout({ children, btnHandler }) {
   }
   return (
     <>
-      <Header type={headerType} btnHandler={btnHandler} />
+      <Header type={headerType} btnHandler={btnHandler} chatTitle={chatTitle} />
       <main>{children}</main>
 
       {footerType === 'input' ||
