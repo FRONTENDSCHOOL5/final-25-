@@ -16,7 +16,7 @@ export default function LoginEmail() {
       } else if (validateEmail(e.target.value)) {
         setWarningMessage('');
       } else {
-        setWarningMessage('올바른 이메일 형식이 아닙니다.');
+        setWarningMessage('*올바른 이메일 형식이 아닙니다.');
       }
     }
   };
@@ -26,7 +26,7 @@ export default function LoginEmail() {
       if (e.target.value.trim() === '') {
         setWarningMessage('');
       } else if (e.target.value.length < 6) {
-        setWarningMessage('비밀번호는 6자리 이상이어야 합니다.');
+        setWarningMessage('*비밀번호는 6자리 이상이어야 합니다.');
       } else {
         setWarningMessage('');
       }
@@ -70,7 +70,7 @@ export default function LoginEmail() {
           // 페이지 이동!!
           navigate('/');
         } else {
-          setWarningMessage('이메일과 비밀번호가 일치하지 않습니다.');
+          setWarningMessage('*이메일과 비밀번호가 일치하지 않습니다.');
         }
       })
       .catch(error => console.log(error));
