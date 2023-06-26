@@ -11,7 +11,9 @@ export default function LoginEmail() {
   const handleEmailChange = e => {
     if (e.target.type === 'email') {
       setEmail(e.target.value);
-      if (validateEmail(e.target.value)) {
+      if (e.target.value.trim() === '') {
+        setWarningMessage('');
+      } else if (validateEmail(e.target.value)) {
         setWarningMessage('');
       } else {
         setWarningMessage('올바른 이메일 형식이 아닙니다.');
@@ -21,7 +23,9 @@ export default function LoginEmail() {
   const handlePasswordChange = e => {
     if (e.target.type === 'password') {
       setPassword(e.target.value);
-      if (e.target.value.length < 6) {
+      if (e.target.value.trim() === '') {
+        setWarningMessage('');
+      } else if (e.target.value.length < 6) {
         setWarningMessage('비밀번호는 6자리 이상이어야 합니다.');
       } else {
         setWarningMessage('');
@@ -29,7 +33,8 @@ export default function LoginEmail() {
     }
   };
   const validateEmail = email => {
-    return true;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    return emailRegex.test(email);
   };
 
   function myStyle() {
@@ -72,10 +77,10 @@ export default function LoginEmail() {
   };
   return (
     <>
-      <main className={styles['login-main']}>
+      <section className={styles['login-main']}>
         <h1 className={styles['login-main-head']}>로그인</h1>
         <form onSubmit={handleSubmit}>
-          <section className={styles['login-main-input']}>
+          <article className={styles['login-main-input']}>
             <span className={styles['login-font']}>이메일</span>
             <label className="a11y-hidden" htmlFor={'email'}></label>
             <input
@@ -85,10 +90,9 @@ export default function LoginEmail() {
               className={styles['login-input']}
               value={email}
               onChange={handleEmailChange}
-              required
             />
-          </section>
-          <section className={styles['login-main-input']}>
+          </article>
+          <article className={styles['login-main-input']}>
             <span className={styles['login-font']}>비밀번호 </span>
             <label className="a11y-hidden" htmlFor="password"></label>
             <input
@@ -100,10 +104,12 @@ export default function LoginEmail() {
               onChange={handlePasswordChange}
               required
             />
-          </section>
-          <section className={styles['login-message-warning']}>
-            <p>{warningMessage}</p>
-          </section>
+          </article>
+          {warningMessage && (
+            <article className={styles['login-message-warning']}>
+              <p>{warningMessage}</p>
+            </article>
+          )}
           {email && password ? (
             <button
               className={styles['submit-btn']}
@@ -121,7 +127,7 @@ export default function LoginEmail() {
         <Link className={styles['login-join']} to="/join">
           이메일로 회원가입
         </Link>
-      </main>
+      </section>
     </>
   );
 }

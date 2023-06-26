@@ -33,7 +33,7 @@ export default function AddProduct() {
   };
 
   const handlePrice = e => {
-    let value = e.target.value.replace(/,/g, '');
+    let value = e.target.value.replace(/[^0-9]/g, '');
     if (value.length > 9) {
       value = value.slice(0, 9);
     }
@@ -181,7 +181,6 @@ export default function AddProduct() {
                 <p className={styles['error-message']}>{nameError}</p>
               )}
             </section>
-
             <section className={styles['product-title']}>
               <div>가격</div>
               <label htmlFor="productPrice" className="a11y-hidden"></label>
