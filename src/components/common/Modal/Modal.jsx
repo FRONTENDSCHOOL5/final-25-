@@ -24,6 +24,14 @@ export default function Modal({ modalClose, modalMenu, postId }) {
     'report-comment': (
       <button className={styles['report-comment']}>신고하기</button>
     ),
+    'report-chat': (
+      <button
+        className={styles['report-chat']}
+        onClick={() => alertOpen('report-chat')}
+      >
+        신고하기
+      </button>
+    ),
     'edit-post': <button className={styles['edit-post']}>수정</button>,
     setting: (
       <a href="/profile" className={styles['setting']}>

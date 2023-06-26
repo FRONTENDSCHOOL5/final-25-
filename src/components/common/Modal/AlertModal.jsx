@@ -82,6 +82,20 @@ export default function AlertModal({ type, modalClose, postId }) {
         </div>
       </section>
     ),
+    'report-chat': (
+      <section className={styles.confirm}>
+        <div className={styles['confirm-inner']}>
+          <h2 className={styles['confirm-title']}>신고되었습니다</h2>
+          <button
+            type="button"
+            className={styles['btn-ok']}
+            onClick={modalClose}
+          >
+            확인
+          </button>
+        </div>
+      </section>
+    ),
   };
   return AlertModalUI[type];
 }

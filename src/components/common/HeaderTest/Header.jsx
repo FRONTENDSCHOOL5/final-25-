@@ -95,7 +95,7 @@ export default function Header({
           </button>
           <span className={['chat-title']}>애월읍 위니브 감귤 농장</span>
         </div>
-        <button className={styles['btn-more']}>
+        <button className={styles['btn-more']} onClick={modalOpen}>
           <img src={IconMoreVertical} alt="메뉴보기" />
         </button>
       </header>

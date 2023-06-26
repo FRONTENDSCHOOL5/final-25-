@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ChatRoom.module.css';
 import Layout from '../../../components/layout/Layout';
+import Modal from '../../../components/common/Modal/Modal';
 
 export default function ChatRoom() {
+  const [isModalShow, setIsModalShow] = useState(false);
+  const [modalMenu, setmodalMenu] = useState(['delete-post']);
+
+  function modalOpen(menu) {
+    setIsModalShow(true);
+    setmodalMenu(menu);
+  }
+
+  function modalClose(event) {
+    if (event.target === event.currentTarget) {
+      setIsModalShow(false);
+    }
+  }
+
   return (
     <>
-      <Layout>
+      <Layout modalOpen={() => modalOpen(['report-chat'])}>
         <h1 className="a11y-hidden">채팅방</h1>
         <section className={styles.chatroom}>
           <ul className={`${styles['received']} ${styles['first']}`}>
@@ -37,6 +52,7 @@ export default function ChatRoom() {
             </li>
           </ul>
         </section>
+        {isModalShow && <Modal modalClose={modalClose} modalMenu={modalMenu} />}
       </Layout>
     </>
   );
