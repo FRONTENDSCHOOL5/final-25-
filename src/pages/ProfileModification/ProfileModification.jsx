@@ -66,6 +66,7 @@ export default function ProfileModification() {
 
   // ----------------- 계정 ID 중복검사 api-----------------
   const checkAccount = async data => {
+    // if문으로 이전기록과 고칠려고 하는 새로운 값이 같은경우
     console.log('이것도 되는거지?');
     try {
       const accountName = data.accountname;
@@ -222,6 +223,7 @@ export default function ProfileModification() {
                     message:
                       '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
                   },
+                  // 밸리데이터
                 })}
                 defaultValue=""
               />
