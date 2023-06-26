@@ -50,7 +50,7 @@ export default function JoinEmail() {
   };
 
   return (
-    <main>
+    <section className={styles['join-main']}>
       <h1 className={styles['email-header']}>이메일로 회원가입</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 이메일 인풋 */}
@@ -63,7 +63,7 @@ export default function JoinEmail() {
             type="email"
             placeholder="이메일 주소를 입력해주세요."
             className={styles['input']}
-            aria-invalid={!isEmailValid}
+            aria-invalid={!errors.email}
             onChange={handleEmailChange}
             onBlur={handleEmailBlur} // 수정: onBlur 이벤트 핸들러 추가
             {...register('email', {
@@ -96,7 +96,7 @@ export default function JoinEmail() {
             type="password"
             placeholder="비밀번호를 입력해주세요."
             className={styles['input']}
-            aria-invalid={!!errors.password}
+            aria-invalid={!errors.password}
             {...register('password', {
               required: '*비밀번호는 필수 입력입니다.',
               minLength: {
@@ -113,15 +113,17 @@ export default function JoinEmail() {
         </div>
         {/* 버튼 */}
         <button
-          disabled={isSubmitting} // 유효성 검사를 통과하지 않으면 버튼 비활성화
           className={`${styles['submit-btn']} ${
-            isSubmitting ? styles['submit-btn-active'] : ''
+            !isDirty || Object.keys(errors).length > 0
+              ? styles['submit-btn-disabled']
+              : styles['submit-btn-active']
           }`}
           type="submit"
+          disabled={!isDirty || Object.keys(errors).length > 0}
         >
           다음
         </button>
       </form>
-    </main>
+    </section>
   );
 }
