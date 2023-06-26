@@ -4,8 +4,10 @@ import styles from './Header.module.css';
 import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
+import { useNavigate } from 'react-router-dom';
 
-export default function Header({ type, isButtonEnabled, btnHandler }) {
+export default function Header({ type }) {
+  const navigate = useNavigate();
   const goBack = useGoBack();
 
   const HeaderUI = {
@@ -41,7 +43,12 @@ export default function Header({ type, isButtonEnabled, btnHandler }) {
         <a href="/#" class={styles['title']}>
           먹을사람? 피드
         </a>
-        <button className={styles['btn-search']}>
+        <button
+          className={styles['btn-search']}
+          onClick={() => {
+            navigate('/search');
+          }}
+        >
           <img src={IconSearch} alt="검색하기" />
         </button>
       </header>
