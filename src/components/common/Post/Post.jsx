@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
-export default function Post({ data, accountName }) {
+export default function Post({ data, accountName, modalOpen }) {
   console.log('props로 전달받은 data: ', data);
   console.log('hearted', data['hearted']);
   const token = localStorage.getItem('token');
@@ -198,7 +198,11 @@ export default function Post({ data, accountName }) {
           </div>
           <span className={styles['create-date']}>{formattedDate}</span>
         </div>
-        <button className={styles['btn-post-more']} type="button">
+        <button
+          className={styles['btn-post-more']}
+          type="button"
+          onClick={modalOpen}
+        >
           <span className="a11y-hidden">포스트 메뉴</span>
           <svg
             width="18"

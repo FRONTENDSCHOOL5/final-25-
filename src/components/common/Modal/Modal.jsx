@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import AlertModal from './AlertModal';
 import styles from './Modal.module.css';
 
-export default function Modal({ modalClose, menu }) {
+export default function Modal({ modalClose, modalMenu }) {
   const [alertShow, setAlertShow] = useState(false);
 
   const alertOpen = () => {
     setAlertShow(true);
     console.log('Alert');
   };
-  console.log(menu);
 
   const menuArr = {
     'delete-post': (
@@ -40,7 +39,7 @@ export default function Modal({ modalClose, menu }) {
       >
         <h2 className="a11y-hidden">메뉴</h2>
         <ul className={styles['hidden-menu-list']}>
-          {menu.map(item => {
+          {modalMenu.map(item => {
             return <li key={item}>{menuArr[item]}</li>;
           })}
         </ul>

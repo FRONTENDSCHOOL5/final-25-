@@ -7,9 +7,11 @@ import Modal from '../../../components/common/Modal/Modal';
 
 export default function MyProfile() {
   const [isModalShow, setIsModalShow] = useState(false);
+  const [modalMenu, setmodalMenu] = useState(['delete-post']);
 
-  function modalOpen() {
+  function modalOpen(menu) {
     setIsModalShow(true);
+    setmodalMenu(menu);
   }
 
   function modalClose(event) {
@@ -20,13 +22,14 @@ export default function MyProfile() {
 
   return (
     <>
-      <Layout modalOpen={() => modalOpen()}>
+      <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
         <UserProfile />
         <ProfileProduct />
-        <ProfilePost type="profile" />
-        {isModalShow && (
-          <Modal modalClose={modalClose} menu={['setting', 'logout']} />
-        )}
+        <ProfilePost
+          type="profile"
+          modalOpen={() => modalOpen(['delete-post', 'edit-post'])}
+        />
+        {isModalShow && <Modal modalClose={modalClose} modalMenu={modalMenu} />}
       </Layout>
     </>
   );
