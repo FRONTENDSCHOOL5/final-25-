@@ -103,6 +103,7 @@ export default function ProfilePost({
                     data={item}
                     account={accountName}
                     modalOpen={modalOpen}
+                    getPostId={getPostId}
                   />
                 </li>
               );
