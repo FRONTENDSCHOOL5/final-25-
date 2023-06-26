@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ChatList.module.css';
 import ProfileImg from '../../../assets/images/profile-img42.png';
-import ChatItem from '../../../components/common/Chat/ChatItem';
 import Layout from '../../../components/layout/Layout';
+import ChatItem from '../../../components/common/Chat/ChatItem';
+import Modal from '../../../components/common/Modal/Modal';
 
 export default function ChatList() {
+  const [isModalShow, setIsModalShow] = useState(false);
+  const [modalMenu, setmodalMenu] = useState(['delete-post']);
+
+  function modalOpen(menu) {
+    setIsModalShow(true);
+    setmodalMenu(menu);
+  }
+
+  function modalClose(event) {
+    if (event.target === event.currentTarget) {
+      setIsModalShow(false);
+    }
+  }
+
   const chats = [
     {
       id: 1,
@@ -36,7 +51,7 @@ export default function ChatList() {
     },
   ];
   return (
-    <Layout>
+    <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
       <h1 className="a11y-hidden">채팅목록</h1>
       <div className={styles['main-top']}>
         <ul className={styles['chat-list']}>
@@ -45,6 +60,7 @@ export default function ChatList() {
           ))}
         </ul>
       </div>
+      {isModalShow && <Modal modalClose={modalClose} modalMenu={modalMenu} />}
     </Layout>
   );
 }

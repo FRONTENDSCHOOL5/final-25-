@@ -4,10 +4,11 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children, btnHandler, chatTitle }) {
+export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
   let headerType;
   let footerType;
   let pathToCheck;
+  console.log(modalOpen);
 
   const path = document.location.pathname;
   if (path.includes('/profile/m')) {
@@ -88,7 +89,8 @@ export default function Layout({ children, btnHandler, chatTitle }) {
   }
   return (
     <>
-      <Header type={headerType} btnHandler={btnHandler} chatTitle={chatTitle} />
+
+      <Header type={headerType} btnHandler={btnHandler} chatTitle={chatTitle}  modalOpen={modalOpen} />
       <main>{children}</main>
 
       {footerType === 'input' ||

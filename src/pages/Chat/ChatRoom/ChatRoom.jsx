@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ChatRoom.module.css';
 import Layout from '../../../components/layout/Layout';
+import Modal from '../../../components/common/Modal/Modal';
 
 export default function ChatRoom() {
-  const [currentPath, setCurrentPath] = useState('');
+  const [isModalShow, setIsModalShow] = useState(false);
+  const [modalMenu, setmodalMenu] = useState(['delete-post']);
+    const [currentPath, setCurrentPath] = useState('');
 
   useEffect(() => {
     const decodedPath = decodeURI(
@@ -12,9 +15,20 @@ export default function ChatRoom() {
     setCurrentPath(decodedPath);
   }, []);
 
+  function modalOpen(menu) {
+    setIsModalShow(true);
+    setmodalMenu(menu);
+  }
+
+  function modalClose(event) {
+    if (event.target === event.currentTarget) {
+      setIsModalShow(false);
+    }
+  }
+
   return (
     <>
-      <Layout chatTitle={currentPath}>
+      <Layout modalOpen={() => modalOpen(['report-chat'])} chatTitle={currentPath}>
         <h1 className="a11y-hidden">채팅방</h1>
         <section className={styles.chatroom}>
           <ul className={`${styles['received']} ${styles['first']}`}>
@@ -46,6 +60,7 @@ export default function ChatRoom() {
             </li>
           </ul>
         </section>
+        {isModalShow && <Modal modalClose={modalClose} modalMenu={modalMenu} />}
       </Layout>
     </>
   );

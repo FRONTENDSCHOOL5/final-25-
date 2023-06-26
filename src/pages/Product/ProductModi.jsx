@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './ProductModi.module.css';
-import SaveButton from '../../components/common/Header/SaveButton';
 import Layout from '../../components/layout/Layout';
 
 export default function ProductModi() {
