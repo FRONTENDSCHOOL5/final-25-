@@ -4,18 +4,21 @@ import styles from './Modal.module.css';
 
 export default function Modal({ modalClose, modalMenu }) {
   const [alertShow, setAlertShow] = useState(false);
+  const [alertType, setAlertType] = useState('post-delete');
 
-  const alertOpen = () => {
+  const alertOpen = type => {
     setAlertShow(true);
-    console.log('Alert');
+    setAlertType(type);
   };
 
   const menuArr = {
     'delete-post': (
-      <button className={styles['delete-post']} onClick={() => alertOpen(true)}>
+      <button
+        className={styles['delete-post']}
+        onClick={() => alertOpen('post-delete')}
+      >
         삭제
       </button>
-      //alertShow("type")
     ),
     'report-post': <button className={styles['report-post']}>신고하기</button>,
     'report-comment': (
@@ -27,7 +30,11 @@ export default function Modal({ modalClose, modalMenu }) {
         설정 및 개인정보
       </a>
     ),
-    logout: <button className={styles['logout']}>로그아웃</button>,
+    logout: (
+      <button className={styles['logout']} onClick={() => alertOpen('logout')}>
+        로그아웃
+      </button>
+    ),
     exit: <button className={styles['exit-btn']}>채팅방 나가기</button>,
   };
 
@@ -44,7 +51,7 @@ export default function Modal({ modalClose, modalMenu }) {
           })}
         </ul>
       </section>
-      {alertShow && <AlertModal />}
+      {alertShow && <AlertModal type={alertType} modalClose={modalClose} />}
     </>
   );
 }
