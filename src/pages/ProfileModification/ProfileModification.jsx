@@ -132,114 +132,124 @@ export default function ProfileModification() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Layout btnHandler={handler} btn={btnState}>
         {/* ----------------- 프로필 사진 넣는 곳 -----------------*/}
-        <div className={styles['profile-img-wrapper']}>
-          <label htmlFor="profile" className="a11y-hidden">
-            <input
-              id="profile"
-              type="file"
-              accept="image/jpg, image/jpeg, image/png"
-              onChange={handleImageChange}
-              ref={profileInputRef}
-            />
-          </label>
-          <button
-            className={styles['img-button']}
-            type="button"
-            onClick={handleUploadClick}
-          >
-            <img
-              className={styles['profile-img']}
-              src={profileImg || BasicProfile}
-              alt="프로필 사진"
-            />
-          </button>
-        </div>
+        <article className={styles['profile-m-main']}>
+          <div className={styles['profile-img-wrapper']}>
+            <label htmlFor="profile" className="a11y-hidden">
+              <input
+                id="profile"
+                type="file"
+                accept="image/jpg, image/jpeg, image/png"
+                onChange={handleImageChange}
+                ref={profileInputRef}
+              />
+            </label>
+            <button
+              className={styles['img-button']}
+              type="button"
+              onClick={handleUploadClick}
+            >
+              <img
+                className={styles['profile-img']}
+                src={profileImg || BasicProfile}
+                alt="프로필 사진"
+              />
+            </button>
+          </div>
 
-        {/*----------------- 사용자 이름 입력----------------- */}
-        <section>
-          <div className={styles['input-wrapper']}>
-            <label className={styles['input-title']} htmlFor={'userNameInput'}>
-              사용자 이름
-            </label>
-            <input
-              type="text"
-              id="userNameInput"
-              name="userNameInput"
-              placeholder="2~10자 이내여야 합니다."
-              className={styles['input']}
-              aria-invalid={
-                !isDirty ? undefined : errors.userNameInput ? 'true' : 'false'
-              }
-              {...register('userNameInput', {
-                required: '사용자 이름은 필수 입력입니다.',
-                minLength: {
-                  value: 2,
-                  message: '*사용자 이름은 2자리 이상이여야 합니다.',
-                },
-                maxLength: {
-                  value: 10,
-                  message: '*사용자 이름은 10자리 이내여야 합니다.',
-                },
-              })}
-              defaultValue=""
-            />
-            {errors.userNameInput && (
-              <small className={styles['error-message']} role="alert">
-                {errors.userNameInput.message}
-              </small>
-            )}
-          </div>
-          {/* -----------------계정 ID 입력----------------- */}
-          <div className={styles['input-wrapper']}>
-            <label className={styles['input-title']} htmlFor="idInput">
-              계정 ID
-            </label>
-            <input
-              type="text"
-              id="idInput"
-              name="idInput"
-              placeholder="영문, 숫자, 밑줄 및 마침표만 사용 가능합니다."
-              className={styles['input']}
-              aria-invalid={
-                !isDirty ? undefined : errors.idInput ? 'true' : 'false'
-              }
-              onChange={handleIdChange}
-              onBlur={handleSubmit(checkAccount)}
-              {...register('idInput', {
-                required: '계정 ID는 필수 입력입니다.',
-                pattern: {
-                  value: /^[a-zA-Z0-9._]+$/,
-                  message: '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
-                },
-              })}
-              defaultValue=""
-            />
-            {errors.idInput && (
-              <small className={styles['error-message']} role="alert">
-                계정 ID가 중복됩니다.
-                {/* {errors.idInput.message} */}
-              </small>
-            )}
-          </div>
-          {/*----------------- 소개 입력 -----------------*/}
-          <div className={styles['input-wrapper']}>
-            <label className={styles['input-title']} htmlFor="introduceInput">
-              소개
-            </label>
-            <input
-              type="text"
-              id="introduceInput"
-              placeholder="자신에 대해 자세히 소개해주세요!"
-              className={styles['input']}
-              aria-invalid={
-                !isDirty ? undefined : errors.introduceInput ? 'true' : 'false'
-              }
-              {...register('introduceInput', {
-                required: '소개 필수 입력입니다.',
-              })}
-            />
-          </div>
-        </section>
+          {/*----------------- 사용자 이름 입력----------------- */}
+          <section>
+            <div className={styles['input-wrapper']}>
+              <label
+                className={styles['input-title']}
+                htmlFor={'userNameInput'}
+              >
+                사용자 이름
+              </label>
+              <input
+                type="text"
+                id="userNameInput"
+                name="userNameInput"
+                placeholder="2~10자 이내여야 합니다."
+                className={styles['input']}
+                aria-invalid={
+                  !isDirty ? undefined : errors.userNameInput ? 'true' : 'false'
+                }
+                {...register('userNameInput', {
+                  required: '사용자 이름은 필수 입력입니다.',
+                  minLength: {
+                    value: 2,
+                    message: '*사용자 이름은 2자리 이상이여야 합니다.',
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: '*사용자 이름은 10자리 이내여야 합니다.',
+                  },
+                })}
+                defaultValue=""
+              />
+              {errors.userNameInput && (
+                <small className={styles['error-message']} role="alert">
+                  {errors.userNameInput.message}
+                </small>
+              )}
+            </div>
+            {/* -----------------계정 ID 입력----------------- */}
+            <div className={styles['input-wrapper']}>
+              <label className={styles['input-title']} htmlFor="idInput">
+                계정 ID
+              </label>
+              <input
+                type="text"
+                id="idInput"
+                name="idInput"
+                placeholder="영문, 숫자, 밑줄 및 마침표만 사용 가능합니다."
+                className={styles['input']}
+                aria-invalid={
+                  !isDirty ? undefined : errors.idInput ? 'true' : 'false'
+                }
+                onChange={handleIdChange}
+                onBlur={handleSubmit(checkAccount)}
+                {...register('idInput', {
+                  required: '계정 ID는 필수 입력입니다.',
+                  pattern: {
+                    value: /^[a-zA-Z0-9._]+$/,
+                    message:
+                      '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
+                  },
+                })}
+                defaultValue=""
+              />
+              {errors.idInput && (
+                <small className={styles['error-message']} role="alert">
+                  계정 ID가 중복됩니다.
+                  {/* {errors.idInput.message} */}
+                </small>
+              )}
+            </div>
+            {/*----------------- 소개 입력 -----------------*/}
+            <div className={styles['input-wrapper']}>
+              <label className={styles['input-title']} htmlFor="introduceInput">
+                소개
+              </label>
+              <input
+                type="text"
+                id="introduceInput"
+                placeholder="자신에 대해 자세히 소개해주세요!"
+                className={styles['input']}
+                aria-invalid={
+                  !isDirty
+                    ? undefined
+                    : errors.introduceInput
+                    ? 'true'
+                    : 'false'
+                }
+                {...register('introduceInput', {
+                  required: '소개 필수 입력입니다.',
+                })}
+              />
+            </div>
+          </section>
+        </article>
       </Layout>
     </form>
   );
