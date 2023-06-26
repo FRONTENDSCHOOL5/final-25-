@@ -20,14 +20,21 @@ export default function Modal({ modalClose, modalMenu, postId }) {
         삭제
       </button>
     ),
-    'report-post': <button className={styles['report-post']}>신고하기</button>,
+    'report-post': (
+      <button
+        className={styles['report-post']}
+        onClick={() => alertOpen('report')}
+      >
+        신고하기
+      </button>
+    ),
     'report-comment': (
       <button className={styles['report-comment']}>신고하기</button>
     ),
     'report-chat': (
       <button
         className={styles['report-chat']}
-        onClick={() => alertOpen('report-chat')}
+        onClick={() => alertOpen('report')}
       >
         신고하기
       </button>

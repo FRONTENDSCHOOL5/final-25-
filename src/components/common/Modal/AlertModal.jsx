@@ -82,7 +82,7 @@ export default function AlertModal({ type, modalClose, postId }) {
         </div>
       </section>
     ),
-    'report-chat': (
+    report: (
       <section className={styles.confirm}>
         <div className={styles['confirm-inner']}>
           <h2 className={styles['confirm-title']}>신고되었습니다</h2>
