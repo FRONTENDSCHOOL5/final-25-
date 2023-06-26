@@ -7,7 +7,10 @@ export default function ChatItem({ chat }) {
   const navigate = useNavigate();
 
   return (
-    <li className={styles['chat-item']} onClick={() => navigate('/chat/1234')}>
+    <li
+      className={styles['chat-item']}
+      onClick={() => navigate(`/chat/${chat.name}`)}
+    >
       <div className={styles['chat-info']}>
         <div className={styles['profile-img-wrapper']}>
           <img

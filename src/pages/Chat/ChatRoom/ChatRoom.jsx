@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ChatRoom.module.css';
 import Layout from '../../../components/layout/Layout';
 
 export default function ChatRoom() {
+  const [currentPath, setCurrentPath] = useState('');
+
+  useEffect(() => {
+    const decodedPath = decodeURI(
+      document.location.pathname.replace('/chat/', ''),
+    );
+    setCurrentPath(decodedPath);
+  }, []);
+
   return (
     <>
-      <Layout>
+      <Layout chatTitle={currentPath}>
         <h1 className="a11y-hidden">채팅방</h1>
         <section className={styles.chatroom}>
           <ul className={`${styles['received']} ${styles['first']}`}>
