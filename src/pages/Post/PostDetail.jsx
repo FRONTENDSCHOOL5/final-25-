@@ -56,7 +56,11 @@ export default function Post() {
             {comments.map(item => {
               return (
                 <li id={item.id}>
-                  <Comment data={item} postId={postid} />
+                  <Comment
+                    data={item}
+                    postId={postid}
+                    modalOpen={() => modalOpen(['report-comment'])}
+                  />
                 </li>
               );
             })}
