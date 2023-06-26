@@ -181,7 +181,7 @@ export default function JoinProfileSetting() {
                   message: '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
                 },
               })}
-              defaultValue=""
+              // defaultValue=""
             />
             {errors.idInput && (
               <small className={styles['error-message']} role="alert">
@@ -209,13 +209,15 @@ export default function JoinProfileSetting() {
           </div>
           {/*----------------- 버튼 -----------------*/}
           <button
-            disabled={isSubmitting} // 유효성 검사를 통과하지 않으면 버튼 비활성화
             className={`${styles['submit-btn']} ${
-              isSubmitting ? styles['submit-btn-active'] : ''
+              Object.keys(errors).length === 0
+                ? styles['submit-btn-active']
+                : styles['submit-btn-disabled']
             }`}
             type="submit"
+            disabled={Object.keys(errors).length > 0}
           >
-            먹을사람 시작하기
+            먹을 사람 시작하기
           </button>
         </section>
       </form>
