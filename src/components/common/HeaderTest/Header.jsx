@@ -4,13 +4,10 @@ import styles from './Header.module.css';
 import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
+import { useNavigate } from 'react-router-dom';
 
-export default function Header({
-  type,
-  isButtonEnabled,
-  btnHandler,
-  modalOpen,
-}) {
+export default function Header({ type, modalOpen, chatTitle }) {
+  const navigate = useNavigate();
   const goBack = useGoBack();
 
   const HeaderUI = {
@@ -46,7 +43,12 @@ export default function Header({
         <a href="/#" class={styles['title']}>
           먹을사람? 피드
         </a>
-        <button className={styles['btn-search']}>
+        <button
+          className={styles['btn-search']}
+          onClick={() => {
+            navigate('/search');
+          }}
+        >
           <img src={IconSearch} alt="검색하기" />
         </button>
       </header>
@@ -93,7 +95,7 @@ export default function Header({
           <button className={styles['btn-back']} onClick={goBack}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
-          <span className={['chat-title']}>애월읍 위니브 감귤 농장</span>
+          <span className={['chat-title']}>{chatTitle}</span>
         </div>
         <button className={styles['btn-more']} onClick={modalOpen}>
           <img src={IconMoreVertical} alt="메뉴보기" />
@@ -107,6 +109,16 @@ export default function Header({
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
           <span className={['chat-title']}>Followers</span>
+        </div>
+      </header>
+    ),
+    followings: (
+      <header className={styles['header-wrap']}>
+        <div className={styles['left']}>
+          <button className={styles['btn-back']} onClick={goBack}>
+            <img src={IconArrowLeft} alt="뒤로가기" />
+          </button>
+          <span className={['chat-title']}>Followings</span>
         </div>
       </header>
     ),

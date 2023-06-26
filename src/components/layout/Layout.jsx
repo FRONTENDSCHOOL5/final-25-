@@ -4,7 +4,7 @@ import Header from '../common/HeaderTest/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children, btnHandler, modalOpen }) {
+export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
   let headerType;
   let footerType;
   let pathToCheck;
@@ -17,10 +17,14 @@ export default function Layout({ children, btnHandler, modalOpen }) {
     pathToCheck = '/profile/:accountname';
   } else if (path.includes('/followers/')) {
     pathToCheck = '/followers';
+  } else if (path.includes('/followings/')) {
+    pathToCheck = '/followings';
   } else if (path.includes('/post/upload')) {
     pathToCheck = '/post/upload';
   } else if (path.includes('/post/')) {
     pathToCheck = '/post';
+  } else if (path.includes('/chat/')) {
+    pathToCheck = '/chat/:accountname';
   } else {
     pathToCheck = path;
   }
@@ -50,6 +54,10 @@ export default function Layout({ children, btnHandler, modalOpen }) {
       headerType = 'followers';
       footerType = 'none';
       break;
+    case '/followings':
+      headerType = 'followings';
+      footerType = 'none';
+      break;
     case '/profile/:accountname':
       headerType = 'header';
       footerType = 'home';
@@ -59,14 +67,14 @@ export default function Layout({ children, btnHandler, modalOpen }) {
       footerType = 'comment';
       break;
     case '/post/upload':
-      headerType = 'uploadButton';
+      headerType = btnHandler ? 'uploadColorButton' : 'uploadButton';
       footerType = 'none';
       break;
     case '/chat':
       headerType = 'header';
       footerType = 'chat';
       break;
-    case '/chat/1234':
+    case '/chat/:accountname':
       headerType = 'chatHeader';
       footerType = 'chatting';
       break;
@@ -81,7 +89,8 @@ export default function Layout({ children, btnHandler, modalOpen }) {
   }
   return (
     <>
-      <Header type={headerType} btnHandler={btnHandler} modalOpen={modalOpen} />
+
+      <Header type={headerType} btnHandler={btnHandler} chatTitle={chatTitle}  modalOpen={modalOpen} />
       <main>{children}</main>
 
       {footerType === 'input' ||
