@@ -216,12 +216,12 @@ export default function JoinProfileSetting() {
           {/*----------------- 버튼 -----------------*/}
           <button
             className={`${styles['submit-btn']} ${
-              Object.keys(errors).length === 0
+              Object.keys(errors).length === 0 && isFormValid
                 ? styles['submit-btn-active']
                 : styles['submit-btn-disabled']
             }`}
             type="submit"
-            disabled={Object.keys(errors).length > 0}
+            disabled={Object.keys(errors).length > 0 || !isFormValid}
           >
             먹을 사람 시작하기
           </button>
