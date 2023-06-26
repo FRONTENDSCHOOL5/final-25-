@@ -118,6 +118,7 @@ export default function ProfilePost({
             data={postDetail}
             accountName={accountName}
             modalOpen={modalOpen}
+            getPostId={getPostId}
           />
         ) : (
           '로딩중'
