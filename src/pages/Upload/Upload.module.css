@@ -60,6 +60,7 @@
   color: #D9D9D9;
   font-size: 14px;
   text-align: right;
+  margin-right: 20px;
   padding: 0px 10px 10px 0px;
 }
 /* 메뉴,인원,날짜,장소 */
@@ -155,33 +156,35 @@
 .people-wrap {
   display: flex;
   align-items: center;
-  gap: 6px;
 }
 .btn-people-num {
-  width: 30px;
+  width: 40px;
   border: none;
   outline: none;
   text-align: center;
   font-family: 'Pretendard-Regular';
-  font-size: 14px;
   color:var(--main-color);
+  font-size: 14px;
   cursor: auto;
   margin-left: 10px;
   }
 .btn-people-num::placeholder {
   color : #D9D9D9;
   }
-.minus {
-  background: url(../../assets/images/minus.svg) center;
-}
-.minus:active {
-  background: url(../../assets/images/minus-active.svg) center;
-}
+.minus, 
 .plus {
-  background: url(../../assets/images/plus.svg) center;
+  background-color: #fff;
 }
-.plus:active {
-  background: url(../../assets/images/plus-active.svg) center;
+.input-people-min {
+  width: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  cursor: auto;
+  margin-left: 10px;
+  color: #D9D9D9;
 }
 /* 올린 사진 */
 .photo {

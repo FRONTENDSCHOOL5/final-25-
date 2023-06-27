@@ -5,29 +5,37 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useNavigate } from 'react-router-dom';
+import minusIcon from '../../assets/images/minus.svg';
+import minusActiveIcon from '../../assets/images/minus-active.svg';
+import plusIcon from '../../assets/images/plus.svg';
+import plusActiveIcon from '../../assets/images/plus-active.svg';
 
 function Upload() {
   const [btnState, setBtnState] = useState(false);
   const [titleInput, setTitleInput] = useState('');
   const [textValue, setTextValue] = useState('');
   const [placeInput, setPlaceInput] = useState('');
-  const [peopleCount, setPeopleCount] = useState(null);
+  const [peopleCount, setPeopleCount] = useState(2);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [postId, setPostId] = useState('');
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState('');
+  const [peopleInputClass, setPeopleInputClass] = useState(
+    `${styles['btn-people-num']} ${styles['btn-people-num-text']}`,
+  );
   useEffect(() => {
     if (
       (titleInput.trim() !== '' &&
-        placeInput.trim() !== '' &&
-        textValue.trim() !== '') ||
+        textValue.trim() !== '' &&
+        selectedDate !== '' &&
+        placeInput.trim() !== '') ||
       selectedPhoto !== null
     ) {
       setBtnState(true);
     } else {
       setBtnState(false);
     }
-  }, [titleInput, placeInput, textValue, selectedPhoto]);
+  }, [titleInput, textValue, selectedDate, placeInput, selectedPhoto]);
 
   const handleBtnClick = () => {
     setBtnState(!btnState);
@@ -42,16 +50,25 @@ function Upload() {
   };
 
   const handleDecrease = () => {
-    if (peopleCount > 1) {
+    if (peopleCount > 2) {
       setPeopleCount(peopleCount - 1);
     }
   };
 
   const handleIncrease = () => {
-    if (peopleCount < 100) {
+    if (peopleCount < 6) {
       setPeopleCount(peopleCount + 1);
     }
   };
+
+  useEffect(() => {
+    if (peopleCount === 2) {
+      setPeopleInputClass(styles['input-people-min']);
+    } else {
+      setPeopleInputClass(styles['btn-people-num']);
+    }
+  }, [peopleCount]);
+
   // 선택된 날짜를 상태로 설정
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -76,14 +93,13 @@ function Upload() {
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    if (!titleInput || !placeInput || !selectedPhoto) {
+    if (!titleInput || !placeInput || !selectedDate) {
       return;
     }
 
     const dataPlan = {
-      menu: titleInput + ' 먹을 사람?',
-      title: titleInput,
+      menu: titleInput,
+      title: titleInput + ' 먹을 사람?',
       date: selectedDate,
       people: peopleCount + '명',
       place: placeInput,
@@ -119,44 +135,6 @@ function Upload() {
         console.log(error);
       }
     }
-
-    // console.log('Sending request:', {
-    //   post: {
-    //     content: {
-    //       menu: titleInput + ' 먹을 사람?',
-    //       title: titleInput,
-    //       date: selectedDate,
-    //       people: peopleCount + '명',
-    //       place: placeInput,
-    //     },
-    //     image: selectedPhoto,
-    //   },
-    // });
-    // fetch('https://api.mandarin.weniv.co.kr/post', {
-    //   method: 'POST',
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //     'Content-type': 'application/json',
-    //   },
-    //   body: JSON.stringify({
-    //     post: {
-    //       content: {
-    //         menu: titleInput,
-    //         title: titleInput,
-    //         date: selectedDate,
-    //         people: peopleCount,
-    //         place: placeInput,
-    //       },
-    //       image: selectedPhoto,
-    //     },
-    //   }),
-    // })
-    //   .then(response => response.json())
-    //   .then(result => {
-    //     console.log(result);
-    //     navigate(`/post/:${result['post']['id']}`);
-    //   })
-    //   .catch(error => ('Error:', error));
   };
 
   useEffect(() => {
@@ -179,6 +157,7 @@ function Upload() {
                   value={titleInput}
                   onChange={handleTitleInputChange}
                   placeholder="신전떡볶이"
+                  readOnly
                 />
                 같이 먹을 사람?
               </div>
@@ -209,7 +188,6 @@ function Upload() {
                         value={titleInput}
                         onChange={handleTitleInputChange}
                         placeholder="신전떡볶이"
-                        readOnly
                       />
                     </div>
                   </li>
@@ -224,10 +202,19 @@ function Upload() {
                         type="button"
                         className={`${styles['btn-people']} ${styles['minus']}`}
                         onClick={handleDecrease}
-                      ></button>
+                        style={{
+                          cursor: peopleCount === 2 ? 'unset' : 'pointer',
+                        }}
+                      >
+                        {peopleCount === 2 ? (
+                          <img src={minusIcon} alt="Minus Icon" />
+                        ) : (
+                          <img src={minusActiveIcon} alt="Minus Active Icon" />
+                        )}
+                      </button>
                       <input
-                        className={`${styles['btn-people-num']}`}
-                        placeholder="0"
+                        className={peopleInputClass}
+                        placeholder="2"
                         type="number"
                         value={peopleCount}
                         readOnly
@@ -236,7 +223,16 @@ function Upload() {
                         type="button"
                         className={`${styles['btn-people']} ${styles['plus']}`}
                         onClick={handleIncrease}
-                      ></button>
+                        style={{
+                          cursor: peopleCount > 6 ? 'unset' : 'pointer',
+                        }}
+                      >
+                        {peopleCount >= 6 ? (
+                          <img src={plusIcon} alt="Plus Icon" />
+                        ) : (
+                          <img src={plusActiveIcon} alt="Plus Active Icon" />
+                        )}
+                      </button>
                     </div>
                   </li>
                   <li
