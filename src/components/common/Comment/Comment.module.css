@@ -7,7 +7,9 @@
 .comment-author-profile {
   width: 36px;
   height: 36px;
-  margin-right: 12px;
+  margin-right: 12px;  
+  border-radius: 50%;
+  border: 0.5px solid #DBDBDB;
 }
 .comment-info {
   display: flex;

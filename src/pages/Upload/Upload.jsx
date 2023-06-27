@@ -13,6 +13,7 @@ function Upload() {
   const [placeInput, setPlaceInput] = useState('');
   const [peopleCount, setPeopleCount] = useState(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [postId, setPostId] = useState('');
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState('');
   useEffect(() => {
@@ -71,6 +72,7 @@ function Upload() {
       reader.readAsDataURL(file);
     }
   };
+  const token = localStorage.getItem('token');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -79,48 +81,89 @@ function Upload() {
       return;
     }
 
-    console.log('Sending request:', {
-      product: {
-        post: {
-          content: {
-            menu: titleInput + ' 먹을 사람?',
-            title: titleInput,
-            date: selectedDate,
-            people: peopleCount + '명',
-            place: placeInput,
-          },
-          image: selectedPhoto,
-        },
-      },
-    });
+    const dataPlan = {
+      menu: titleInput + ' 먹을 사람?',
+      title: titleInput,
+      date: selectedDate,
+      people: peopleCount + '명',
+      place: placeInput,
+    };
+    const jsonDataPlan = JSON.stringify(dataPlan);
+    console.log('json1', jsonDataPlan);
 
-    fetch('https://api.mandarin.weniv.co.kr/product', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        product: {
-          post: {
-            content: {
-              menu: titleInput,
-              title: titleInput,
-              date: selectedDate,
-              people: peopleCount,
-              place: placeInput,
-            },
-            image: selectedPhoto,
+    const contents = textValue + jsonDataPlan;
+    fetchPost();
+    console.log(contents);
+    console.log('타입', typeof contents);
+    console.log(postId);
+
+    async function fetchPost() {
+      try {
+        const response = await fetch('https://api.mandarin.weniv.co.kr/post', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-type': 'application/json',
           },
-        },
-      }),
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        navigate('/post/:accountname/userpost');
-      })
-      .catch(error => ('Error:', error));
+          body: JSON.stringify({
+            post: {
+              content: contents,
+              image: selectedPhoto,
+            },
+          }),
+        });
+        const data = await response.json();
+        console.log('DDDDD', data);
+        setPostId(data['post']['id']);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    // console.log('Sending request:', {
+    //   post: {
+    //     content: {
+    //       menu: titleInput + ' 먹을 사람?',
+    //       title: titleInput,
+    //       date: selectedDate,
+    //       people: peopleCount + '명',
+    //       place: placeInput,
+    //     },
+    //     image: selectedPhoto,
+    //   },
+    // });
+    // fetch('https://api.mandarin.weniv.co.kr/post', {
+    //   method: 'POST',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //     'Content-type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     post: {
+    //       content: {
+    //         menu: titleInput,
+    //         title: titleInput,
+    //         date: selectedDate,
+    //         people: peopleCount,
+    //         place: placeInput,
+    //       },
+    //       image: selectedPhoto,
+    //     },
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(result => {
+    //     console.log(result);
+    //     navigate(`/post/:${result['post']['id']}`);
+    //   })
+    //   .catch(error => ('Error:', error));
   };
+
+  useEffect(() => {
+    if (postId !== '') {
+      navigate(`/post/${postId}`);
+    }
+  }, [postId]);
 
   return (
     <>
