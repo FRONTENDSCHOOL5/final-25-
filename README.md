@@ -27,9 +27,9 @@
 <table>
   <tbody>
     <tr>
-      <td align="center">📎<a href="https://github.com/jjo-mi?tab=repositories"><img src=""width="200px;" alt=""/><br /><sub><b>FE 팀장 : 정종미 </b></sub></a><br /></td>
-      <td align="center">📎<a href=""><img src="" width="200px;" alt=""/><br /><sub><b>FE 팀원 : 김지우 </b></sub></a><br /></td>
-      <td align="center">📎<a href=""><img src="" width="200px;" alt=""/><br /><sub><b>FE 팀원 : 신기찬 </b></sub></a><br /></td>
+      <td align="center"><a href="https://github.com/jjo-mi?tab=repositories"><img src=""width="200px;" alt=""/><br /><sub><b>FE 팀장 : 정종미 </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="200px;" alt=""/><br /><sub><b>FE 팀원 : 김지우 </b></sub></a><br /></td>
+      <td align="center"><a href=""><img src="" width="200px;" alt=""/><br /><sub><b>FE 팀원 : 신기찬 </b></sub></a><br /></td>
       <td align="center"><a href=""><img src="" width="200px;" alt=""/><br /><sub><b>FE 팀원 : 정선빈 </b></sub></a><br /></td>
   </tbody>
 </table>
@@ -111,13 +111,18 @@
    │  │  └─ 📂 ChatRoom
    │  ├─ 📂 Feed
    │  ├─ 📂 Join
+   │  │  ├─ 📂 JoinEmail
+   │  │  └─ 📂 JoinProfileSetting
    │  ├─ 📂 Login
+   │  │  ├─ 📂 LoginEmail
+   │  │  └─ 📂 LoginMain
    │  ├─ 📂 NotFound
    │  ├─ 📂 Post
    │  ├─ 📂 Product
    │  ├─ 📂 Profile
+   │  │  └─ 📂 MyProfile
    │  ├─ 📂 ProfileModification
-   │  ├─ 📂 SearchPage
+   │  ├─ 📂 SearchUser
    │  ├─ 📂 Splash
    │  └─ 📂 Upload
    ├─ 📂 routes
