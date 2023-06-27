@@ -84,17 +84,43 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
     }
   };
 
-  const date = new Date(data['createdAt']);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const formattedDate = `${year}년 ${month}월 ${day}일`;
+  // 게시글 하단 작성 일자
+  const formattedDate = formateCreateDate(data['createdAt']);
+  function formateCreateDate(dateString) {
+    const currentDate = new Date();
+    const targetDate = new Date(dateString);
+
+    const diffInDays = Math.floor(
+      (currentDate - targetDate) / (1000 * 60 * 60 * 24),
+    );
+
+    if (diffInDays < 1) {
+      const diffInHours = Math.floor(
+        (currentDate - targetDate) / (1000 * 60 * 60),
+      );
+
+      if (diffInHours < 1) {
+        const diffInMinutes = Math.floor(
+          (currentDate - targetDate) / (1000 * 60),
+        );
+        return `${diffInMinutes}분 전`;
+      } else {
+        return `${diffInHours}시간 전`;
+      }
+    } else if (diffInDays === 1) {
+      return '어제';
+    } else {
+      const year = targetDate.getFullYear();
+      const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+      const day = String(targetDate.getDate()).padStart(2, '0');
+      return `${year}년 ${month}월 ${day}일`;
+    }
+  }
 
   const contentTxt = data['content'];
   const regex = /\{(.+?)\}/;
-  // 예외처리
+  // 예외처리 필요
   const match = contentTxt?.match(regex);
-
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
 
@@ -103,6 +129,7 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
     modalOpen(event);
     getPostId(event);
   };
+
   return (
     <>
       <article
