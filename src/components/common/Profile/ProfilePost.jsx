@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Post from '../Post/Post';
 import styles from './ProfilePost.module.css';
 import postAPI from '../../../api/postAPI';
@@ -76,7 +75,6 @@ export default function ProfilePost({
       case 'profile':
         fetchUserPost();
         break;
-
       default:
         break;
     }
@@ -84,7 +82,7 @@ export default function ProfilePost({
 
   const userPostImgArray = [];
   userPost.forEach(element => {
-    element['image'] !== ''
+    element['image']
       ? userPostImgArray.push(element['image'])
       : console.log('이미지 없어유');
   });
