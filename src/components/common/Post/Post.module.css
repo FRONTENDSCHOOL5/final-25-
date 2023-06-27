@@ -77,6 +77,14 @@
   "a b"
   "c d";
 }
+.plan-list span {
+  width: 108px;
+  display: inline-block;
+  vertical-align: text-top;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .plan-list li::before {
   content: '';
   display: inline-block;
@@ -237,8 +245,10 @@
 
 /* 더보기 버튼 */
 .btn-post-more {
-  background: transparent;
+  width: 20px;
+  height: 20px;
   position: absolute;
   top: 0;
   right: 0;
+  background: transparent url('../../../assets/images/s-icon-more-vertical.svg');
 }

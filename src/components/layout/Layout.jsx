@@ -89,8 +89,12 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
   }
   return (
     <>
-
-      <Header type={headerType} btnHandler={btnHandler} chatTitle={chatTitle}  modalOpen={modalOpen} />
+      <Header
+        type={headerType}
+        btnHandler={btnHandler}
+        chatTitle={chatTitle}
+        modalOpen={modalOpen}
+      />
       <main>{children}</main>
 
       {footerType === 'input' ||

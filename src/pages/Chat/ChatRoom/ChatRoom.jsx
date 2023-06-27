@@ -6,7 +6,7 @@ import Modal from '../../../components/common/Modal/Modal';
 export default function ChatRoom() {
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
-    const [currentPath, setCurrentPath] = useState('');
+  const [currentPath, setCurrentPath] = useState('');
 
   useEffect(() => {
     const decodedPath = decodeURI(
@@ -28,7 +28,10 @@ export default function ChatRoom() {
 
   return (
     <>
-      <Layout modalOpen={() => modalOpen(['report-chat'])} chatTitle={currentPath}>
+      <Layout
+        modalOpen={() => modalOpen(['report-chat'])}
+        chatTitle={currentPath}
+      >
         <h1 className="a11y-hidden">채팅방</h1>
         <section className={styles.chatroom}>
           <ul className={`${styles['received']} ${styles['first']}`}>

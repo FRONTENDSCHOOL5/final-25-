@@ -84,17 +84,43 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
     }
   };
 
-  const date = new Date(data['createdAt']);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  const formattedDate = `${year}년 ${month}월 ${day}일`;
+  // 게시글 하단 작성 일자
+  const formattedDate = formateCreateDate(data['createdAt']);
+  function formateCreateDate(dateString) {
+    const currentDate = new Date();
+    const targetDate = new Date(dateString);
+
+    const diffInDays = Math.floor(
+      (currentDate - targetDate) / (1000 * 60 * 60 * 24),
+    );
+
+    if (diffInDays < 1) {
+      const diffInHours = Math.floor(
+        (currentDate - targetDate) / (1000 * 60 * 60),
+      );
+
+      if (diffInHours < 1) {
+        const diffInMinutes = Math.floor(
+          (currentDate - targetDate) / (1000 * 60),
+        );
+        return `${diffInMinutes}분 전`;
+      } else {
+        return `${diffInHours}시간 전`;
+      }
+    } else if (diffInDays === 1) {
+      return '어제';
+    } else {
+      const year = targetDate.getFullYear();
+      const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+      const day = String(targetDate.getDate()).padStart(2, '0');
+      return `${year}년 ${month}월 ${day}일`;
+    }
+  }
 
   const contentTxt = data['content'];
   const regex = /\{(.+?)\}/;
-  // 예외처리
+  // 예외처리 필요
   const match = contentTxt?.match(regex);
-
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
 
@@ -103,6 +129,7 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
     modalOpen(event);
     getPostId(event);
   };
+
   return (
     <>
       <article
@@ -209,35 +236,6 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
           onClick={moreInfoAction}
         >
           <span className="a11y-hidden">포스트 메뉴</span>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M9 9.75C9.41421 9.75 9.75 9.41421 9.75 9C9.75 8.58579 9.41421 8.25 9 8.25C8.58579 8.25 8.25 8.58579 8.25 9C8.25 9.41421 8.58579 9.75 9 9.75Z"
-              fill="#C4C4C4"
-              stroke="#C4C4C4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9 4.5C9.41421 4.5 9.75 4.16421 9.75 3.75C9.75 3.33579 9.41421 3 9 3C8.58579 3 8.25 3.33579 8.25 3.75C8.25 4.16421 8.58579 4.5 9 4.5Z"
-              fill="#C4C4C4"
-              stroke="#C4C4C4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M9 15C9.41421 15 9.75 14.6642 9.75 14.25C9.75 13.8358 9.41421 13.5 9 13.5C8.58579 13.5 8.25 13.8358 8.25 14.25C8.25 14.6642 8.58579 15 9 15Z"
-              fill="#C4C4C4"
-              stroke="#C4C4C4"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
         </button>
       </article>
     </>
