@@ -77,6 +77,14 @@
   "a b"
   "c d";
 }
+.plan-list span {
+  width: 93px;
+  display: inline-block;
+  vertical-align: text-top;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .plan-list li::before {
   content: '';
   display: inline-block;
