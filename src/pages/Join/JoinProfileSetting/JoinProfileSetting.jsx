@@ -27,16 +27,15 @@ export default function JoinProfileSetting() {
   const accountName = watch('idInput');
   const intro = watch('introduceInput');
 
-  const handleIdChange = event => {
-    const userId = event.target.value;
-    setValue('userId', userId);
-    console.log('setValue :', setValue);
+  const handleIdChange = async event => {
+    const accountName = event.target.value;
+    await checkAccount({ accountname: accountName });
   };
 
   // join 페이지에서 navigate로 보낸 값을 여기서 받아서 씀
   const location = useLocation();
   const joinData = location.state;
-  console.log('joinData:', joinData);
+  console.log('joinData밖에:', joinData);
 
   // 이미지 저장 api
   const handleImageChange = async event => {
@@ -48,6 +47,7 @@ export default function JoinProfileSetting() {
 
   // ----------------- 계정 ID 중복검사 api-----------------
   const checkAccount = async accountData => {
+    console.log('중복검사 확인');
     try {
       const accountName = accountData.accountname;
       const response = await userAPI.checkAccountValid(accountName);
@@ -60,7 +60,7 @@ export default function JoinProfileSetting() {
       }
     } catch (error) {
       console.log(error);
-      setIsFormValid(true);
+      setIsFormValid(false);
       alert('계정 ID가 중복됩니다.');
     }
   };
@@ -88,13 +88,13 @@ export default function JoinProfileSetting() {
       }
     } catch (error) {
       console.error(error);
-      setIsFormValid(true);
+      setIsFormValid(false);
       alert('프로필 설정에 실패하였습니다.');
     }
   };
 
   return (
-    <main>
+    <article className={styles['join-profile-main']}>
       <h1 className={styles['header']}>프로필 설정</h1>
       <p className={`${styles['header']} ${styles['sub-title']}`}>
         나중에 언제든지 변경할 수 있습니다.
@@ -168,14 +168,15 @@ export default function JoinProfileSetting() {
               id="idInput"
               name="idInput"
               placeholder="영문, 숫자, 밑줄 및 마침표만 사용 가능합니다."
-              className={styles['input']}
-              aria-invalid={
-                !isDirty ? undefined : errors.idInput ? 'true' : 'false'
-              }
-              onChange={handleIdChange}
+              // className={styles['input']}
+              className={`${styles['input']} ${
+                !isFormValid ? styles['input-error'] : ''
+              }`}
+              aria-invalid={errors.idInput && !isFormValid ? 'true' : 'false'}
+              onInput={handleIdChange}
               onBlur={checkAccount}
               {...register('idInput', {
-                required: '계정 ID는 필수 입력입니다.',
+                required: '*계정 ID는 필수 입력입니다.',
                 pattern: {
                   value: /^[a-zA-Z0-9._]+$/,
                   message: '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
@@ -183,6 +184,11 @@ export default function JoinProfileSetting() {
               })}
               defaultValue=""
             />
+            {!isFormValid && (
+              <small className={styles['error-message']} role="alert">
+                *이미 사용중인 ID입니다.
+              </small>
+            )}
             {errors.idInput && (
               <small className={styles['error-message']} role="alert">
                 {errors.idInput.message}
@@ -209,16 +215,18 @@ export default function JoinProfileSetting() {
           </div>
           {/*----------------- 버튼 -----------------*/}
           <button
-            disabled={isSubmitting} // 유효성 검사를 통과하지 않으면 버튼 비활성화
             className={`${styles['submit-btn']} ${
-              isSubmitting ? styles['submit-btn-active'] : ''
+              Object.keys(errors).length === 0 && isFormValid
+                ? styles['submit-btn-active']
+                : styles['submit-btn-disabled']
             }`}
             type="submit"
+            disabled={Object.keys(errors).length > 0 || !isFormValid}
           >
-            먹을사람 시작하기
+            먹을 사람 시작하기
           </button>
         </section>
       </form>
-    </main>
+    </article>
   );
 }

@@ -47,7 +47,8 @@ export default function ProfileModification() {
   const handleIdChange = async event => {
     const userId = event.target.value;
     setValue('idInput', userId);
-    await handleSubmit(checkAccount)(); // ID가 변경될 때마다 중복검사를 수행합니다.
+    await checkAccount({ accountname: userId }); // ID가 변경될 때마다 중복검사를 수행합니다.
+    console.log('되나?');
   };
 
   // -----------------이미지 저장 api-----------------
@@ -65,6 +66,8 @@ export default function ProfileModification() {
 
   // ----------------- 계정 ID 중복검사 api-----------------
   const checkAccount = async data => {
+    // if문으로 이전기록과 고칠려고 하는 새로운 값이 같은경우
+    console.log('이것도 되는거지?');
     try {
       const accountName = data.accountname;
       const response = await userAPI.checkAccountValid(accountName);
@@ -85,8 +88,6 @@ export default function ProfileModification() {
   // ----------------- 수정된 정보 등록하는 api-----------------
   const onSubmit = async data => {
     const { userNameInput, idInput, introduceInput } = data;
-
-    console.log('찍혀라', profileImg);
     console.log('찍혀라', profileImg);
     console.log('찍혀라2', data);
     const response = await profileAPI.putModifyData(
@@ -105,20 +106,23 @@ export default function ProfileModification() {
     localStorage.setItem('accountname', response.user.accountname);
     dispatch({ type: 'login', payload: changeAccount });
     // navigate(`/profile/${response.user.accountname}`);
-    navigate(`/profile/m`);
+    navigate(`/profile`);
+    // navigate(`/profile/m`);
   };
 
-  console.log('확인필요:', profileInputRef.current);
+  // console.log('확인필요:', profileInputRef.current);
 
   //버튼 활성화
   const handler = () => {
     const { userNameInput, idInput, introduceInput } = watch();
     console.log('isSubmitting:', isSubmitting);
+    console.log('isFormValid:', isFormValid);
     if (
       userNameInput !== '' &&
       idInput !== '' &&
       introduceInput !== '' &&
-      profileImg !== null
+      profileImg !== null &&
+      isFormValid
     ) {
       setBtnstate(true);
       return true;
@@ -132,114 +136,132 @@ export default function ProfileModification() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Layout btnHandler={handler} btn={btnState}>
         {/* ----------------- 프로필 사진 넣는 곳 -----------------*/}
-        <div className={styles['profile-img-wrapper']}>
-          <label htmlFor="profile" className="a11y-hidden">
-            <input
-              id="profile"
-              type="file"
-              accept="image/jpg, image/jpeg, image/png"
-              onChange={handleImageChange}
-              ref={profileInputRef}
-            />
-          </label>
-          <button
-            className={styles['img-button']}
-            type="button"
-            onClick={handleUploadClick}
-          >
-            <img
-              className={styles['profile-img']}
-              src={profileImg || BasicProfile}
-              alt="프로필 사진"
-            />
-          </button>
-        </div>
+        <article className={styles['profile-m-main']}>
+          <div className={styles['profile-img-wrapper']}>
+            <label htmlFor="profile" className="a11y-hidden">
+              <input
+                id="profile"
+                type="file"
+                accept="image/jpg, image/jpeg, image/png"
+                onChange={handleImageChange}
+                ref={profileInputRef}
+              />
+            </label>
+            <button
+              className={styles['img-button']}
+              type="button"
+              onClick={handleUploadClick}
+            >
+              <img
+                className={styles['profile-img']}
+                src={profileImg || BasicProfile}
+                alt="프로필 사진"
+              />
+            </button>
+          </div>
 
-        {/*----------------- 사용자 이름 입력----------------- */}
-        <section>
-          <div className={styles['input-wrapper']}>
-            <label className={styles['input-title']} htmlFor={'userNameInput'}>
-              사용자 이름
-            </label>
-            <input
-              type="text"
-              id="userNameInput"
-              name="userNameInput"
-              placeholder="2~10자 이내여야 합니다."
-              className={styles['input']}
-              aria-invalid={
-                !isDirty ? undefined : errors.userNameInput ? 'true' : 'false'
-              }
-              {...register('userNameInput', {
-                required: '사용자 이름은 필수 입력입니다.',
-                minLength: {
-                  value: 2,
-                  message: '*사용자 이름은 2자리 이상이여야 합니다.',
-                },
-                maxLength: {
-                  value: 10,
-                  message: '*사용자 이름은 10자리 이내여야 합니다.',
-                },
-              })}
-              defaultValue=""
-            />
-            {errors.userNameInput && (
-              <small className={styles['error-message']} role="alert">
-                {errors.userNameInput.message}
-              </small>
-            )}
-          </div>
-          {/* -----------------계정 ID 입력----------------- */}
-          <div className={styles['input-wrapper']}>
-            <label className={styles['input-title']} htmlFor="idInput">
-              계정 ID
-            </label>
-            <input
-              type="text"
-              id="idInput"
-              name="idInput"
-              placeholder="영문, 숫자, 밑줄 및 마침표만 사용 가능합니다."
-              className={styles['input']}
-              aria-invalid={
-                !isDirty ? undefined : errors.idInput ? 'true' : 'false'
-              }
-              onChange={handleIdChange}
-              onBlur={handleSubmit(checkAccount)}
-              {...register('idInput', {
-                required: '계정 ID는 필수 입력입니다.',
-                pattern: {
-                  value: /^[a-zA-Z0-9._]+$/,
-                  message: '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
-                },
-              })}
-              defaultValue=""
-            />
-            {errors.idInput && (
-              <small className={styles['error-message']} role="alert">
-                계정 ID가 중복됩니다.
-                {/* {errors.idInput.message} */}
-              </small>
-            )}
-          </div>
-          {/*----------------- 소개 입력 -----------------*/}
-          <div className={styles['input-wrapper']}>
-            <label className={styles['input-title']} htmlFor="introduceInput">
-              소개
-            </label>
-            <input
-              type="text"
-              id="introduceInput"
-              placeholder="자신에 대해 자세히 소개해주세요!"
-              className={styles['input']}
-              aria-invalid={
-                !isDirty ? undefined : errors.introduceInput ? 'true' : 'false'
-              }
-              {...register('introduceInput', {
-                required: '소개 필수 입력입니다.',
-              })}
-            />
-          </div>
-        </section>
+          {/*----------------- 사용자 이름 입력----------------- */}
+          <section>
+            <div className={styles['input-wrapper']}>
+              <label
+                className={styles['input-title']}
+                htmlFor={'userNameInput'}
+              >
+                사용자 이름
+              </label>
+              <input
+                type="text"
+                id="userNameInput"
+                name="userNameInput"
+                placeholder="2~10자 이내여야 합니다."
+                className={styles['input']}
+                aria-invalid={
+                  !isDirty ? undefined : errors.userNameInput ? 'true' : 'false'
+                }
+                {...register('userNameInput', {
+                  required: '사용자 이름은 필수 입력입니다.',
+                  minLength: {
+                    value: 2,
+                    message: '*사용자 이름은 2자리 이상이여야 합니다.',
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: '*사용자 이름은 10자리 이내여야 합니다.',
+                  },
+                })}
+                defaultValue=""
+              />
+              {errors.userNameInput && (
+                <small className={styles['error-message']} role="alert">
+                  {errors.userNameInput.message}
+                </small>
+              )}
+            </div>
+            {/* -----------------계정 ID 입력----------------- */}
+            <div className={styles['input-wrapper']}>
+              <label className={styles['input-title']} htmlFor="idInput">
+                계정 ID
+              </label>
+              <input
+                type="text"
+                id="idInput"
+                name="idInput"
+                placeholder="영문, 숫자, 밑줄 및 마침표만 사용 가능합니다."
+                // className={styles['input']}
+                className={`${styles['input']} ${
+                  !isFormValid ? styles['input-error'] : ''
+                }`}
+                aria-invalid={
+                  !isDirty ? undefined : errors.idInput ? 'true' : 'false'
+                }
+                onInput={handleIdChange}
+                onBlur={handleSubmit(checkAccount)}
+                {...register('idInput', {
+                  required: '계정 ID는 필수 입력입니다.',
+                  pattern: {
+                    value: /^[a-zA-Z0-9._]+$/,
+                    message:
+                      '*영문, 숫자, 밑줄 및 마침표만 사용할 수 있습니다.',
+                  },
+                  // 밸리데이터
+                })}
+                defaultValue=""
+              />
+              {!isFormValid && (
+                <small className={styles['error-message']} role="alert">
+                  *이미 사용중인 ID입니다.
+                </small>
+              )}
+              {errors.idInput && (
+                <small className={styles['error-message']} role="alert">
+                  {errors.idInput.message}
+                </small>
+              )}
+            </div>
+            {/*----------------- 소개 입력 -----------------*/}
+            <div className={styles['input-wrapper']}>
+              <label className={styles['input-title']} htmlFor="introduceInput">
+                소개
+              </label>
+              <input
+                type="text"
+                id="introduceInput"
+                placeholder="자신에 대해 자세히 소개해주세요!"
+                className={styles['input']}
+                aria-invalid={
+                  !isDirty
+                    ? undefined
+                    : errors.introduceInput
+                    ? 'true'
+                    : 'false'
+                }
+                {...register('introduceInput', {
+                  required: '소개 필수 입력입니다.',
+                })}
+              />
+            </div>
+          </section>
+        </article>
       </Layout>
     </form>
   );

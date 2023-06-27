@@ -9,7 +9,12 @@ import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
 
-export default function ProfilePost({ type, postDetailId }) {
+export default function ProfilePost({
+  type,
+  postDetailId,
+  modalOpen,
+  getPostId,
+}) {
   const token = localStorage.getItem('token');
   const pathName = document.location.pathname;
   const userAccountName = pathName.includes('/profile/')
@@ -94,7 +99,12 @@ export default function ProfilePost({ type, postDetailId }) {
             {feedList.map(item => {
               return (
                 <li id={item.id}>
-                  <Post data={item} account={accountName} />
+                  <Post
+                    data={item}
+                    account={accountName}
+                    modalOpen={modalOpen}
+                    getPostId={getPostId}
+                  />
                 </li>
               );
             })}
@@ -104,7 +114,12 @@ export default function ProfilePost({ type, postDetailId }) {
     post: (
       <section className={styles.post}>
         {postDetail && accountName ? (
-          <Post data={postDetail} accountName={accountName} />
+          <Post
+            data={postDetail}
+            accountName={accountName}
+            modalOpen={modalOpen}
+            getPostId={getPostId}
+          />
         ) : (
           '로딩중'
         )}
@@ -165,7 +180,12 @@ export default function ProfilePost({ type, postDetailId }) {
                 {userPost.map(item => {
                   return (
                     <li key={item.id}>
-                      <Post data={item} accountName={accountName} />
+                      <Post
+                        data={item}
+                        accountName={accountName}
+                        modalOpen={modalOpen}
+                        getPostId={getPostId}
+                      />
                     </li>
                   );
                 })}

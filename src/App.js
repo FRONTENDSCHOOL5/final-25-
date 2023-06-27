@@ -47,7 +47,7 @@ export default function App() {
           <Route path="/chat">
             <Route index element={<ChatList />} />
             {/* 변경 예정:  chat/{id} */}
-            <Route path="1234" element={<ChatRoom />} />
+            <Route path=":accountname" element={<ChatRoom />} />
           </Route>
         </Routes>
       </BrowserRouter>

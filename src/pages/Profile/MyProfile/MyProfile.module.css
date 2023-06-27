@@ -1,11 +1,4 @@
-@import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
-
-body {
-  font-family: 'Pretendard';
-  color: #C4C4C4;
-  text-align: center;  
-}
 
 /* ===== 피드 레이아웃 작업 ====== */
 header {
