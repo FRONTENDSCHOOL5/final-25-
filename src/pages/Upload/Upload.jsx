@@ -97,10 +97,13 @@ function Upload() {
       return;
     }
 
+    // 데이터 수정
+    const formattedPlanDate = formatPlanDate(selectedDate);
+
     const dataPlan = {
       menu: titleInput,
       title: titleInput + ' 먹을 사람?',
-      date: selectedDate,
+      date: formattedPlanDate,
       people: peopleCount + '명',
       place: placeInput,
     };
@@ -137,6 +140,35 @@ function Upload() {
     }
   };
 
+  function formatPlanDate(date) {
+    const currentDate = new Date();
+    const targetDate = new Date(date);
+
+    const isToday = currentDate.toDateString() === targetDate.toDateString();
+
+    if (isToday) {
+      const hours = targetDate.getHours();
+      const minutes = targetDate.getMinutes();
+      return `오늘, ${hours}시 ${minutes}분`;
+    } else {
+      const tomorrow = new Date(currentDate);
+      tomorrow.setDate(currentDate.getDate() + 1);
+
+      const isTomorrow = tomorrow.toDateString() === targetDate.toDateString();
+
+      if (isTomorrow) {
+        const hours = targetDate.getHours();
+        const minutes = targetDate.getMinutes();
+        return `내일, ${hours}시 ${minutes}분`;
+      } else {
+        const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+        const day = String(targetDate.getDate()).padStart(2, '0');
+        const hours = targetDate.getHours();
+        const minutes = targetDate.getMinutes();
+        return `${month}/${day} ${hours}시 ${minutes}분`;
+      }
+    }
+  }
   useEffect(() => {
     if (postId !== '') {
       navigate(`/post/${postId}`);
