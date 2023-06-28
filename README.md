@@ -27,7 +27,7 @@
 
 <br/>
 
-# 2. 팀원 소개 alc
+# 2. 팀원 소개 및 역할
 <table>
   <tbody>
     <tr>
@@ -101,7 +101,7 @@
 
 ```
 📦 FINAL-25-WOULD-YOU
-├─ 📦 publi
+├─ 📦 public
 │  └─ 📜 index.html
 └─ 📦 src
    ├─ 📂 api
@@ -171,35 +171,40 @@
 
 
 ## 5-2. 개발프로세스
- #### > 작업전 이슈관리 <a href='https://github.com/FRONTENDSCHOOL5/final-25-would-you/issues'>GitHub issues</a> 등록
+ ### ✔️ [작업 전] 깃헙을 이용한 이슈관리와 진행상황 공유
+ #### > 이슈관리 <a href='https://github.com/FRONTENDSCHOOL5/final-25-would-you/issues'>GitHub issues</a> 등록
   <img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/23d16748-a1ea-4d0a-9e5d-d868e55e78b1" width="1000" />
+  
+ #### > 진행상황관리  <a href='https://github.com/orgs/FRONTENDSCHOOL5/projects/8/views/1'>GitHub Projects</a>등록
+  <img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/6d625d32-9f4a-4c31-b618-09d8986b3fc3" width="1000" />
 
- ### > 작업 중 이슈별 기능브랜치 생성 후 작업하여 Develop 브랜치에 pr 후 개별 테스트
-   ##### 커밋 컨벤션
-    
-     - 커밋 메시지는 `[타입] 주제 #이슈번호`와 같이 작성한다. `[타입]` 뒤에 띄어쓰기 한 후에, 작성할 것!
-         - 예) `[add] ListView에 빠진 문구 추가 #2`
-     - 커밋 메시지는 제삼자가 봤을 때 무엇을 했는지 파악할 수 있게 자세히 작성한다.
-     - 커밋 메시지는 어떻게 보단 **무엇과 왜**를 설명한다.
-     - 타입의 종류
-         - `🐛 fix`: 올바르지 않은 동작을 고친 경우 ⇒ 버그 수정
-         - `✨ feat`: 새로운 기능을 추가한 경우 ⇒ 새 기능
-         - `♻️ refactor`: 내부 로직은 변경하지 않고 코드를 개선한 경우 ⇒ 코드 리팩토링
-         - `🎨 style`: 코드 개선과 상관없이 사소하게 코드를 수정한 경우 ⇒ 코드 구조 및 형태 개선
-         - `📝 (마크업) or 💄(css) design`: 사용자 UI를 추가, 수정한 경우 (마크업, 퍼블리싱 작업)
-         - `add`: 폴더, 파일 등을 추가한 경우
-         - `🚚 move`: 폴더, 파일, 코드 등의 위치를 이동한 경우 ⇒ 리소스 이동, 이름 변경
-         - `rename`: 폴더명, 파일명 등을 수정한 경우
-         - `🔥 remove`: 폴더, 파일, 코드 등을 삭제한 경우 ⇒ 코드 및 파일 삭제
-         - `assets`: 에셋을 추가, 수정한 경우
-         - `📝 docs`: 문서를 추가, 수정한 경우 ⇒ 문서 추가 및 수정
-         - `chore`: 위의 모든 경우에 포함되지 않는 기타 수정사항
 
-   ##### PR 템플릿 사용
-     <p align="center"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/e1190dc3-8491-44e8-9108-f630fd90cfcd" width="900" /></p>
+ ### ✔️ [작업 중] 이슈별 기능브랜치 생성 후 작업하여 Develop 브랜치에 pr 후 개별 테스트
+   #### > 커밋 컨벤션
+   - 커밋 메시지는 `[타입] 주제 #이슈번호`와 같이 작성한다. `[타입]` 뒤에 띄어쓰기 한 후에, 작성할 것!
+       - 예) `[add] ListView에 빠진 문구 추가 #2`
+   - 커밋 메시지는 제삼자가 봤을 때 무엇을 했는지 파악할 수 있게 자세히 작성한다.
+   - 커밋 메시지는 어떻게 보단 **무엇과 왜**를 설명한다.
+   - 타입의 종류
+     
+         - 🐛 fix: 올바르지 않은 동작을 고친 경우 ⇒ 버그 수정
+         - ✨ feat: 새로운 기능을 추가한 경우 ⇒ 새 기능
+         - ♻️ refactor: 내부 로직은 변경하지 않고 코드를 개선한 경우 ⇒ 코드 리팩토링
+         - 🎨 style: 코드 개선과 상관없이 사소하게 코드를 수정한 경우 ⇒ 코드 구조 및 형태 개선
+         - 📝 (마크업) or 💄(css) design: 사용자 UI를 추가, 수정한 경우 (마크업, 퍼블리싱 작업)
+         - add: 폴더, 파일 등을 추가한 경우
+         - 🚚 move: 폴더, 파일, 코드 등의 위치를 이동한 경우 ⇒ 리소스 이동, 이름 변경
+         - rename: 폴더명, 파일명 등을 수정한 경우
+         - 🔥 remove: 폴더, 파일, 코드 등을 삭제한 경우 ⇒ 코드 및 파일 삭제
+         - assets: 에셋을 추가, 수정한 경우
+         - 📝 docs: 문서를 추가, 수정한 경우 ⇒ 문서 추가 및 수정
+         - chore: 위의 모든 경우에 포함되지 않는 기타 수정사항
+
+   #### > PR 템플릿 사용
+  <p align="center"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/e1190dc3-8491-44e8-9108-f630fd90cfcd" width="700" /></p>
      
 
- ### > Develop 브랜치가 실행가능한 상태가 되면 기능 완성도에따 maim 브랜치에 머지(마크업/기능)  
+ ### ✔️ [완료] Develop 브랜치가 실행가능한 상태가 되면 기능 완성도에따 maim 브랜치에 머지(마크업/기능)  
 
 
 ## 5-3. 버그관리
@@ -213,22 +218,33 @@
 # 6. <span id = "code"> 핵심 코드 </span>
 
 ## 6-1. useContext
+- api 통신시 회원가입 여부 확인을 위해 전역에서 필요한 token, accountname을 useContext를 이용하여 관리.
+- useContext를 사용함으로써 필요하지 않은 자식컴포넌트에 전달하지 않고 내가 필요한 곳에서 바로 쓸 수 있음(prop drilling 또는 불필요한 데이터 요방지)
 
-- token, accountname이 여러 컴포넌트 내에서 api통신을 할 때 필요로 하는 것을 발견.
-- 전역에서 필요한 token, accountname을 useContext를 이용하여 관리.
-- useContext를 사용함으로써 prop drilling을 방지.
-- token, accountname을 얻기 위한 불필요한 데이터 요청 방지.
+## 6-2. api 분리
 
-## 6-2. CustomHook
+- 재사용성과 api 통신하는 페이지의 코드량 축소로 가독성 높임
+- 추후 유지보수를 위해 api 분리하여 관리하여 효율성 높임 
 
+## 6-3. CustomHook
+<span style="color:red">샘플</span>
 - 모달 구현 시 모달이 필요한 여러 컴포넌트 내에서 동일한 로직이 반복적으로 사용되는 것을 발견.
 - 이를, useModal 이라는 커스텀 훅으로 만듦으로써 코드의 중복 최소화 및 상태 관리 로직의 재사용성을 높임.
 
-## 6-3. Button 컴포넌트
-
+## 6-4. Layout 컴포넌트
+<span style="color:red">샘플.</span>
 - 재사용성이 높은 버튼을 공통 컴포넌트로 만들어 여러 페이지 내에서 사용할 수 있게 구현함.
 - 기본 버튼 컴포넌트 구현 후 버튼의 스타일 컴포넌트에서 사이즈,disabled,색상 등을 prop 인자로 받아와서 여러 페이지에서 사용할 수 있게 구현함.
 - 특히, 버튼의 사이즈를 SIZES 라는 객체(s,ms,m)로 변수를 지정하여 확장성있는 코드로 구현함.
+
+## 6-5. react-hook-form 
+
+- 라이브러리 사용으로 폼 요소의 상태(값 추적, 유효성검사 등)관리를 통해 간편한 관리
+- 복잡한 폼 로직 간소화로 개발 생산성 높임 
+
+<br/>
+
+<p align="right"><a href="#top">(Top)</a></p>
 
 # 7. 페이지 캡쳐
 ## 7.1. 홈 🏠 
