@@ -18,7 +18,7 @@
 
 ### 주요 기능 
 >  - 회원 가입 및 로그인 기능
->  - 피드 업로드 기능
+>  - 피드 업로드 기능(같이 먹을사람!)
 >  - 상품 등록 및 판매 기능
 >  - 사용자간 팔로우 기능 
 >  - 프로필 수정
@@ -78,14 +78,14 @@
  #### ✔️Etc
   <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 
-## 3-4. 협업 툴
+## 3-3. 협업 툴
 - 버전 관리 : Git, <a href='https://github.com/FRONTENDSCHOOL5/final-25-would-you'>GitHub</a>
 - 진행 상황 관리(칸반 보드) : <a href='https://github.com/orgs/FRONTENDSCHOOL5/projects/8/views/1'>GitHub Projects</a>
 - 이슈 관리 : <a href='https://github.com/FRONTENDSCHOOL5/final-25-would-you/issues'>GitHub issues</a>
 - 문서 관리 : <a href='https://www.notion.so/25-EO-89bab0269b814b02add83a382537f910'>Notion</a>
 - 메신저 : Discord
 
-## 3-5. 테스트 툴
+## 3-4. 테스트 툴
 - API 테스트 : Postman
 
 <br/>
@@ -100,7 +100,7 @@
 * `src/hooks/` : 재사용을 위해 분리한 Custom Hook
 * `src/pages/` : 공통 컴포넌트를 사용해 만든 페이지
 * `src/routes/` : 페이지 라우팅을 위한 파일
-* `src/styles/` : 전역 스타일 파일
+* `src/styles/` : 전역 스타일 파일(글로벌, 리셋css)
 * `src/utils/` : 재사용을 위해 분리한 유틸 파일
 
 ```
@@ -175,21 +175,22 @@
 
 <br/>
 
-## 5-2. 개발프로세스  
+## 5-2. 개발 프로세스  
 
- ### ✔️ [작업 전] 깃헙을 이용한 이슈관리와 진행상황 공유
+ ### ✔️[작업 전] 깃헙을 이용한 개인의 업무상황을 공유할 수 있도록 이슈관리와 진행상황 작성
  
  #### > 이슈관리 <a href='https://github.com/FRONTENDSCHOOL5/final-25-would-you/issues'>GitHub issues</a> 등록
   <p align="center"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/23d16748-a1ea-4d0a-9e5d-d868e55e78b1" width="950" /></p>
   
- <br/>
+ <br/>    
+ 
  #### > 진행상황관리  <a href='https://github.com/orgs/FRONTENDSCHOOL5/projects/8/views/1'>GitHub Projects</a>등록
   <p align="center"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/6d625d32-9f4a-4c31-b618-09d8986b3fc3" width="950" /></p>
 
 <br/>   
 
- ### ✔️ [작업 중] 이슈별 기능브랜치 생성 후 작업하여 Develop 브랜치에 pr 후 개별 테스트
- #### > 커밋 컨벤션
+### ✔️[작업 중] 이슈별 기능브랜치 생성 후 작업하여 Develop 브랜치에 pr 후 개별 테스트
+#### > 커밋 컨벤션
    >  - 커밋 메시지는 `[타입] 주제 #이슈번호`와 같이 작성한다. `[타입]` 뒤에 띄어쓰기 한 후에, 작성할 것!
        - 예) `[add] ListView에 빠진 문구 추가 #2`
    >  - 커밋 메시지는 제삼자가 봤을 때 무엇을 했는지 파악할 수 있게 자세히 작성한다.
@@ -212,8 +213,9 @@
    #### > PR 템플릿 사용
   <p align="center"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/e1190dc3-8491-44e8-9108-f630fd90cfcd" width="700" /></p>
      
-<br/>
- ### ✔️ [완료] Develop 브랜치가 실행가능한 상태가 되면 기능 완성도에따 maim 브랜치에 머지(마크업/기능)  
+<br/>   
+
+### ✔️ [완료] Develop 브랜치가 실행가능한 상태가 되면 기능 완성도에 따라 maim 브랜치에 머지(마크업/기능)  
 <br/>
 <br/>
 
@@ -222,15 +224,13 @@
 - 테스트 후 오류 발견시 해당 내용 작성하여 담당자에게 전달
  <img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/6f20b74e-5404-41b7-beba-193841c24ac1" width="1000" />
 
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/5c34ef0b-7623-42cc-9c94-04d09f240165"width="490px;" alt=""/><br /><sub><b>테스트중 오류 발견시</b></sub></a><br /></td>
-      <td align="center"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/d023390d-4a6c-47a1-ab44-669b137a52f5" width="490px;" alt=""/><br /><sub><b>오류사항 수정</b></sub></a><br /></td>
-  </tbody>
-</table>     
-
+<center>
+ 
+| 테스트중 오류 발견시 | 오류사항 수정 |
+| -------- | -------- |
+| <img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/5c34ef0b-7623-42cc-9c94-04d09f240165" width="450px;" alt=""/> | <img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/d023390d-4a6c-47a1-ab44-669b137a52f5" width="450px;" alt=""/>|
+ 
+</center>
 
 <br/>
 
@@ -241,19 +241,27 @@
 
 # 6. <span id = "code"> 핵심 코드 </span>
 
-## 6-1. useContext
-- api 통신시 회원가입 여부 확인을 위해 전역에서 필요한 token, accountname을 useContext를 이용하여 관리.
-- useContext를 사용함으로써 필요하지 않은 자식컴포넌트에 전달하지 않고 내가 필요한 곳에서 바로 쓸 수 있음.(prop drilling 또는 불필요한 데이터 요방지)
+## 6-1. 게시글 content 데이터 변형
+- 서비스 내용에 따라 게시글 input값 많아져서 데이터를 객체형태로 묶어서 전달
 
+<center>
+ 
+| 기본 화면 | 서비스에 맞춘 화면 |
+| -------- | -------- |
+| <img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/ed4fa53d-379d-48ae-8ac9-8b09ecaf8b2d" width="300px;" alt=""/> | <img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/cddb7ceb-23ac-424d-9131-8b645caca2d4" width="300px;" alt=""/>|
+
+</center>
+
+
+ 
 ## 6-2. api 분리
 
 - 재사용성과 api 통신하는 페이지의 코드량 축소로 가독성 높임.
 - 추후 유지보수를 위해 api 분리하여 관리하여 효율성 높임 .
 
-## 6-3. CustomHook
-<span style="color:red">샘플</span>
-- 모달 구현 시 모달이 필요한 여러 컴포넌트 내에서 동일한 로직이 반복적으로 사용되는 것을 발견.
-- 이를, useModal 이라는 커스텀 훅으로 만듦으로써 코드의 중복 최소화 및 상태 관리 로직의 재사용성을 높임.
+## 6-3. useContext
+- api 통신시 회원가입 여부 확인을 위해 전역에서 필요한 token, accountname을 useContext를 이용하여 관리.
+- useContext를 사용함으로써 필요하지 않은 자식컴포넌트에 전달하지 않고 내가 필요한 곳에서 바로 쓸 수 있음.(prop drilling 또는 불필요한 데이터 요방지)
 
 ## 6-4. Layout 컴포넌트
 - 페이지마다 레이아웃 통일을 위해 공통 컴포넌트로 만들어 여러 페이지에서 사용할 수 있도록 함.
@@ -288,5 +296,23 @@
 # 8. 느낀점
 ## 🐰정종미
 
+첫 프로젝트라 기대도 많고 걱정도 많았는데, 프로젝트 시작하자마자 앞만 보고 달렸는지 어느새 발표를 앞두게 되어 신기합니다... 알수 없는 오류를 만나면 너무 답답하고 풀고 싶어서 끝까지 붙잡고 그래도 답이 안나오면 꿈에서 코딩하는 기분으로 자다가 일어나서 코딩하고 정말 한달간 하얗게 불태웠구나 싶습니다ㅎㅎ 
+하면서 나의 부족함을 너무 많이 봐버려서 중간에 좌절도 많이하고 화도 났지만 최대한 내가 성장하고 있다는 것에 집중하려고 했습니다. 레파지토리 한번 날리고...깃, 깃헙 너무 어려워서 커밋도 잘 안하던 제가 이제는 마감시간에 쫓겨 호다닥 커밋하고 푸쉬하고 머지하는 절 보면 사람은 어떻게든 하게 되어있다! 싶었습니다. 
+이번 프로젝트를 하면서 최대한 팀원들과 소통도 많이하고 어려움점이 있다면 공유해서 같이 해결해 나갈려고 매일매일 현황 공유도 하고 그랬는데도 서투른 팀장을 잘 따라와준 팀원들에게 감사하고(마지막EO 최고에요 😍), 팀뿐만 아니라 타 팀과도 서로 교류하면서 플젝할 수 있는 환경을 만들어주시고 멋사! 그리고, 타팀분들도 너그러운 마음으로 모르는 것들을 같이 해결해주려는 모습이 너무 감동이였습니다. 프론트엔드 5기 포에버했으면 좋겠어용 ㅋㅋ(멋사매니저님들 너무 감사했습니당) 감사합니다!
 
-----------------------
+<br/>    
+
+## 🐶김지우
+프로젝트 시작 전 저는 JavaScript도 근근히 따라가는 수준이었습니다. 프로젝트를 리액트로 하게 되어 어떻게 쓰는지도 모르는 체 시작하려니 막막하기만 했지만, 일단 부딪혀보자! 그냥 해보자! 라는 마인드로 시작했습니다. 그래서 프로젝트 기간 동안 많은 시간을 쓰고 많은 시도를 해보았습니다. 프로젝트 발표 전 마지막 수정 때 코드의 흐름을 알고 ‘여기를 이런식으로 수정하면 되겠다’라고 생각하고 수정. 예상한대로 결과가 나왔을 때 너무 너무 신이 났고, 제가 동료들에게만 말하던 대단해요! 라는 말을 제가 들으니 ‘진짜 성장한게 맞나보다!’ 라는 생각이 들었습니다. 제가 너무나도 못한다는 생각에 작아질 때면 ‘할 수 있어요!’, ‘잘하셨어요!’라고 해주신 팀원들 덕분에 이만큼 성장할 수 있었던 것 같습니다. 리팩토링도 남은 힘 다 쥐어짜서 해보겠습니다! 다시 한번 잘 부탁드립니다! 마지막EO 대단해요👍🏻
+
+<br/>   
+
+## 🤖신기찬
+제 개발 인생 중 첫번째 팀 프로젝트이고 기획부터 코드구현까지 무에서 유를 창조한 경험이기에 더욱 의미 있고 정이가는 활동이 었습니다. git & github-flow 부터 api로 서버 통신하는 법 시멘틱을 고려하지 않고 짰던 html 등등 모든 것에 있어 무지한 상태로 프로젝트를 들어가 심적으로 힘들고 속도 많이 상했습니다 하지만 도움의 손을 내밀면 손을 잡아주시는 따듯한 동료분들의 배려덕에 제가 맡은 파트의 기능구현을 해낼 수 있었습니다.  저는 프로젝트를 경험 할 수 있어서 정말 다행이라 생각하며 프로젝트를 진행하면서 배운 내용은 쉽게 증발하지 않을 것 같습니다.  또한 이번의 경험으로 개발자들의 '협업'을 조금이나마 이해를 한 거 같습니다. 아마 다음번에 팀프로젝트를 진행하게 된다면 이번 보다는 조금 덜 헤매고 더 성장하겠지? 라는 상상을 해봅니다.  수료 후에도 꿈을 향해 더욱 정진 할 수 있는 제가 되기 위해 노력하겠습니다. 감사합니다.
+
+<br/>   
+
+## 🐼정선빈
+프로젝트 시작할 때는, 리액트로 하는 첫 프로젝트이기도 했고, 리액트에 대해 충분히 이해하고 있다고 생각하지 않아서 걱정이 많았습니다. 그래도 같이 하면 해 나갈 수 있을 거란 생각으로, 막상 부딪혀 보니 걱정했던 거 보다 수월하게 진행되었던 것 같습니다. 디자인, 기획부터 개발, 테스트까지 모든 단계를 경험하면서 의도한대로 안되서 속상할 때도 있고, 진행하다보니 욕심이 생겨서 아쉬움도 남지만, 깃 플로우 전략을 세우고, 막히는 부분이 있으면 함께 공유하며 해결하고, 우리 모두 API의 장인이 되는 등등 3주동안 정말 많은 경험을 할 수 있었던 것 같습니다. 
+마지막으로, 부족한 실력이지만 항상 넘치게 칭찬해 준 팀원들! 감사합니다
+
