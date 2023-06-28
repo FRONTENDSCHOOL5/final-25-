@@ -278,6 +278,34 @@
 <p align="right"><a href="#top">(Top)</a></p>
 
 # 7. 페이지 캡쳐
+## 7.1. 홈 🏠 
+|시작 화면|회원가입 페이지|회원가입 프로필 설정 페이지|
+|---|---|---|
+|<img width="390" alt="시작화면" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/bc92b60c-72f5-422a-8d42-9aae285a4d92">|<img width="390" alt="회원가입 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/3d3699e4-ac07-4fa4-bf30-03422b30ecea">|<img width="390" alt="회원가입 프로필 설정 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/40ea6f81-c879-4e2b-8295-081f33002c5b">|
+|피드 페이지|검색 페이지|
+|<img width="390" alt="피드 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/edaf0867-e469-4c9b-a1d7-1c3f72acfbac">|<img width="390" alt="검색 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/b9afd804-3189-46d7-a86d-e6eb32275f41">|
+
+# 7.2. 채팅 💬
+|채팅 페이지|
+|---|
+|<img width="390" alt="채팅 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/4aa7ea20-a8ed-498d-badf-1178dc633d61">|
+## 7.3. 게시글 🗒️
+|게시글 상세 페이지|게시글 업로드 페이지|게시글 삭제|
+|---|---|---|
+|<img width="390" alt="게시글 상세 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/cfa60dea-c76f-412b-b75c-90b7c99bcaca">|<img width="390" alt="게시글 업로드 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/d3bfb495-75c8-4048-b72d-e2d9cb4591f9">
+|<img width="390" alt="게시글 삭제" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/9c1cef12-25c7-4436-837d-c350a743dae1">|
+|게시글 신고|좋아요 기능|
+|<img width="390" alt="게시글 신고" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/64c56a13-2836-4b2b-8699-1d8670661118">|<img width="390" alt="좋아요 기능" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/cdeddc56-f3fa-4b3f-8f1b-2e119447c1f3">|
+## 7.4. 프로필 🧑‍💻
+|My Profile 페이지|Your Profile 페이지|리스트 / 앨범형으로 보기|
+|---|---|---|
+|![마이 프로필 페이지](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/470899b9-98c0-4931-879a-f21d7efb974e)|![유어_프로필_페이지_AdobeExpress](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/75c9c52c-baff-4af2-92b9-154600448994)|![리스트앨범으로보기_AdobeExpress](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/34da351d-a69d-4c83-ada4-e9368415429b)|
+|프로필 수정 페이지|팔로워/팔로잉 페이지|로그아웃 기능|
+|![프로필수정페이지](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/3f75abb0-75b5-4d83-a222-b943ceff04ca)|![팔로워팔로잉_페이지_AdobeExpress (1)](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/172c6b25-a957-412f-bc8f-fed8cd46a7f3)|![로그아웃_기능_AdobeExpress](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/11c8fc3c-a333-4595-9273-8e99adbc1ae8)|
+## 7.5. 공구중인 상품 🛒
+|공구 중인 상품 등록 페이지|
+|---|
+|![상품_등록_페이지_AdobeExpress](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/b3bd5468-1a4e-4192-be1a-2db9f81f28dd)|
 
 
 <br/>
