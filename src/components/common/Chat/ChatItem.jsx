@@ -1,10 +1,16 @@
 import React from 'react';
 import styles from './ChatItem.module.css';
 import ProfileImg from '../../../assets/images/basic-profile-img.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function ChatItem({ chat }) {
+  const navigate = useNavigate();
+
   return (
-    <li className={styles['chat-item']}>
+    <li
+      className={styles['chat-item']}
+      onClick={() => navigate(`/chat/${chat.name}`)}
+    >
       <div className={styles['chat-info']}>
         <div className={styles['profile-img-wrapper']}>
           <img

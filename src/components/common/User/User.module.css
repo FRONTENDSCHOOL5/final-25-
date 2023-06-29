@@ -1,8 +1,6 @@
 @import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
 
-/* 시작: 유저 공통 */
-
 .user {
   display: flex;
   justify-content: space-between;
@@ -11,6 +9,7 @@
   width: 358px;
   height: 50px;
   margin-top: 16px;
+  margin-left: 16px;
 }
 
 .user-search {
@@ -29,6 +28,11 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  color: black;
+}
+
+.user-name span {
+  color: var(--main-color);
 }
 .user .user-info .user-id {
   color: #767676;

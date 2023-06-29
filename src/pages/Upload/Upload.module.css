@@ -1,13 +1,14 @@
 @import '../../styles/global.css';
 @import '../../assets/font/font.css';
-
 .title-wrap {
-  width: 100%;
+  width: 90%;
   padding: 17px 0px 15px 0px;
   border-bottom: 1px solid #D9D9D9;
   display: flex;
   align-items: center;
   text-indent: 16px;
+  font-weight: 600;
+  margin: 0 5% 0 5%;
 }
 .title-wrap::before {
   content: '';
@@ -16,6 +17,17 @@
   margin-left: 16px;
   background: url(../../assets/images/profile-img42.png) no-repeat center;
   background-size: cover;
+}
+.title-user-input {
+  border: none;
+  width:100px;
+  outline: none;
+  text-align: left;
+  font-family: 'Pretendard-Regular';
+  font-size: 20px;
+  font-weight: 600;
+  color:var(--main-color);
+  cursor: auto;
 }
 .title-img {
   width: 42px;
@@ -33,6 +45,10 @@
   margin: 17px 15px 33px 16px;
   border: none;
   resize: none;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  color:var(--main-color);
+  position: relative;
 }
 .text-box::placeholder {
   color : #D9D9D9;
@@ -40,9 +56,16 @@
 .text-box:focus {
   outline: none;
 }
+.text-count {
+  color: #D9D9D9;
+  font-size: 14px;
+  text-align: right;
+  margin-right: 20px;
+  padding: 0px 10px 10px 0px;
+}
 /* 메뉴,인원,날짜,장소 */
 .item-all {
-  width: 100%;
+  width: 90%; 
   font-size: 14px;
   text-indent: 6px;
   color: #000;
@@ -50,6 +73,7 @@
   align-items: center;
   border-top: 1px solid #D9D9D9;
   padding: 17px 20px 19px 16px;
+  margin: 0 5% 0 5%;
   list-style: none;
 }
 .item-img {
@@ -62,7 +86,37 @@
   background: url(../../assets/images/menu-icon-24.svg) no-repeat center;
   background-size: cover;
 }
-.item-people::before{
+.title-user-input-menu {
+  border: none;
+  outline: none;
+  text-align: right;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  color:var(--main-color);
+  cursor: auto;
+}
+.item-input-text {
+  border: none;
+  outline: none;
+  text-align: right;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  color:var(--main-color);
+  cursor: auto;
+}
+.item-input-date {
+  border: none;
+  outline: none;
+  text-align: right;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  color:var(--main-color);
+  cursor: pointer;
+}
+.item-input-date::placeholder {
+  color : #D9D9D9;
+}
+.item-people::before {
   content: '';
   width: 24px;
   height: 24px;
@@ -85,7 +139,7 @@
 }
 .item-input {
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 5px;
   color: #D9D9D9;
 }
 .item-place {
@@ -102,13 +156,35 @@
 .people-wrap {
   display: flex;
   align-items: center;
-  gap: 6px;
 }
-.minus {
-  background: url(../../assets/images/minus.svg) center;
-}
+.btn-people-num {
+  width: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  color:var(--main-color);
+  font-size: 14px;
+  cursor: auto;
+  margin-left: 10px;
+  }
+.btn-people-num::placeholder {
+  color : #D9D9D9;
+  }
+.minus, 
 .plus {
-  background: url(../../assets/images/plus-active.svg) center;
+  background-color: #fff;
+}
+.input-people-min {
+  width: 40px;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-family: 'Pretendard-Regular';
+  font-size: 14px;
+  cursor: auto;
+  margin-left: 10px;
+  color: #D9D9D9;
 }
 /* 올린 사진 */
 .photo {
@@ -116,16 +192,19 @@
   overflow-x: auto;
   width: 100%;
   position: relative;
-  /* scroll-behavior: smooth; */
+  justify-content: flex-end; 
+
 }
 .photo-item {
   position: relative;
-  margin-left: auto;
+  width: 40%;
+  margin-left: 20px;
   margin-right: 3px;
 }
 .photo-img {
-  margin-left: 5px;
   position: relative;
+  justify-content: flex-end;
+  border-radius: 10px;
 }
 /* 올린 사진 삭제버튼 */
 .btn-close {
@@ -138,23 +217,27 @@
 }
 /* 사진 첨부 버튼 */
 .btn-photo {
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  margin-right: px;
+  right: 0;
+  left: 45%;
+  transform: translateX(300%); 
+  overflow: hidden;
+  /* z-index: 9900; */
+}
+/* 사진 첨부(파일형식) */
+.btn-photo-input[type="file"] {
   position: absolute;
   width: 50px;
   height: 50px;
   margin-bottom: 16px;
   margin-right: 16px;
-  bottom: 23px;
   right: 0;
-  overflow: hidden;
-  transform: translate(0%, 0%);
-}
-/* 사진 첨부(파일형식) */
-.btn-photo-input[type="file"] {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  width: 100%;
-  height: 100%;
+  left: 45%;
   opacity: 0;
   cursor: pointer;
 }
@@ -167,28 +250,27 @@
   background-size: cover;
   cursor: pointer;
 }
-/* 이미지(2개) 정렬 */
-.upload-photo::before,
+/* 화살표 이미지, 멘트 이미지 정렬 */
+.upload-photo,
 .upload-photo::after {
-  position: absolute;
+  position: fixed;
 }
-/* 이미지:먹고 싶은 사진을 같이 올려보세요*/
-.upload-photo::before {
-  content: '';
+/* 이미지:먹고 싶은 사진을 같이 올려보세요 */
+.upload-photo {
   width: 229px;
   height: 28px;
-  bottom: 10px;
-  right: 120px;
-  margin-top: 20px;
+  margin-top: 40px;
+  margin-left: 50px;
   background: url(../../assets/images/upload-text.png) no-repeat;
 }
+
 /* 이미지:화살표 */
 .upload-photo::after {
   content: '';
+  position: fixed;
   width: 50px;
   height: 16.22px;
-  bottom: 46.4px;
-  right: 70.67px;
-  transform: rotate(-15deg);
+  margin-top: -20px;
+  margin-left: 100px;
   background: url(../../assets/images/arrow.svg) no-repeat;
 }

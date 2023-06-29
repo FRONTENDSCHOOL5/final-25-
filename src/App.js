@@ -7,6 +7,7 @@ import Join from './pages/Join/JoinEmail/JoinEmail';
 import JoinProfileSetting from './pages/Join/JoinProfileSetting/JoinProfileSetting';
 import MyProfile from './pages/Profile/MyProfile/MyProfile';
 import Followers from './pages/Profile/Followers';
+import Followings from './pages/Profile/Followings';
 import ProfileModification from './pages/ProfileModification/ProfileModification';
 import AddProduct from './pages/Product/AddProduct';
 import ProductModi from './pages/Product/ProductModi';
@@ -15,6 +16,7 @@ import PostDetail from './pages/Post/PostDetail';
 import Upload from './pages/Upload/Upload';
 import ChatRoom from './pages/Chat/ChatRoom/ChatRoom';
 import ChatList from './pages/Chat/ChatList/ChatList';
+import FeedNone from './pages/Feed/FeedNone';
 
 export default function App() {
   return (
@@ -31,23 +33,21 @@ export default function App() {
           <Route path="/profile">
             <Route index element={<MyProfile />} />
             <Route path="m" element={<ProfileModification />} />
-            {/* 변경예정: {userid}/followers */}
-            <Route path="followers" element={<Followers />} />
-            {/* 변경예정:  {userid}*/}
-            <Route path="1234" element={<YourProfile />} />
+            <Route path=":accountname" element={<YourProfile />} />
           </Route>
+          <Route path="followers/:accountname" element={<Followers />} />
+          <Route path="followings/:accountname" element={<Followings />} />
           <Route path="/product">
             <Route index element={<AddProduct />} />
             <Route path="m" element={<ProductModi />} />
           </Route>
-          <Route path="/post">
-            <Route index element={<PostDetail />} />
-            <Route path="upload" element={<Upload />} />
-          </Route>
+          <Route path="/post/:postid" element={<PostDetail />} />
+          <Route path="/post/upload" element={<Upload />} />
+          <Route path="/post/:accountname/userpost" element={<PostDetail />} />
           <Route path="/chat">
             <Route index element={<ChatList />} />
             {/* 변경 예정:  chat/{id} */}
-            <Route path="1234" element={<ChatRoom />} />
+            <Route path=":accountname" element={<ChatRoom />} />
           </Route>
         </Routes>
       </BrowserRouter>

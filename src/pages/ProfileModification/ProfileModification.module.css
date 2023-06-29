@@ -1,63 +1,79 @@
 @import '../../assets/font/font.css';
 
+/* common */
+.profile-m-main {
+  width: 390px;
+  max-width: 390px;
+  padding: 31px 34px;
+  margin: auto 0;
+  background-color: #ffffff;
+}
+/* common 끝*/
+
 /* 프로필 사진 */
 .header {
-  margin: 0.5rem auto 12px;
+  margin-top: 5rem;
   font-size: 1.5rem;
   text-align: center;
 }
 
 .sub-title {
   font-size: 14px;
+  text-align: center;
+  margin-top: 12px;
   margin-bottom: 1.875rem;
   color: #767676;
 }
 
 .profile-img-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   position: relative;
-  margin-top: 5rem;
+  margin: 0 auto;
 }
 
 .profile-img {
-  max-width: 6.875rem;
-  max-height: 6.875rem;
-  margin: auto;
-  /* 상단에서 헤더와 간격조정 */
+  width: 6.875rem;
+  height: 6.875rem;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 50px;
   margin-bottom: 30px;
 }
 
 .img-button {
-  width: 2.25rem;
-  height: 2.25rem;
-  position: absolute;
-  transform: translate(90%, 60%);
-  background-color: transparent;
-  cursor: pointer;
+  position: relative;
+  background-color: #fff;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    bottom: 0;
+    right: 0;
+    transform: translate(10%, -90%);
+    background: url(../../assets/images/img-button.png) no-repeat center / cover;
+  }
 }
 
 /* input 요소 스타일 */
 
 .input {
   width: 100%;
+  font-size: 14px;
   border: none;
   border-bottom: 1px solid #dbdbdb;
-  padding: 8px 0;
+  padding: 10px 1px 8px;
   outline: none;
-  margin-top: 0.625rem;
 }
 
 .input-title {
-  font-size: 0.875rem;
+  font-size: 12px;
   color: #767676;
   display: block;
   text-align: left;
 }
 
 .input-wrapper {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.0313rem;
 }
 
 .input::placeholder {
@@ -69,11 +85,37 @@
   border-bottom: 1px solid var(--main-color);
 }
 
+/* 유효성검토 에러 스타일 */
 .input[aria-invalid='true'] {
   border-bottom-color: red; /* 에러가 발생한 경우 빨간색으로 변경 */
 }
 .error-message {
   color: red;
+  display: block;
   font-size: 0.8rem;
-  margin-bottom: 3rem;
+  margin-top: 0.375rem;
+  text-align: left;
+}
+
+/* 버튼 */
+.submit-btn {
+  width: 100%;
+  height: 44px;
+  background-color: #dccebf;
+  /* background-color: #7d4b0f; */
+  border-radius: 30px;
+  color: #fff;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 44px;
+  background-color: var(--sub-color-2);
+  /* background-color: #7d4b0f; */
+  border-radius: 30px;
+  color: #fff;
+}
+
+.submit-btn-active {
+  background-color: var(--main-color);
 }

@@ -1,23 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './JoinEmail.module.css';
 import { useForm } from 'react-hook-form';
+import userAPI from '../../../api/userAPI';
+import { useNavigate } from 'react-router-dom';
 
-export default function JoinEmail({
-  onSubmit = async data => {
-    await new Promise(r => setTimeout(r, 1000));
-    alert(JSON.stringify(data));
-  },
-}) {
+export default function JoinEmail() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
-  } = useForm();
+    setValue,
+    trigger,
+  } = useForm({ mode: 'onBlur' });
 
-  const isFormValid = isDirty && Object.keys(errors).length === 0;
+  const [isEmailValid, setIsEmailValid] = useState(true);
+
+  const handleEmailChange = event => {
+    const email = event.target.value;
+    setValue('email', email);
+  };
+
+  const handleEmailBlur = async () => {
+    await trigger('email');
+  };
+
+  const onSubmit = async data => {
+    try {
+      const email = data.email;
+      const response = await userAPI.checkEmailValid(email);
+      console.log(response.message);
+
+      if (response.message === '사용 가능한 이메일 입니다.') {
+        navigate('/join/profile', {
+          state: {
+            email: data.email,
+            password: data.password,
+          },
+        });
+      } else {
+        setIsEmailValid(false);
+      }
+    } catch (error) {
+      console.error(error);
+      setIsEmailValid(true);
+      alert('회원가입에 실패하였습니다.');
+    }
+  };
 
   return (
-    <main>
+    <section className={styles['join-main']}>
       <h1 className={styles['email-header']}>이메일로 회원가입</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 이메일 인풋 */}
@@ -27,13 +60,12 @@ export default function JoinEmail({
           </label>
           <input
             id="email"
-            type="text"
-            name="email"
+            type="email"
             placeholder="이메일 주소를 입력해주세요."
             className={styles['input']}
-            aria-invalid={
-              !isDirty ? undefined : errors.email ? 'true' : 'false'
-            }
+            aria-invalid={!errors.email}
+            onChange={handleEmailChange}
+            onBlur={handleEmailBlur} // 수정: onBlur 이벤트 핸들러 추가
             {...register('email', {
               required: '*이메일은 필수 입력입니다.',
               pattern: {
@@ -47,6 +79,11 @@ export default function JoinEmail({
               {errors.email.message}
             </small>
           )}
+          {!isEmailValid && (
+            <small className={styles['error-message']} role="alert">
+              *이미 사용 중인 이메일입니다.
+            </small>
+          )}
         </div>
 
         {/* 패스워드 인풋*/}
@@ -57,12 +94,9 @@ export default function JoinEmail({
           <input
             id="password"
             type="password"
-            name="password"
             placeholder="비밀번호를 입력해주세요."
             className={styles['input']}
-            aria-invalid={
-              !isDirty ? undefined : errors.password ? 'true' : 'false'
-            }
+            aria-invalid={!errors.password}
             {...register('password', {
               required: '*비밀번호는 필수 입력입니다.',
               minLength: {
@@ -79,15 +113,17 @@ export default function JoinEmail({
         </div>
         {/* 버튼 */}
         <button
-          disabled={isSubmitting || !isFormValid} // 유효성 검사를 통과하지 않으면 버튼 비활성화
           className={`${styles['submit-btn']} ${
-            isFormValid ? styles['submit-btn-active'] : ''
+            !isDirty || Object.keys(errors).length > 0
+              ? styles['submit-btn-disabled']
+              : styles['submit-btn-active']
           }`}
           type="submit"
+          disabled={!isDirty || Object.keys(errors).length > 0}
         >
           다음
         </button>
       </form>
-    </main>
+    </section>
   );
 }

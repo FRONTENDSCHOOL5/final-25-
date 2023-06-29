@@ -1,17 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/layout/Layout';
 import OtherProfile from '../../components/common/Profile/OtherProfile';
 import ProfileProduct from '../../components/common/Profile/ProfileProduct';
-import ProfileAlbum from '../../components/common/Profile/ProfileAlbum';
+import ProfilePost from '../../components/common/Profile/ProfilePost';
+import Modal from '../../components/common/Modal/Modal';
 
 export default function YourProfile() {
+  const [isModalShow, setIsModalShow] = useState(false);
+  const [modalMenu, setmodalMenu] = useState(['delete-post']);
+  const [postId, setPostId] = useState('');
+
+  function modalOpen(menu) {
+    setIsModalShow(true);
+    setmodalMenu(menu);
+  }
+
+  function modalClose(event) {
+    if (event.target === event.currentTarget) {
+      setIsModalShow(false);
+    }
+  }
+
+  function getPostId(event) {
+    const closestArticle = event.target.closest('article');
+    const postid = closestArticle.getAttribute('data-id');
+    setPostId(postid);
+  }
   return (
     <>
-      <Layout>
+      <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
         <OtherProfile />
         <ProfileProduct />
-        {/* <ProfilePost /> */}
-        <ProfileAlbum />
+        <ProfilePost
+          type="profile"
+          modalOpen={() => modalOpen(['report-post'])}
+          getPostId={getPostId}
+        />
+        {isModalShow && (
+          <Modal
+            modalClose={modalClose}
+            modalMenu={modalMenu}
+            postId={postId}
+          />
+        )}
       </Layout>
     </>
   );
