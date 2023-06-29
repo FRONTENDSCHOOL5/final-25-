@@ -4,17 +4,16 @@ import styles from './Header.module.css';
 import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Header({ type, modalOpen, chatTitle }) {
   const navigate = useNavigate();
-  const goBack = useGoBack();
 
   const HeaderUI = {
     none: <></>,
     header: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={goBack}>
+        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-more']}>
@@ -24,7 +23,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     ),
     userSearch: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={goBack}>
+        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
           <img
             className={styles['img-back']}
             src={IconArrowLeft}
@@ -40,9 +39,9 @@ export default function Header({ type, modalOpen, chatTitle }) {
     ),
     homeSearch: (
       <header className={styles['header-wrap']}>
-        <a href="/#" class={styles['title']}>
+        <Link to="/#" class={styles['title']}>
           먹을사람? 피드
-        </a>
+        </Link>
         <button
           className={styles['btn-search']}
           onClick={() => {
@@ -55,7 +54,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     ),
     saveButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={goBack}>
+        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save']} disabled>
@@ -65,7 +64,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     ),
     colorButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={goBack}>
+        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save-color']} type="submit">
@@ -75,7 +74,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     ),
     uploadButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={goBack}>
+        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save']}>업로드</button>
@@ -83,7 +82,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     ),
     uploadColorButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={goBack}>
+        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-upload-color']}>업로드</button>
@@ -92,7 +91,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     chatHeader: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
-          <button className={styles['btn-back']} onClick={goBack}>
+          <button className={styles['btn-back']} onClick={() => navigate(-1)}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
           <span className={['chat-title']}>{chatTitle}</span>
@@ -105,7 +104,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     followers: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
-          <button className={styles['btn-back']} onClick={goBack}>
+          <button className={styles['btn-back']} onClick={() => navigate(-1)}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
           <span className={['chat-title']}>Followers</span>
@@ -115,7 +114,7 @@ export default function Header({ type, modalOpen, chatTitle }) {
     followings: (
       <header className={styles['header-wrap']}>
         <div className={styles['left']}>
-          <button className={styles['btn-back']} onClick={goBack}>
+          <button className={styles['btn-back']} onClick={() => navigate(-1)}>
             <img src={IconArrowLeft} alt="뒤로가기" />
           </button>
           <span className={['chat-title']}>Followings</span>

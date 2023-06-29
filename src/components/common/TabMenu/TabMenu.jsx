@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './TabMenu.module.css';
 
 export default function TabMenu({ type }) {
@@ -9,27 +10,36 @@ export default function TabMenu({ type }) {
         <nav className={styles['nav-bar']}>
           <ul className={styles['menu-list']}>
             <li>
-              <a
+              {/* <a
                 href="/"
                 className={`${styles['menu-home']} ${styles['active']}`}
               >
                 홈
-              </a>
+              </a> */}
+              <Link
+                to="/"
+                className={`${styles['menu-home']} ${styles['active']}`}
+              >
+                홈
+              </Link>
             </li>
             <li>
-              <a href="/chat" className={styles['menu-chat']}>
+              {/* <Link to="/chat" className={styles['menu-chat']}>
                 채팅
-              </a>
+              </Link> */}
+              <Link to="/chat" className={styles['menu-chat']}>
+                채팅
+              </Link>
             </li>
             <li>
-              <a href="/post/upload" className={styles['menu-post']}>
+              <Link to="/post/upload" className={styles['menu-post']}>
                 게시물 작성
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/profile" className={styles['menu-profile']}>
+              <Link to="/profile" className={styles['menu-profile']}>
                 프로필
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -40,9 +50,9 @@ export default function TabMenu({ type }) {
         <nav className={styles['nav-bar']}>
           <ul className={styles['menu-list']}>
             <li>
-              <a href="/" className={styles['menu-home']}>
+              <Link to="/" className={styles['menu-home']}>
                 홈
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -53,14 +63,14 @@ export default function TabMenu({ type }) {
               </a>
             </li>
             <li>
-              <a href="/post/upload" className={styles['menu-post']}>
+              <Link to="/post/upload" className={styles['menu-post']}>
                 게시물 작성
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/profile" className={styles['menu-profile']}>
+              <Link to="/profile" className={styles['menu-profile']}>
                 프로필
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -71,14 +81,14 @@ export default function TabMenu({ type }) {
         <nav className={styles['nav-bar']}>
           <ul className={styles['menu-list']}>
             <li>
-              <a href="/" className={styles['menu-home']}>
+              <Link to="/" className={styles['menu-home']}>
                 홈
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/chat" className={styles['menu-chat']}>
+              <Link to="/chat" className={styles['menu-chat']}>
                 채팅
-              </a>
+              </Link>
             </li>
             <li>
               <a
@@ -89,9 +99,9 @@ export default function TabMenu({ type }) {
               </a>
             </li>
             <li>
-              <a href="/profile" className={styles['menu-profile']}>
+              <Link to="/profile" className={styles['menu-profile']}>
                 프로필
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>
@@ -102,19 +112,19 @@ export default function TabMenu({ type }) {
         <nav className={styles['nav-bar']}>
           <ul className={styles['menu-list']}>
             <li>
-              <a href="/" className={styles['menu-home']}>
+              <Link to="/" className={styles['menu-home']}>
                 홈
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/chat" className={styles['menu-chat']}>
+              <Link to="/chat" className={styles['menu-chat']}>
                 채팅
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/post/upload" className={styles['menu-post']}>
+              <Link to="/post/upload" className={styles['menu-post']}>
                 게시물 작성
-              </a>
+              </Link>
             </li>
             <li>
               <a
