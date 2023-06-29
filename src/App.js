@@ -16,12 +16,11 @@ import PostDetail from './pages/Post/PostDetail';
 import Upload from './pages/Upload/Upload';
 import ChatRoom from './pages/Chat/ChatRoom/ChatRoom';
 import ChatList from './pages/Chat/ChatList/ChatList';
-import FeedNone from './pages/Feed/FeedNone';
 
 export default function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/login" element={<LoginMain />} />
           <Route path="/join">
