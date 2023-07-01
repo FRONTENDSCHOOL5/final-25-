@@ -1,15 +1,6 @@
 @import '../../../assets/font/font.css';
 
-.user-list {
-  min-width: 358px;
-  padding: 20px 16px
-}
-
-.user-item {
-  width: 100%;
-  margin-bottom: 16px;
-}
-.user-item a {
+.user-to {
   display: flex;
   width: 100%;
 }
