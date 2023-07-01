@@ -1,59 +1,55 @@
-@import '../../../styles/global.css';
 @import '../../../assets/font/font.css';
 
-.user {
+.user-list {
+  min-width: 358px;
+  padding: 20px 16px
+}
+
+.user-item {
+  width: 100%;
+  margin-bottom: 16px;
+}
+.user-item a {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #ffffff;
-  width: 358px;
+  width: 100%;
+}
+.profile-cover {
+  width: 50px;
   height: 50px;
-  margin-top: 16px;
-  margin-left: 16px;
+  border-radius: 50%;
+  border: 0.5px solid #dbdbdb;
 }
 
-.user-search {
-  margin-top: 68px;
-}
-.user .profile-cover {
-  width: 42px;
-  height: 42px;
-}
-.user .user-info {
-  flex-grow: 1;
-  margin: 6px 12px 7px;
+.user-info {
+  width: calc(100% - 68px);
   text-align: left;
-}
-.user .user-info .user-name {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 17px;
-  color: black;
+  margin-left: 12px;
 }
 
-.user-name span {
+.user-info .user-name {
+  display: block;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 6px 0;
+}
+.user-info .user-name .keyword{
   color: var(--main-color);
 }
-.user .user-info .user-id {
+
+.user-info .user-id {
   color: #767676;
-  font-style: normal;
-  font-weight: 400;
+  display: block;
   font-size: 12px;
-  line-height: 14px;
-}
-
-.s-btn {
-  width: 56px;
-  height: 28px;
-  font-style: normal;
   font-weight: 400;
-  font-size: 12px;
-  line-height: 14px;
-  text-align: center;
-
-  color: #ffffff;
-  background: #7d4b0f;
-  border-radius: 26px;
+  line-height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 끝: 유저 공통 */
