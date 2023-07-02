@@ -1,28 +1,29 @@
-import React, { useEffect } from 'react';
-import styles from '.././User.module.css';
-import defaultProfileImg from '../../../../assets/images/profile-img42.png';
+import React from 'react';
+import styles from './UserSearch.module.css';
 import { Link } from 'react-router-dom';
 
-export default function UserSearch() {
-  /**
-   * **.2.4 검색**
-   * - 감귤마켓 피드 상단에 돋보기 버튼(검색 버튼)을 클릭하면 표시되는 페이지입니다
-   * - 사용자 이름과 계정을 검색할 수 있는 페이지입니다. 입력창에 텍스트를 입력하면 해당하는 사용자가 나오도록 합니다
-   * - 검색어와 같은 단어에는 주황색 글씨가 표시됩니다.
-   */
-  const username = 'lebao';
+export default function UserSearch({ key, data, keyword }) {
+  const rawUserName = data.username;
 
   return (
     <>
-      <Link to={`/profile/${username}`} className={styles['user-to']}>
+      <Link to={`/profile/${data.accountname}`} className={styles['user-to']}>
         <img
           className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
+          src={data.image}
+          alt={`${data.accountname} 프로필`}
         />
         <div className={styles['user-info']}>
-          <strong className={styles['user-name']}>러바오</strong>
-          <span className={styles['user-id']}>@ lebao</span>
+          {rawUserName.includes(keyword) ? (
+            <strong className={styles['user-name']}>
+              {rawUserName.split(keyword)[0]}
+              <span className={styles.keyword}>{keyword}</span>
+              {rawUserName.slice(rawUserName.search(keyword) + keyword.length)}
+            </strong>
+          ) : (
+            <strong className={styles['user-name']}>{rawUserName}</strong>
+          )}
+          <span className={styles['user-id']}>@ {data.accountname}</span>
         </div>
       </Link>
     </>

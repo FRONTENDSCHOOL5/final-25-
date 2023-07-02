@@ -5,9 +5,15 @@ import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
 import IconSearch from '../../../assets/images/icon-search.svg';
 import { useNavigate, Link } from 'react-router-dom';
+import { debounce } from 'lodash';
 
-export default function Header({ type, modalOpen, chatTitle }) {
+export default function Header({ type, modalOpen, chatTitle, setKeyword }) {
   const navigate = useNavigate();
+
+  const searchHandler = debounce(event => {
+    console.log(event.target.value);
+    setKeyword(event.target.value);
+  }, 150);
 
   const HeaderUI = {
     none: <></>,
@@ -34,12 +40,13 @@ export default function Header({ type, modalOpen, chatTitle }) {
           className={styles['inp-userSearch']}
           type="text"
           placeholder={'계정검색'}
+          onChange={searchHandler}
         />
       </header>
     ),
     homeSearch: (
       <header className={styles['header-wrap']}>
-        <Link to="/#" class={styles['title']}>
+        <Link to="/#" className={styles['title']}>
           먹을사람? 피드
         </Link>
         <button
