@@ -1,0 +1,44 @@
+.user-to {
+  display: flex;
+  width: 100%;
+}
+.profile-cover {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 0.5px solid #dbdbdb;
+}
+
+.user-info {
+  width: calc(100% - 68px);
+  text-align: left;
+  margin-left: 12px;
+}
+
+.user-info .user-name {
+  display: block;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 6px 0;
+}
+.user-info .user-name .keyword{
+  color: var(--main-color);
+}
+
+.user-info .user-id {
+  color: #767676;
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 끝: 유저 공통 */
