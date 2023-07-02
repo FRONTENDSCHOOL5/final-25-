@@ -81,9 +81,9 @@ export default function ProfilePost({
   }, [type]);
 
   const userPostImgArray = [];
-  userPost.forEach(element => {
-    element['image']
-      ? userPostImgArray.push(element['image'])
+  userPost.map(item => {
+    item['image']
+      ? userPostImgArray.push(item['image'])
       : console.log('이미지 없어유');
   });
 
@@ -96,7 +96,7 @@ export default function ProfilePost({
           <ul className={styles['post-list']}>
             {feedList.map(item => {
               return (
-                <li id={item.id}>
+                <li key={item.id}>
                   <Post
                     data={item}
                     account={accountName}

@@ -45,6 +45,7 @@
   border: 1px solid var(--main-color);
   border-radius: 32px;
   box-shadow: 0px 4px 4px var(--sub-color-2);
+  outline: none;
   margin-left: 20px;
   padding: 7px 19px;
   font-size: 14px;

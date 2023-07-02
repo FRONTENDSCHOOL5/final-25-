@@ -1,10 +1,10 @@
-@import '../../styles/global.css';
 @import '../../assets/font/font.css';
-@import '../../components/common/TabMenu/TabMenu.module.css';
 
-.search-main {
+.user-list {
+  max-width: 358px;
   padding: 20px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+}
+
+.user-list .user-item {
+  margin-bottom: 16px;
 }
