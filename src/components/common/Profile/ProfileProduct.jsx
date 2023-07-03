@@ -3,7 +3,7 @@ import styles from './ProfileProduct.module.css';
 import productAPI from '../../../api/productAPI';
 import Product from '../Product/Product';
 
-export default function ProductList() {
+export default function ProductList({ modalOpen, setProductId }) {
   const token = localStorage.getItem('token');
   const pathName = document.location.pathname;
   const userAccountName = pathName.includes('/profile/')
@@ -32,8 +32,12 @@ export default function ProductList() {
           <ul className={styles['product-list']}>
             {product.map(item => {
               return (
-                <li id={item.id}>
-                  <Product data={item} />
+                <li data-product-id={item.id}>
+                  <Product
+                    data={item}
+                    modalOpen={modalOpen}
+                    setProductId={setProductId}
+                  />
                 </li>
               );
             })}
