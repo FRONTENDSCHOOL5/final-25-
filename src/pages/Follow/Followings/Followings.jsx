@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styles from './Followers.module.css';
-import Layout from '../../components/layout/Layout';
-import { AuthContext } from '../../context/AuthContext';
+import styles from '../Follow.module.css';
+import Layout from '../../../components/layout/Layout';
+import { AuthContext } from '../../../context/AuthContext';
 import { useParams } from 'react-router-dom';
-import profileAPI from '../../api/profileAPI2';
+import profileAPI from '../../../api/profileAPI2';
 
 export default function Followers() {
   const [followers, setFollowers] = useState([]);

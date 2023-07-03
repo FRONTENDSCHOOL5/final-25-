@@ -1,6 +1,6 @@
 import React from 'react';
 import './Layout.module.css';
-import Header from '../common/HeaderTest/Header';
+import Header from '../common/Header/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
