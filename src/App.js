@@ -11,7 +11,7 @@ import Followings from './pages/Follow/Followings/Followings';
 import ProfileModification from './pages/ProfileModification/ProfileModification';
 import AddProduct from './pages/Product/AddProduct';
 import ProductModi from './pages/Product/ProductModi';
-import YourProfile from './pages/Profile/YourProfile';
+import YourProfile from './pages/Profile/YourProfile/YourProfile';
 import PostDetail from './pages/Post/PostDetail';
 import Upload from './pages/Upload/Upload';
 import ChatRoom from './pages/Chat/ChatRoom/ChatRoom';
