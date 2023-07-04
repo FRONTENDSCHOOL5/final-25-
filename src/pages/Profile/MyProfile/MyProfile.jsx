@@ -10,6 +10,7 @@ export default function MyProfile() {
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
   const [postId, setPostId] = useState('');
   const [productId, setProductId] = useState('');
+  const [productUrl, setProductUrl] = useState('');
 
   function modalOpen(menu) {
     setIsModalShow(true);
@@ -37,6 +38,7 @@ export default function MyProfile() {
             modalOpen(['product-delete', 'product-modi', 'product-more'])
           }
           setProductId={setProductId}
+          setProductUrl={setProductUrl}
         />
         <ProfilePost
           type="profile"
@@ -49,6 +51,7 @@ export default function MyProfile() {
             modalMenu={modalMenu}
             postId={postId}
             productId={productId}
+            productUrl={productUrl}
           />
         )}
       </Layout>

@@ -1,7 +1,12 @@
 import React from 'react';
 import styles from './Product.module.css';
 
-export default function ProfileProduct({ data, modalOpen, setProductId }) {
+export default function ProfileProduct({
+  data,
+  modalOpen,
+  setProductId,
+  setProductUrl,
+}) {
   const price = data['price'].toLocaleString();
 
   const productClickHandelr = () => {
@@ -9,6 +14,7 @@ export default function ProfileProduct({ data, modalOpen, setProductId }) {
       console.log('모달');
       modalOpen(true);
       setProductId(data.id);
+      setProductUrl(data.link);
     } else {
       window.open(data['link'], '_blank');
     }
