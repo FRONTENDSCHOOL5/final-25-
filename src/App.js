@@ -6,22 +6,21 @@ import SearchUser from './pages/SearchUser/SearchUser.jsx';
 import Join from './pages/Join/JoinEmail/JoinEmail';
 import JoinProfileSetting from './pages/Join/JoinProfileSetting/JoinProfileSetting';
 import MyProfile from './pages/Profile/MyProfile/MyProfile';
-import Followers from './pages/Profile/Followers';
-import Followings from './pages/Profile/Followings';
+import Followers from './pages/Follow/Followers/Followers';
+import Followings from './pages/Follow/Followings/Followings';
 import ProfileModification from './pages/ProfileModification/ProfileModification';
 import AddProduct from './pages/Product/AddProduct';
 import ProductModi from './pages/Product/ProductModi';
-import YourProfile from './pages/Profile/YourProfile';
+import YourProfile from './pages/Profile/YourProfile/YourProfile';
 import PostDetail from './pages/Post/PostDetail';
 import Upload from './pages/Upload/Upload';
 import ChatRoom from './pages/Chat/ChatRoom/ChatRoom';
 import ChatList from './pages/Chat/ChatList/ChatList';
-import FeedNone from './pages/Feed/FeedNone';
 
 export default function App() {
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Routes>
           <Route path="/login" element={<LoginMain />} />
           <Route path="/join">

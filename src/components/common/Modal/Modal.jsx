@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AlertModal from './AlertModal';
+import AlertModal from './AlertModal/AlertModal';
 import styles from './Modal.module.css';
 
 export default function Modal({ modalClose, modalMenu, postId }) {

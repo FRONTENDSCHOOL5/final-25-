@@ -1,10 +1,16 @@
 import React from 'react';
 import './Layout.module.css';
-import Header from '../common/HeaderTest/Header';
+import Header from '../common/Header/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
+export default function Layout({
+  children,
+  btnHandler,
+  chatTitle,
+  modalOpen,
+  setKeyword,
+}) {
   let headerType;
   let footerType;
   let pathToCheck;
@@ -94,6 +100,7 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
         btnHandler={btnHandler}
         chatTitle={chatTitle}
         modalOpen={modalOpen}
+        setKeyword={setKeyword}
       />
       <main>{children}</main>
 

@@ -1,86 +1,31 @@
 import React from 'react';
-import styles from '.././User.module.css';
-import defaultProfileImg from '../../../../assets/images/profile-img42.png';
+import styles from './UserSearch.module.css';
+import { Link } from 'react-router-dom';
 
-export default function UserSearch() {
-  const chats = [
-    {
-      id: 1,
-      name: '냠냠이',
-    },
-    {
-      id: 2,
-      name: ' 쩝쩝이',
-    },
-    {
-      id: 3,
-      name: '호로록',
-    },
-    {
-      id: 4,
-      name: ' 통통이',
-    },
-  ];
+export default function UserSearch({ key, data, keyword }) {
+  const rawUserName = data.username;
 
   return (
     <>
-      <div className={`${styles['user']} ${styles['user-search']}`}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
+      <Link to={`/profile/${data.accountname}`} className={styles['user-to']}>
         <img
           className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
+          src={data.image}
+          alt={`${data.accountname} 프로필`}
         />
         <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span> {chats[0].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
+          {rawUserName.includes(keyword) ? (
+            <strong className={styles['user-name']}>
+              {rawUserName.split(keyword)[0]}
+              <span className={styles.keyword}>{keyword}</span>
+              {rawUserName.slice(rawUserName.search(keyword) + keyword.length)}
+            </strong>
+          ) : (
+            <strong className={styles['user-name']}>{rawUserName}</strong>
+          )}
+          <span className={styles['user-id']}>@ {data.accountname}</span>
         </div>
-      </div>
-      <div className={styles['user']}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
-        <img
-          className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
-        />
-        <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span> {chats[1].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
-        </div>
-      </div>
-      <div className={styles['user']}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
-        <img
-          className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
-        />
-        <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span> {chats[2].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
-        </div>
-      </div>
-      <div className={styles['user']}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
-        <img
-          className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
-        />
-        <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span>
-            {chats[3].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
-        </div>
-      </div>
+      </Link>
     </>
   );
 }
