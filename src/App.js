@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './styles/reset.css';
 import LoginMain from './pages/Login/LoginMain/LoginMain';
 import Feed from './pages/Feed/Feed';
-import SearchUser from './pages/SearchUser/SearchUser.jsx';
+import Search from './pages/Search/Search.jsx';
 import Join from './pages/Join/JoinEmail/JoinEmail';
 import JoinProfileSetting from './pages/Join/JoinProfileSetting/JoinProfileSetting';
 import MyProfile from './pages/Profile/MyProfile/MyProfile';
@@ -28,7 +28,7 @@ export default function App() {
             <Route path="profile" element={<JoinProfileSetting />} />
           </Route>
           <Route path="/" element={<Feed />} />
-          <Route path="/search" element={<SearchUser />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/profile">
             <Route index element={<MyProfile />} />
             <Route path="m" element={<ProfileModification />} />
