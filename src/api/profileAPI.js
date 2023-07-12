@@ -43,6 +43,28 @@ const profileAPI = {
     const data = await response.json();
     return data;
   },
+
+  // 프로필 페이지에서 팔로우/언팔로우
+  async postUserFollow(token, accountName, endpoint, method) {
+    const response = await fetch(
+      BASE_URL + `/profile/${accountName}${endpoint}`,
+      {
+        method: method,
+        headers: {
+          'Content-type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('네트워크에 오류가 발생했습니다!');
+    }
+
+    const data = await response.json();
+    console.log(endpoint, data);
+    return data;
+  },
 };
 
 export default profileAPI;

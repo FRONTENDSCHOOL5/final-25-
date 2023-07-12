@@ -44,45 +44,47 @@ export default function UserProfile() {
 
   const followHandler = async () => {
     if (isFollow) {
-      setIsFollow(false);
-      setFollowerCount(prev => followerCount - 1);
-      await fetchFollow('/unfollow', 'DELETE');
+      try {
+        setIsLoading(true);
+        setLoadingError(null);
+        setIsFollow(false);
+        setFollowerCount(prev => followerCount - 1);
+        await profileAPI.postUserFollow(
+          token,
+          accountName,
+          '/unfollow',
+          'DELETE',
+        );
+      } catch (error) {
+        setLoadingError(error);
+        console.error(error);
+        return;
+      } finally {
+        setIsLoading(false);
+      }
     } else {
-      setIsFollow(true);
-      setFollowerCount(prev => followerCount + 1);
-      await fetchFollow('/follow', 'POST');
+      try {
+        setIsLoading(true);
+        setLoadingError(null);
+        setIsFollow(true);
+        setFollowerCount(prev => followerCount + 1);
+        await profileAPI.postUserFollow(token, accountName, '/follow', 'POST');
+      } catch (error) {
+        setLoadingError(error);
+        console.error(error);
+        return;
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
-  const fetchFollow = async (endpoint, method) => {
-    try {
-      const response = await fetch(
-        `https://api.mandarin.weniv.co.kr/profile/${accountName}${endpoint}`,
-        {
-          method: method,
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      const data = await response.json();
-      console.log(endpoint, data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const followerClickHandler = event => {
-    console.log(event);
+  const followerClickHandler = () => {
     navigate(`/followers/${accountName}`);
   };
-  const followingClickHandler = event => {
-    console.log(event);
+  const followingClickHandler = () => {
     navigate(`/followings/${accountName}`);
   };
-
-  console.log(profileInfo);
 
   return (
     !isLoading && (
