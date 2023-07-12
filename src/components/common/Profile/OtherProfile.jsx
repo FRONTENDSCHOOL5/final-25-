@@ -1,42 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './OtherProfile.module.css';
+import profileAPI from '../../../api/profileAPI';
 
 export default function UserProfile() {
   const token = localStorage.getItem('token');
-  const userAccountName = document.location.pathname.replace('/profile/', '');
+  const accountName = document.location.pathname.replace('/profile/', '');
   const [profileInfo, setProfileInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState(null);
   const [followerCount, setFollowerCount] = useState(0);
   const [isFollow, setIsFollow] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchProfile() {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `https://api.mandarin.weniv.co.kr/profile/${userAccountName}`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
+  const fetchProfile = async () => {
+    let result;
 
-        if (!response.ok) {
-          throw new Error('네트워크에 문제가 있습니다!');
-        }
-        const data = await response.json();
-        console.log(data);
-        setProfileInfo(data['profile']);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
+    try {
+      setIsLoading(true);
+      setLoadingError(null);
+      result = await profileAPI.getUserProfile(token, accountName);
+    } catch (error) {
+      setLoadingError(error);
+      console.error(error);
+      return;
+    } finally {
+      setIsLoading(false);
     }
+
+    setProfileInfo(result.profile);
+  };
+
+  useEffect(() => {
     fetchProfile();
   }, []);
 
@@ -62,7 +57,7 @@ export default function UserProfile() {
   const fetchFollow = async (endpoint, method) => {
     try {
       const response = await fetch(
-        `https://api.mandarin.weniv.co.kr/profile/${userAccountName}${endpoint}`,
+        `https://api.mandarin.weniv.co.kr/profile/${accountName}${endpoint}`,
         {
           method: method,
           headers: {
@@ -80,12 +75,14 @@ export default function UserProfile() {
 
   const followerClickHandler = event => {
     console.log(event);
-    navigate(`/followers/${userAccountName}`);
+    navigate(`/followers/${accountName}`);
   };
   const followingClickHandler = event => {
     console.log(event);
-    navigate(`/followings/${userAccountName}`);
+    navigate(`/followings/${accountName}`);
   };
+
+  console.log(profileInfo);
 
   return (
     !isLoading && (
