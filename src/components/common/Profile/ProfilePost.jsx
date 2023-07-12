@@ -16,11 +16,18 @@ export default function ProfilePost({
 }) {
   const token = localStorage.getItem('token');
   const pathName = document.location.pathname;
-  const userAccountName = pathName.includes('/profile/')
+  const accountName = pathName.includes('/profile/')
     ? document.location.pathname.replace('/profile/', '')
     : localStorage.getItem('accountname');
 
-  console.log(type, userAccountName);
+  console.log(type, accountName);
+
+  // 유저 게시글 목록
+  const [postId, setPostDetailId] = useState(postDetailId);
+  const [feedList, setFeedList] = useState([]);
+  const [postDetail, setPostDetail] = useState();
+  const [userPost, setUserPost] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   // false가 리스트로 보기
   // true가 앨범으로 보기
@@ -38,13 +45,19 @@ export default function ProfilePost({
     }
   };
 
-  // 유저 게시글 목록
-  const [accountName, setAccountName] = useState(userAccountName);
-  const [postId, setPostDetailId] = useState(postDetailId);
-  const [feedList, setFeedList] = useState([]);
-  const [postDetail, setPostDetail] = useState();
-  const [userPost, setUserPost] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const fetchUserPost = async () => {
+    let data;
+    try {
+      setIsLoading(true);
+      data = await postAPI.getUserpost(token, accountName);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    setUserPost(data.post);
+  };
 
   useEffect(() => {
     const fetchFeed = async () => {
@@ -57,12 +70,6 @@ export default function ProfilePost({
     const fetchPostDetail = async () => {
       const data = await postAPI.getPostDetail(token, postId);
       setPostDetail(data['post']);
-    };
-
-    const fetchUserPost = async () => {
-      const data = await postAPI.getUserpost(token, accountName);
-      setIsLoading(false);
-      setUserPost(data['post']);
     };
 
     switch (type) {
@@ -124,7 +131,7 @@ export default function ProfilePost({
       </section>
     ),
     profile:
-      userPost.length === 0 ? (
+      userPost.length === 0 || isLoading ? (
         <></>
       ) : (
         <section className={styles.profile}>
