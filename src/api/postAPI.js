@@ -2,8 +2,10 @@ import BASE_URL from '../utils/baseUrl';
 
 const postAPI = {
   // 피드 게시글
-  async getFeed(token) {
-    const response = await fetch(BASE_URL + '/post/feed', {
+  async getFeed({ token, limit = 6, skip = 0 }) {
+    console.log(limit, skip);
+    const query = `?limit=${limit}&skip=${skip}`;
+    const response = await fetch(BASE_URL + '/post/feed/' + query, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
