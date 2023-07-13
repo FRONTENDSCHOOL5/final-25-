@@ -8,7 +8,6 @@ export default function UserProfile() {
   const accountName = document.location.pathname.replace('/profile/', '');
   const [profileInfo, setProfileInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(null);
   const [followerCount, setFollowerCount] = useState(0);
   const [isFollow, setIsFollow] = useState(false);
   const navigate = useNavigate();
@@ -18,10 +17,8 @@ export default function UserProfile() {
 
     try {
       setIsLoading(true);
-      setLoadingError(null);
       result = await profileAPI.getUserProfile(token, accountName);
     } catch (error) {
-      setLoadingError(error);
       console.error(error);
       return;
     } finally {
@@ -45,8 +42,6 @@ export default function UserProfile() {
   const followHandler = async () => {
     if (isFollow) {
       try {
-        setIsLoading(true);
-        setLoadingError(null);
         setIsFollow(false);
         setFollowerCount(prev => followerCount - 1);
         await profileAPI.postUserFollow(
@@ -56,25 +51,17 @@ export default function UserProfile() {
           'DELETE',
         );
       } catch (error) {
-        setLoadingError(error);
         console.error(error);
         return;
-      } finally {
-        setIsLoading(false);
       }
     } else {
       try {
-        setIsLoading(true);
-        setLoadingError(null);
         setIsFollow(true);
         setFollowerCount(prev => followerCount + 1);
         await profileAPI.postUserFollow(token, accountName, '/follow', 'POST');
       } catch (error) {
-        setLoadingError(error);
         console.error(error);
         return;
-      } finally {
-        setIsLoading(false);
       }
     }
   };
