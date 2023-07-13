@@ -16,10 +16,12 @@ function Upload() {
   const [textValue, setTextValue] = useState('');
   const [placeInput, setPlaceInput] = useState('');
   const [peopleCount, setPeopleCount] = useState(2);
+  const [photoItems, setPhotoItems] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [postId, setPostId] = useState('');
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState('');
+  // const [peopleInputClass, setPeopleInputClass] = useState();
   const [peopleInputClass, setPeopleInputClass] = useState(
     `${styles['btn-people-num']} ${styles['btn-people-num-text']}`,
   );
@@ -29,17 +31,21 @@ function Upload() {
         textValue.trim() !== '' &&
         selectedDate !== '' &&
         placeInput.trim() !== '') ||
-      selectedPhoto !== null
+      selectedPhoto !== null ||
+      photoItems.length > 0
     ) {
       setBtnState(true);
     } else {
       setBtnState(false);
     }
-  }, [titleInput, textValue, selectedDate, placeInput, selectedPhoto]);
-
-  const handleBtnClick = () => {
-    setBtnState(!btnState);
-  };
+  }, [
+    titleInput,
+    textValue,
+    selectedDate,
+    placeInput,
+    selectedPhoto,
+    photoItems,
+  ]);
 
   const handleTitleInputChange = event => {
     setTitleInput(event.target.value);
@@ -69,26 +75,37 @@ function Upload() {
     }
   }, [peopleCount]);
 
-  // 선택된 날짜를 상태로 설정
   const handleDateChange = date => {
     setSelectedDate(date);
   };
-  const handleRemovePhoto = () => {
-    setSelectedPhoto(null);
+
+  const handleRemovePhoto = index => {
+    const updatedItems = [...photoItems];
+    updatedItems.splice(index, 1);
+    setPhotoItems(updatedItems);
   };
 
   const handlePhotoChange = event => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    const files = event.target.files;
+    const updatedItems = [...photoItems];
 
-    reader.onload = e => {
-      setSelectedPhoto(e.target.result);
-    };
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
 
-    if (file) {
+      reader.onload = e => {
+        const newPhotoItem = e.target.result;
+        if (updatedItems.length < 3) {
+          updatedItems.push(newPhotoItem);
+        }
+      };
+
       reader.readAsDataURL(file);
     }
+
+    setPhotoItems(updatedItems);
   };
+
   const token = localStorage.getItem('token');
 
   const handleSubmit = e => {
@@ -97,7 +114,6 @@ function Upload() {
       return;
     }
 
-    // 데이터 수정
     const formattedPlanDate = formatPlanDate(selectedDate);
 
     const dataPlan = {
@@ -107,6 +123,7 @@ function Upload() {
       people: peopleCount + '명',
       place: placeInput,
     };
+
     const jsonDataPlan = JSON.stringify(dataPlan);
     console.log('json1', jsonDataPlan);
 
@@ -127,7 +144,7 @@ function Upload() {
           body: JSON.stringify({
             post: {
               content: contents,
-              image: selectedPhoto,
+              image: [...photoItems, selectedPhoto],
             },
           }),
         });
@@ -169,11 +186,42 @@ function Upload() {
       }
     }
   }
+
   useEffect(() => {
     if (postId !== '') {
       navigate(`/post/${postId}`);
     }
   }, [postId]);
+
+  const currentDateTime = new Date();
+  const currentDateTimeString = currentDateTime.toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  /*global kakao*/
+  const Location = () => {
+    useEffect(() => {
+      const container = document.getElementById('map');
+      const options = {
+        center: new kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
+        level: 3,
+      };
+
+      const map = new kakao.maps.Map(container, options);
+      const markerPosition = new kakao.maps.LatLng(
+        37.365264512305174,
+        127.10676860117488,
+      );
+      const marker = new kakao.maps.Marker({
+        position: markerPosition,
+      });
+      marker.setMap(map);
+    }, []);
+  };
 
   return (
     <>
@@ -273,11 +321,11 @@ function Upload() {
                     날짜
                     <div className={styles['item-input']}>
                       <DatePicker
-                        placeholderText="0000/00/00/ 오전 0:00"
+                        placeholderText={currentDateTimeString}
                         className={styles['item-input-date']}
                         locale={ko}
                         selected={selectedDate}
-                        onChange={handleDateChange} // handleDateChange 함수를 등록
+                        onChange={handleDateChange}
                         showTimeSelect
                         minDate={new Date()}
                         minTime={new Date().setHours(0, 0, 0)}
@@ -296,45 +344,42 @@ function Upload() {
                         className={styles['item-input-text']}
                         value={placeInput}
                         onChange={event => setPlaceInput(event.target.value)}
-                        placeholder="위니브"
+                        placeholder="선택하기"
                       />
                     </div>
                   </li>
                 </ul>
+                <div id="map" style={{ width: '390px', height: '200px' }}></div>
               </article>
               <article className={styles['photo']}>
-                <div className={styles['photo-item']}>
-                  {selectedPhoto && (
-                    <>
-                      <img
-                        src={selectedPhoto}
-                        className={styles['photo-img']}
-                        alt=""
-                      />
-                      <button
-                        type="button"
-                        className={styles['btn-close']}
-                        onClick={handleRemovePhoto}
-                      ></button>
-                    </>
-                  )}
-                </div>
+                {photoItems.map((photo, index) => (
+                  <div className={styles['photo-item']} key={index}>
+                    <img src={photo} className={styles['photo-img']} alt="" />
+                    <button
+                      type="button"
+                      className={styles['btn-close']}
+                      onClick={() => handleRemovePhoto(index)}
+                    ></button>
+                  </div>
+                ))}
               </article>
-            </section>
-            <section className={styles.photos}>
-              <div className={styles['btn-photo']}>
-                <input
-                  type="file"
-                  id="btn-photo-input"
-                  className={styles['btn-photo-input']}
-                  onChange={handlePhotoChange}
-                />
-                <label
-                  htmlFor="btn-photo-input"
-                  className={styles['btn-photo-label']}
-                ></label>
-              </div>
-              <div className={styles['upload-photo']}></div>
+              <section className={styles['upload-wrap']}>
+                <div className={styles['upload-photo']}>
+                  <div className={styles['btn-photo']}>
+                    <input
+                      type="file"
+                      id="btn-photo-input"
+                      className={styles['btn-photo-input']}
+                      onChange={handlePhotoChange}
+                      multiple
+                    />
+                    <label
+                      htmlFor="btn-photo-input"
+                      className={styles['btn-photo-label']}
+                    ></label>
+                  </div>
+                </div>
+              </section>
             </section>
           </section>
         </Layout>

@@ -6,7 +6,7 @@
   border-bottom: 1px solid #D9D9D9;
   display: flex;
   align-items: center;
-  text-indent: 16px;
+  text-indent: 12px;
   font-weight: 600;
   margin: 0 5% 0 5%;
 }
@@ -20,9 +20,9 @@
 }
 .title-user-input {
   border: none;
-  width:100px;
+  width:120px;
   outline: none;
-  text-align: left;
+  text-align:center;
   font-family: 'Pretendard-Regular';
   font-size: 20px;
   font-weight: 600;
@@ -167,10 +167,10 @@
   font-size: 14px;
   cursor: auto;
   margin-left: 10px;
-  }
+}
 .btn-people-num::placeholder {
   color : #D9D9D9;
-  }
+}
 .minus, 
 .plus {
   background-color: #fff;
@@ -191,21 +191,25 @@
   display: flex;
   overflow-x: auto;
   width: 100%;
-  position: relative;
+ position: relative;
   justify-content: flex-end; 
-
 }
 .photo-item {
   position: relative;
   width: 40%;
-  margin-left: 20px;
-  margin-right: 3px;
+  margin: 0 2px;
 }
 .photo-img {
   position: relative;
   justify-content: flex-end;
   border-radius: 10px;
 }
+
+
+/* .upload-wrap {
+  width: 390px;
+} */
+
 /* 올린 사진 삭제버튼 */
 .btn-close {
   position: absolute;
@@ -220,14 +224,11 @@
   position: fixed;
   width: 50px;
   height: 50px;
-  margin-top: 10px;
+  margin-top: -40px;
   margin-bottom: 16px;
-  margin-right: px;
-  right: 0;
-  left: 45%;
-  transform: translateX(300%); 
+  /* left: 45%; */
+  transform: translateX(550%);
   overflow: hidden;
-  /* z-index: 9900; */
 }
 /* 사진 첨부(파일형식) */
 .btn-photo-input[type="file"] {
@@ -236,10 +237,10 @@
   height: 50px;
   margin-bottom: 16px;
   margin-right: 16px;
-  right: 0;
   left: 45%;
   opacity: 0;
   cursor: pointer;
+
 }
 /* 사진 첨부 라벨(파일형식) */
 .btn-photo-label {
@@ -249,6 +250,7 @@
   background-image: url(../../assets/images/upload-file.png);
   background-size: cover;
   cursor: pointer;
+
 }
 /* 화살표 이미지, 멘트 이미지 정렬 */
 .upload-photo,
@@ -272,5 +274,22 @@
   height: 16.22px;
   margin-top: -20px;
   margin-left: 100px;
+  transform: translateX(0%);
   background: url(../../assets/images/arrow.svg) no-repeat;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 389px) {
+  .upload-photo::after {
+    margin: -30px 0 0 -45px;
+    transform: rotate(-20deg);
+  }
+
+  .btn-photo {
+    transform: translateX(270%) translateY(-50%);
+  }
+
+  .upload-photo{
+    margin: 80px 0 0 calc(100% - 80%);
+  }
 }
