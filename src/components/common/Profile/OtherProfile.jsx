@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import styles from './OtherProfile.module.css';
 import profileAPI from '../../../api/profileAPI';
 
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+const URL = window.location.href;
 
-export default function UserProfile() {
+export default function UserProfile({ alertOpen }) {
   const token = localStorage.getItem('token');
   const accountName = document.location.pathname.replace('/profile/', '');
   const [profileInfo, setProfileInfo] = useState([]);
@@ -13,7 +14,6 @@ export default function UserProfile() {
   const [followerCount, setFollowerCount] = useState(0);
   const [isFollow, setIsFollow] = useState(false);
   const navigate = useNavigate();
-  const url = window.location.href;
 
   const fetchProfile = async () => {
     let result;
@@ -83,6 +83,7 @@ export default function UserProfile() {
     console.log('공유하기');
     // 없어도 실행됨
     // navigator.clipboard.writeText(url);
+    alertOpen();
   };
 
   return (
@@ -149,7 +150,7 @@ export default function UserProfile() {
             </button>
           )}
 
-          <CopyToClipboard text={url} onCopy={shareClickHandler}>
+          <CopyToClipboard text={URL} onCopy={shareClickHandler}>
             <button className={styles['btn-share']} type="button">
               <span className="a11y-hidden">공유하기</span>
             </button>
