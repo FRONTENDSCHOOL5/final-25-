@@ -73,6 +73,10 @@ export default function UserProfile() {
     navigate(`/followings/${accountName}`);
   };
 
+  const chatClickHandler = () => {
+    navigate(`/chat/${accountName}`);
+  };
+
   return (
     !isLoading && (
       <section className={styles['user-profile']}>
@@ -112,9 +116,13 @@ export default function UserProfile() {
           </button>
         </div>
         <div className={styles['button-container']}>
-          <a className={styles['btn-chat']} href="/chat">
+          <button
+            className={styles['btn-chat']}
+            type="button"
+            onClick={chatClickHandler}
+          >
             <span className="a11y-hidden">채팅하기</span>
-          </a>
+          </button>
           {isFollow ? (
             <button
               className={styles['btn-unfollow']}
