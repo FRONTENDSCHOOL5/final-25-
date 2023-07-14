@@ -203,25 +203,25 @@ function Upload() {
   });
 
   /*global kakao*/
-  const Location = () => {
-    useEffect(() => {
-      const container = document.getElementById('map');
-      const options = {
-        center: new kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
-        level: 3,
-      };
+  // const Location = () => {
+  //   useEffect(() => {
+  //     const container = document.getElementById('map');
+  //     const options = {
+  //       center: new kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
+  //       level: 3,
+  //     };
 
-      const map = new kakao.maps.Map(container, options);
-      const markerPosition = new kakao.maps.LatLng(
-        37.365264512305174,
-        127.10676860117488,
-      );
-      const marker = new kakao.maps.Marker({
-        position: markerPosition,
-      });
-      marker.setMap(map);
-    }, []);
-  };
+  //     const map = new kakao.maps.Map(container, options);
+  //     const markerPosition = new kakao.maps.LatLng(
+  //       37.365264512305174,
+  //       127.10676860117488,
+  //     );
+  //     const marker = new kakao.maps.Marker({
+  //       position: markerPosition,
+  //     });
+  //     marker.setMap(map);
+  //   }, []);
+  // };
 
   return (
     <>
@@ -231,15 +231,14 @@ function Upload() {
             <h1 className="a11y-hidden">게시물 작성</h1>
             <article className={`${styles['title-wrap']} ${styles['line']}`}>
               <div className={styles['title-inner']}>
-                <input
-                  type="text"
-                  className={styles['title-user-input']}
-                  value={titleInput}
-                  onChange={handleTitleInputChange}
-                  placeholder="신전떡볶이"
-                  readOnly
-                />
-                같이 먹을 사람?
+                <span className={styles['title-user']}>
+                  {titleInput.length > 6
+                    ? `${titleInput.slice(0, 6)}...`
+                    : titleInput}
+                </span>
+                <span className={styles['title-user-default']}>
+                  같이 먹을 사람?
+                </span>
               </div>
             </article>
             <section className="body-wrap">
@@ -264,7 +263,7 @@ function Upload() {
                     <div className={styles['item-input']}>
                       <input
                         type="text"
-                        className={styles['title-user-input-menu']}
+                        className={`${styles['title-user-input-menu']} ${styles['title-ellipsis']}`}
                         value={titleInput}
                         onChange={handleTitleInputChange}
                         placeholder="신전떡볶이"
@@ -330,7 +329,7 @@ function Upload() {
                         minDate={new Date()}
                         minTime={new Date().setHours(0, 0, 0)}
                         maxTime={new Date().setHours(23, 30, 0)}
-                        dateFormat="yyyy/MM/dd/ aa h:mm"
+                        dateFormat="yyyy. MM. dd. aa h:mm"
                       />
                     </div>
                   </li>
@@ -349,7 +348,7 @@ function Upload() {
                     </div>
                   </li>
                 </ul>
-                <div id="map" style={{ width: '390px', height: '200px' }}></div>
+                {/* <div id="map" style={{ width: '390px', height: '200px' }}></div> */}
               </article>
               <article className={styles['photo']}>
                 {photoItems.map((photo, index) => (

@@ -18,9 +18,14 @@
   background: url(../../assets/images/profile-img42.png) no-repeat center;
   background-size: cover;
 }
-.title-user-input {
+.title-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.title-user {
+  width: 10px;
   border: none;
-  width:120px;
   outline: none;
   text-align:center;
   font-family: 'Pretendard-Regular';
@@ -28,6 +33,15 @@
   font-weight: 600;
   color:var(--main-color);
   cursor: auto;
+}
+.title-user-default {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  font-family: 'Pretendard-Regular';
+  font-size: 20px;
+  font-weight: 600;
+  cursor: none;
 }
 .title-img {
   width: 42px;
@@ -92,6 +106,7 @@
   text-align: right;
   font-family: 'Pretendard-Regular';
   font-size: 14px;
+  width: 90px;
   color:var(--main-color);
   cursor: auto;
 }
@@ -168,9 +183,9 @@
   cursor: auto;
   margin-left: 10px;
 }
-.btn-people-num::placeholder {
+/* .btn-people-num::placeholder {
   color : #D9D9D9;
-}
+} */
 .minus, 
 .plus {
   background-color: #fff;
@@ -184,7 +199,9 @@
   font-size: 14px;
   cursor: auto;
   margin-left: 10px;
-  color: #D9D9D9;
+  /* color: #D9D9D9; */
+  color:var(--main-color);
+
 }
 /* 올린 사진 */
 .photo {
