@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import styles from './OtherProfile.module.css';
 import profileAPI from '../../../api/profileAPI';
 
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 export default function UserProfile() {
   const token = localStorage.getItem('token');
   const accountName = document.location.pathname.replace('/profile/', '');
@@ -11,6 +13,7 @@ export default function UserProfile() {
   const [followerCount, setFollowerCount] = useState(0);
   const [isFollow, setIsFollow] = useState(false);
   const navigate = useNavigate();
+  const url = window.location.href;
 
   const fetchProfile = async () => {
     let result;
@@ -75,6 +78,11 @@ export default function UserProfile() {
 
   const chatClickHandler = () => {
     navigate(`/chat/${accountName}`);
+  };
+  const shareClickHandler = () => {
+    console.log('공유하기');
+    // 없어도 실행됨
+    // navigator.clipboard.writeText(url);
   };
 
   return (
@@ -141,9 +149,11 @@ export default function UserProfile() {
             </button>
           )}
 
-          <div className={styles['btn-share']}>
-            <span className="a11y-hidden">공유하기</span>
-          </div>
+          <CopyToClipboard text={url} onCopy={shareClickHandler}>
+            <button className={styles['btn-share']} type="button">
+              <span className="a11y-hidden">공유하기</span>
+            </button>
+          </CopyToClipboard>
         </div>
       </section>
     )
