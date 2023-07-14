@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import styles from './OtherProfile.module.css';
 import profileAPI from '../../../api/profileAPI';
 
-export default function UserProfile() {
+const URL = window.location.href;
+
+export default function UserProfile({ alertOpen }) {
   const token = localStorage.getItem('token');
   const accountName = document.location.pathname.replace('/profile/', '');
   const [profileInfo, setProfileInfo] = useState([]);
@@ -73,6 +76,16 @@ export default function UserProfile() {
     navigate(`/followings/${accountName}`);
   };
 
+  const chatClickHandler = () => {
+    navigate(`/chat/${accountName}`);
+  };
+  const shareClickHandler = () => {
+    console.log('공유하기');
+    // 없어도 실행됨
+    // navigator.clipboard.writeText(url);
+    alertOpen();
+  };
+
   return (
     !isLoading && (
       <section className={styles['user-profile']}>
@@ -112,9 +125,13 @@ export default function UserProfile() {
           </button>
         </div>
         <div className={styles['button-container']}>
-          <a className={styles['btn-chat']} href="/chat">
+          <button
+            className={styles['btn-chat']}
+            type="button"
+            onClick={chatClickHandler}
+          >
             <span className="a11y-hidden">채팅하기</span>
-          </a>
+          </button>
           {isFollow ? (
             <button
               className={styles['btn-unfollow']}
@@ -133,9 +150,11 @@ export default function UserProfile() {
             </button>
           )}
 
-          <div className={styles['btn-share']}>
-            <span className="a11y-hidden">공유하기</span>
-          </div>
+          <CopyToClipboard text={URL} onCopy={shareClickHandler}>
+            <button className={styles['btn-share']} type="button">
+              <span className="a11y-hidden">공유하기</span>
+            </button>
+          </CopyToClipboard>
         </div>
       </section>
     )
