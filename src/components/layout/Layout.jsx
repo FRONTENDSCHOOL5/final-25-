@@ -10,6 +10,7 @@ export default function Layout({
   chatTitle,
   modalOpen,
   setKeyword,
+  postDetailId,
 }) {
   let headerType;
   let footerType;
@@ -108,7 +109,7 @@ export default function Layout({
       footerType === 'comment' ||
       footerType === 'chatting' ? (
         <footer>
-          <Input type={footerType} />
+          <Input type={footerType} postId={postDetailId} />
         </footer>
       ) : (
         <TabMenu type={footerType} />

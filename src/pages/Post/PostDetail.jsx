@@ -53,7 +53,10 @@ export default function Post() {
   }, []);
 
   return (
-    <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
+    <Layout
+      modalOpen={() => modalOpen(['setting', 'logout'])}
+      postDetailId={postid}
+    >
       <ProfilePost
         type="post"
         postDetailId={postid}
