@@ -141,6 +141,24 @@ export default function AlertModal({ type, modalClose, postId, productId }) {
         </div>
       </section>
     ),
+    share: (
+      <section className={styles['confirm-copied']}>
+        <article className={styles.confirm}>
+          <div className={styles['confirm-inner']}>
+            <h2 className={styles['confirm-title']}>
+              클립보드에 복사되었습니다
+            </h2>
+            <button
+              type="button"
+              className={styles['btn-ok']}
+              onClick={modalClose}
+            >
+              확인
+            </button>
+          </div>
+        </article>
+      </section>
+    ),
   };
   return AlertModalUI[type];
 }
