@@ -172,36 +172,26 @@
   display: flex;
   align-items: center;
 }
+.minus, 
+.plus {
+  background-color: #fff;
+}
+/* 인원표시 */
 .btn-people-num {
   width: 40px;
   border: none;
   outline: none;
   text-align: center;
   font-family: 'Pretendard-Regular';
-  color:var(--main-color);
   font-size: 14px;
   cursor: auto;
   margin-left: 10px;
 }
-/* .btn-people-num::placeholder {
-  color : #D9D9D9;
-} */
-.minus, 
-.plus {
-  background-color: #fff;
+.input-filled {
+  color: var(--main-color);
 }
-.input-people-min {
-  width: 40px;
-  border: none;
-  outline: none;
-  text-align: center;
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-  cursor: auto;
-  margin-left: 10px;
-  /* color: #D9D9D9; */
-  color:var(--main-color);
-
+.input-blur {
+  color: #D9D9D9;
 }
 /* 올린 사진 */
 .photo {
@@ -221,12 +211,6 @@
   justify-content: flex-end;
   border-radius: 10px;
 }
-
-
-/* .upload-wrap {
-  width: 390px;
-} */
-
 /* 올린 사진 삭제버튼 */
 .btn-close {
   position: absolute;

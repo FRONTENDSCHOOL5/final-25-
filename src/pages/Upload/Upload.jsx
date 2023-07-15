@@ -25,6 +25,7 @@ function Upload() {
   const [peopleInputClass, setPeopleInputClass] = useState(
     `${styles['btn-people-num']} ${styles['btn-people-num-text']}`,
   );
+
   useEffect(() => {
     if (
       (titleInput.trim() !== '' &&
@@ -67,13 +68,26 @@ function Upload() {
     }
   };
 
+  const handleInputChange = event => {
+    setTitleInput(event.target.value);
+  };
+
   useEffect(() => {
-    if (peopleCount === 2) {
-      setPeopleInputClass(styles['input-people-min']);
+    if (
+      titleInput.trim() ||
+      textValue.trim() ||
+      placeInput.trim() ||
+      selectedDate
+    ) {
+      setPeopleInputClass(
+        `${styles['btn-people-num']} ${styles['input-filled']}`,
+      );
     } else {
-      setPeopleInputClass(styles['btn-people-num']);
+      setPeopleInputClass(
+        `${styles['btn-people-num']} ${styles['input-blur']}`,
+      );
     }
-  }, [peopleCount]);
+  }, [textValue, titleInput, placeInput, selectedDate]);
 
   const handleDateChange = date => {
     setSelectedDate(date);
@@ -110,7 +124,7 @@ function Upload() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!titleInput || !placeInput || !selectedDate) {
+    if (!titleInput || !textValue || !placeInput || !selectedDate) {
       return;
     }
 
@@ -297,6 +311,7 @@ function Upload() {
                         type="number"
                         value={peopleCount}
                         readOnly
+                        onChange={handleInputChange}
                       />
                       <button
                         type="button"
