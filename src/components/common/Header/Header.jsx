@@ -1,5 +1,4 @@
 import React from 'react';
-import useGoBack from '../../../hooks/useGoBack';
 import styles from './Header.module.css';
 import IconArrowLeft from '../../../assets/images/icon-arrow-left.svg';
 import IconMoreVertical from '../../../assets/images/s-icon-more-vertical.svg';
@@ -11,7 +10,6 @@ export default function Header({ type, modalOpen, chatTitle, setKeyword }) {
   const navigate = useNavigate();
 
   const searchHandler = debounce(event => {
-    console.log(event.target.value);
     setKeyword(event.target.value);
   }, 150);
 

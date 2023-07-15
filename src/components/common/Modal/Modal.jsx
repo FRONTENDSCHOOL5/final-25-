@@ -1,14 +1,25 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import AlertModal from './AlertModal/AlertModal';
 import styles from './Modal.module.css';
 
-export default function Modal({ modalClose, modalMenu, postId }) {
+export default function Modal({
+  modalClose,
+  modalMenu,
+  postId,
+  productId,
+  productUrl,
+}) {
   const [alertShow, setAlertShow] = useState(false);
   const [alertType, setAlertType] = useState('post-delete');
 
   const alertOpen = type => {
     setAlertShow(true);
     setAlertType(type);
+  };
+
+  const productMoreClickHandler = () => {
+    window.open(productUrl, '_blank');
   };
 
   const menuArr = {
@@ -27,6 +38,28 @@ export default function Modal({ modalClose, modalMenu, postId }) {
       >
         신고하기
       </button>
+    ),
+    'product-delete': (
+      <button
+        className={styles['product-delete']}
+        onClick={() => alertOpen('product-delete')}
+      >
+        삭제
+      </button>
+    ),
+    'product-modi': (
+      <Link to="/product/m" className={styles['product-modi']}>
+        수정
+      </Link>
+    ),
+    'product-more': (
+      <Link
+        to=""
+        className={styles['product-more']}
+        onClick={productMoreClickHandler}
+      >
+        웹사이트에서 상품보기
+      </Link>
     ),
     'report-comment': (
       <button className={styles['report-comment']}>신고하기</button>
@@ -67,7 +100,12 @@ export default function Modal({ modalClose, modalMenu, postId }) {
         </ul>
       </section>
       {alertShow && (
-        <AlertModal type={alertType} modalClose={modalClose} postId={postId} />
+        <AlertModal
+          type={alertType}
+          modalClose={modalClose}
+          postId={postId}
+          productId={productId}
+        />
       )}
     </>
   );
