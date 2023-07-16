@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AlertModal from './AlertModal/AlertModal';
 import styles from './Modal.module.css';
+import commentAPI from '../../../api/commentAPI';
+import AlertModal from './AlertModal/AlertModal';
 
 export default function Modal({
   modalClose,
@@ -9,7 +10,9 @@ export default function Modal({
   postId,
   productId,
   productUrl,
+  commentId,
 }) {
+  const token = localStorage.getItem('token');
   const [alertShow, setAlertShow] = useState(false);
   const [alertType, setAlertType] = useState('post-delete');
 
@@ -20,6 +23,18 @@ export default function Modal({
 
   const productMoreClickHandler = () => {
     window.open(productUrl, '_blank');
+  };
+
+  const commetReportAction = async () => {
+    await reportComment().then(() => alertOpen('report'));
+
+    async function reportComment() {
+      try {
+        await commentAPI.reportComment({ token, postId, commentId });
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   const menuArr = {
@@ -61,8 +76,18 @@ export default function Modal({
         웹사이트에서 상품보기
       </Link>
     ),
+    'delete-comment': (
+      <button
+        className={styles['report-comment']}
+        onClick={() => alertOpen('comment-delete')}
+      >
+        삭제하기
+      </button>
+    ),
     'report-comment': (
-      <button className={styles['report-comment']}>신고하기</button>
+      <button className={styles['report-comment']} onClick={commetReportAction}>
+        신고하기
+      </button>
     ),
     'report-chat': (
       <button
@@ -105,6 +130,7 @@ export default function Modal({
           modalClose={modalClose}
           postId={postId}
           productId={productId}
+          commentId={commentId}
         />
       )}
     </>
