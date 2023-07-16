@@ -2,14 +2,19 @@
   display: flex;
   width: 100%;
   position: relative;
+  box-shadow: inset 0 0 10px red;
 }
 
 .comment-author-profile {
   width: 36px;
   height: 36px;
-  margin-right: 12px;  
+  object-fit: cover;
   border-radius: 50%;
-  border: 0.5px solid #DBDBDB;
+  border: 0.5px solid #dbdbdb;
+}
+
+.comment-container {
+  margin: 6px 0 0 12px;
 }
 .comment-info {
   display: flex;
@@ -34,7 +39,7 @@
   font-size: 14px;
   line-height: 17px;
   text-align: left;
-  margin-top: 17px;
+  margin: 17px 0 1px 0;
 }
 
 .btn-post-more {
