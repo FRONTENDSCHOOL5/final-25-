@@ -8,22 +8,14 @@ import Modal from '../../components/common/Modal/Modal';
 
 export default function Post() {
   const token = localStorage.getItem('token');
+  const [comments, setComments] = useState();
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
+  const [isLoading, setIsLoading] = useState(true);
   const [postId, setPostId] = useState('');
   const postid = document.location.pathname.replace('/post/', '');
+
   console.log(postid);
-
-  const [comments, setComments] = useState();
-
-  useEffect(() => {
-    const fetchComments = async () => {
-      const data = await commentAPI.getComments(token, postid);
-      setComments(data['comments']);
-    };
-
-    fetchComments();
-  }, []);
 
   function modalOpen(menu) {
     setIsModalShow(true);
@@ -42,20 +34,51 @@ export default function Post() {
     setPostId(postid);
   }
 
+  const fetchComments = async () => {
+    let data;
+
+    try {
+      setIsLoading(true);
+      data = await commentAPI.getComments(token, postid);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    const sortedComments = data.comments.sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+    );
+
+    setComments(sortedComments);
+  };
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+  const loadCommentMore = newComment => {
+    setComments(prev => [...prev, newComment]);
+  };
+
   return (
-    <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
+    <Layout
+      modalOpen={() => modalOpen(['setting', 'logout'])}
+      postDetailId={postid}
+      loadCommentMore={loadCommentMore}
+    >
       <ProfilePost
         type="post"
         postDetailId={postid}
         modalOpen={() => modalOpen(['report-post'])}
         getPostId={getPostId}
       />
-      {comments ? (
+      {comments || !isLoading ? (
         <section className={styles['comment-area']}>
           <ul className={styles['comment-list']}>
             {comments.map(item => {
               return (
-                <li id={item.id}>
+                <li key={item.id}>
                   <Comment
                     data={item}
                     postId={postid}
@@ -67,7 +90,7 @@ export default function Post() {
           </ul>
         </section>
       ) : (
-        ''
+        <></>
       )}
       {isModalShow && (
         <Modal modalClose={modalClose} modalMenu={modalMenu} postId={postId} />

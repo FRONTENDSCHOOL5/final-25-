@@ -1,61 +1,102 @@
 import React, { useState } from 'react';
 import styles from './Input.module.css';
+import commentAPI from '../../../api/commentAPI';
 import profileImg from '../../../assets/images/profile-img42.png';
 
-export default function Input({ type }) {
+export default function Input({ type, postId, loadCommentMore }) {
+  console.log('ddddd', postId);
+  const token = localStorage.getItem('token');
   const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const fetchComment = async options => {
+    let data;
+    try {
+      setIsLoading(true);
+      data = await commentAPI.postComment(options);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    loadCommentMore(data.comment);
+  };
+
+  const submitHandle = event => {
+    event.preventDefault();
+    // 댓글 POST
+    fetchComment({ token, postId, comment: inputValue });
+
+    setInputValue('');
+  };
 
   const handleInput = event => {
     setInputValue(event.target.value);
   };
 
   const InputUI = {
-    comment: {
-      id: 'inputComment',
-      labelTxt: '댓글 입력',
-      placeholder: '댓글 입력하기...',
-      inputClassName: styles['input-comment'],
-      btnTxt: '게시',
-      btnClassName:
-        inputValue === ''
-          ? styles['btn-add']
-          : `${styles['btn-add']} ${styles['on']}`,
-    },
-    chatting: {
-      id: 'inputMessage',
-      labelTxt: '메시지 입력',
-      placeholder: '메시지 입력하기...',
-      inputClassName: styles['input-message'],
-      btnTxt: '전송',
-      btnClassName:
-        inputValue === ''
-          ? styles['btn-add']
-          : `${styles['btn-add']} ${styles['on']}`,
-    },
-  };
-
-  return (
-    <>
-      <div className={styles['input']}>
+    comment: (
+      <form className={styles['input']} onSubmit={submitHandle}>
         <img
           className={styles['profile-cover']}
           src={profileImg}
           alt="프로필 이미지"
         />
-        <label htmlFor={InputUI[type]['inputComment']} className="a11y-hidden">
-          {InputUI[type]['labelTxt']}
+        <label htmlFor="inputComment" className="a11y-hidden">
+          댓글 입력
         </label>
         <input
           type="text"
-          placeholder={InputUI[type]['placeholder']}
-          id={InputUI[type]['id']}
-          className={InputUI[type]['inputClassName']}
+          value={inputValue}
+          placeholder="댓글 입력하기..."
+          id="inputComment"
+          className={styles['input-comment']}
           onChange={handleInput}
         />
-        <button className={InputUI[type]['btnClassName']} type="button">
-          {InputUI[type]['btnTxt']}
+        <button
+          className={
+            inputValue === ''
+              ? styles['btn-add']
+              : `${styles['btn-add']} ${styles['on']}`
+          }
+          type="submit"
+        >
+          게시
         </button>
-      </div>
-    </>
-  );
+      </form>
+    ),
+    chatting: (
+      <form className={styles['input']} onSubmit={submitHandle}>
+        <img
+          className={styles['profile-cover']}
+          src={profileImg}
+          alt="프로필 이미지"
+        />
+        <label htmlFor="inputMessage" className="a11y-hidden">
+          메시지 입력
+        </label>
+        <input
+          type="text"
+          value={inputValue}
+          placeholder="메시지 입력하기..."
+          id="inputMessage"
+          className={styles['input-message']}
+          onChange={handleInput}
+        />
+        <button
+          className={
+            inputValue === ''
+              ? styles['btn-add']
+              : `${styles['btn-add']} ${styles['on']}`
+          }
+          type="submit"
+        >
+          전송
+        </button>
+      </form>
+    ),
+  };
+
+  return InputUI[type];
 }
