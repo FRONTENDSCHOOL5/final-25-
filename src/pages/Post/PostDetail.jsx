@@ -45,17 +45,27 @@ export default function Post() {
     } finally {
       setIsLoading(false);
     }
-    setComments(data.comments);
+
+    const sortedComments = data.comments.sort(
+      (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+    );
+
+    setComments(sortedComments);
   };
 
   useEffect(() => {
     fetchComments();
   }, []);
 
+  const loadCommentMore = newComment => {
+    setComments(prev => [...prev, newComment]);
+  };
+
   return (
     <Layout
       modalOpen={() => modalOpen(['setting', 'logout'])}
       postDetailId={postid}
+      loadCommentMore={loadCommentMore}
     >
       <ProfilePost
         type="post"
