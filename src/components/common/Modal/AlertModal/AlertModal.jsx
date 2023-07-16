@@ -35,6 +35,10 @@ export default function AlertModal({ type, modalClose, postId }) {
     navigate('/');
   };
 
+  const photoNoticeAction = event => {
+    modalClose(event);
+  };
+
   const AlertModalUI = {
     'post-delete': (
       <section className={styles.alert}>
@@ -90,6 +94,22 @@ export default function AlertModal({ type, modalClose, postId }) {
             type="button"
             className={styles['btn-ok']}
             onClick={modalClose}
+          >
+            확인
+          </button>
+        </div>
+      </section>
+    ),
+    'photo-notice': (
+      <section className={styles.confirm}>
+        <div className={styles['confirm-inner']}>
+          <h2 className={styles['confirm-title']}>
+            사진은 3장까지 업로드 가능합니다.
+          </h2>
+          <button
+            type="button"
+            className={styles['btn-ok']}
+            onClick={photoNoticeAction}
           >
             확인
           </button>
