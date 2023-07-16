@@ -109,6 +109,14 @@ export default function Modal({
       </button>
     ),
     exit: <button className={styles['exit-btn']}>채팅방 나가기</button>,
+    'photo-notice': (
+      <button
+        className={styles['photo-notice']}
+        onClick={() => alertOpen('photo-notice')}
+      >
+        삭제
+      </button>
+    ),
   };
 
   return (
