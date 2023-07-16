@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Input.module.css';
+import profileAPI from '../../../api/profileAPI';
 import commentAPI from '../../../api/commentAPI';
 import profileImg from '../../../assets/images/profile-img42.png';
 
 export default function Input({ type, postId, loadCommentMore }) {
   console.log('ddddd', postId);
   const token = localStorage.getItem('token');
+  const [userProfileImg, setUserProfileImg] = useState(profileImg);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -23,6 +25,20 @@ export default function Input({ type, postId, loadCommentMore }) {
     loadCommentMore(data.comment);
   };
 
+  const fetchUserInfo = async () => {
+    let data;
+    try {
+      setIsLoading(true);
+      data = await profileAPI.getMyProfile(token);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    setUserProfileImg(data.user.image);
+  };
+
   const submitHandle = event => {
     event.preventDefault();
     // 댓글 POST
@@ -35,12 +51,16 @@ export default function Input({ type, postId, loadCommentMore }) {
     setInputValue(event.target.value);
   };
 
+  useEffect(() => {
+    fetchUserInfo();
+  }, []);
+
   const InputUI = {
     comment: (
       <form className={styles['input']} onSubmit={submitHandle}>
         <img
           className={styles['profile-cover']}
-          src={profileImg}
+          src={userProfileImg}
           alt="프로필 이미지"
         />
         <label htmlFor="inputComment" className="a11y-hidden">
