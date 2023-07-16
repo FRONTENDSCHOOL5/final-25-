@@ -8,11 +8,13 @@ import Modal from '../../components/common/Modal/Modal';
 
 export default function Post() {
   const token = localStorage.getItem('token');
+  const accountName = localStorage.getItem('accountname');
   const [comments, setComments] = useState();
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
   const [isLoading, setIsLoading] = useState(true);
   const [postId, setPostId] = useState('');
+  const [commentId, setCommentId] = useState('');
   const postid = document.location.pathname.replace('/post/', '');
 
   console.log(postid);
@@ -32,6 +34,12 @@ export default function Post() {
     const closestArticle = event.target.closest('article');
     const postid = closestArticle.getAttribute('data-id');
     setPostId(postid);
+  }
+
+  function getCommentId(event) {
+    const closestArticle = event.target.closest('li');
+    const postid = closestArticle.getAttribute('data-comment-id');
+    setCommentId(postid);
   }
 
   const fetchComments = async () => {
@@ -78,11 +86,22 @@ export default function Post() {
           <ul className={styles['comment-list']}>
             {comments.map(item => {
               return (
-                <li key={item.id}>
+                <li
+                  key={item.id}
+                  data-comment-id={item.id}
+                  data-comment-author={item.author.accountname}
+                >
                   <Comment
                     data={item}
                     postId={postid}
-                    modalOpen={() => modalOpen(['report-comment'])}
+                    modalOpen={() =>
+                      modalOpen(
+                        item.author.accountname === accountName
+                          ? ['delete-comment']
+                          : ['report-comment'],
+                      )
+                    }
+                    getCommentId={getCommentId}
                   />
                 </li>
               );
@@ -93,7 +112,12 @@ export default function Post() {
         <></>
       )}
       {isModalShow && (
-        <Modal modalClose={modalClose} modalMenu={modalMenu} postId={postId} />
+        <Modal
+          modalClose={modalClose}
+          modalMenu={modalMenu}
+          postId={postid}
+          commentId={commentId}
+        />
       )}
     </Layout>
   );

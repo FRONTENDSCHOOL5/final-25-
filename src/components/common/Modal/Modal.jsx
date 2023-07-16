@@ -9,6 +9,7 @@ export default function Modal({
   postId,
   productId,
   productUrl,
+  commentId,
 }) {
   const [alertShow, setAlertShow] = useState(false);
   const [alertType, setAlertType] = useState('post-delete');
@@ -61,6 +62,14 @@ export default function Modal({
         웹사이트에서 상품보기
       </Link>
     ),
+    'delete-comment': (
+      <button
+        className={styles['report-comment']}
+        onClick={() => alertOpen('comment-delete')}
+      >
+        삭제하기
+      </button>
+    ),
     'report-comment': (
       <button className={styles['report-comment']}>신고하기</button>
     ),
@@ -105,6 +114,7 @@ export default function Modal({
           modalClose={modalClose}
           postId={postId}
           productId={productId}
+          commentId={commentId}
         />
       )}
     </>
