@@ -7,12 +7,14 @@
   align-items: center;
   font-family: 'Pretendard';
   padding: 14px 20px 11px 23px;
+  border: 0.5px solid #dbdbdb;
 }
 
 .profile-cover {
   width: 42px;
   height: 42px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .input-comment,
