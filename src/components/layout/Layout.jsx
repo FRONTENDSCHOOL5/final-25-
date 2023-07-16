@@ -11,6 +11,7 @@ export default function Layout({
   modalOpen,
   setKeyword,
   postDetailId,
+  loadCommentMore,
 }) {
   let headerType;
   let footerType;
@@ -109,7 +110,11 @@ export default function Layout({
       footerType === 'comment' ||
       footerType === 'chatting' ? (
         <footer>
-          <Input type={footerType} postId={postDetailId} />
+          <Input
+            type={footerType}
+            postId={postDetailId}
+            loadCommentMore={loadCommentMore}
+          />
         </footer>
       ) : (
         <TabMenu type={footerType} />

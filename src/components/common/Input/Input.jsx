@@ -3,21 +3,24 @@ import styles from './Input.module.css';
 import commentAPI from '../../../api/commentAPI';
 import profileImg from '../../../assets/images/profile-img42.png';
 
-export default function Input({ type, postId }) {
+export default function Input({ type, postId, loadCommentMore }) {
   console.log('ddddd', postId);
   const token = localStorage.getItem('token');
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchComment = async options => {
+    let data;
     try {
       setIsLoading(true);
-      await commentAPI.postComment(options);
+      data = await commentAPI.postComment(options);
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
+
+    loadCommentMore(data.comment);
   };
 
   const submitHandle = event => {
