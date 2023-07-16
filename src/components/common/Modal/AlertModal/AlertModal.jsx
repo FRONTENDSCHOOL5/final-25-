@@ -1,8 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AlertModal.module.css';
+import commentAPI from '../../../../api/commentAPI';
 
-export default function AlertModal({ type, modalClose, postId, productId }) {
+export default function AlertModal({
+  type,
+  modalClose,
+  postId,
+  productId,
+  commentId,
+}) {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
@@ -34,6 +41,7 @@ export default function AlertModal({ type, modalClose, postId, productId }) {
     window.location.reload();
 
     async function fetchPostDelete() {
+      console.log({ token, postId, commentId });
       const response = await fetch(
         `https://api.mandarin.weniv.co.kr/product/${productId}`,
         {
@@ -49,12 +57,31 @@ export default function AlertModal({ type, modalClose, postId, productId }) {
     }
   };
 
+  const commentDelteAction = async event => {
+    modalClose(event);
+    console.log(productId);
+    await deleteComment();
+    window.location.reload();
+
+    async function deleteComment() {
+      try {
+        await commentAPI.deleteComment({ token, postId, commentId });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   const logoutAction = event => {
     modalClose(event);
     localStorage.removeItem('token');
     localStorage.removeItem('accountname');
     localStorage.removeItem('username');
     navigate('/');
+  };
+
+  const photoNoticeAction = event => {
+    modalClose(event);
   };
 
   const AlertModalUI = {
@@ -97,6 +124,29 @@ export default function AlertModal({ type, modalClose, postId, productId }) {
               type="button"
               className={styles['btn-delete']}
               onClick={productDeleteAction}
+            >
+              삭제
+            </button>
+          </div>
+        </div>
+      </section>
+    ),
+    'comment-delete': (
+      <section className={styles.alert}>
+        <div className={styles['alert-inner']}>
+          <h2 className={styles['alert-title']}>댓글을 삭제할까요?</h2>
+          <div className={styles['btn-wrapper']}>
+            <button
+              type="button"
+              className={styles['btn-cancel']}
+              onClick={modalClose}
+            >
+              취소
+            </button>
+            <button
+              type="button"
+              className={styles['btn-delete']}
+              onClick={commentDelteAction}
             >
               삭제
             </button>
@@ -157,6 +207,21 @@ export default function AlertModal({ type, modalClose, postId, productId }) {
             </button>
           </div>
         </article>
+),
+    'photo-notice': (
+      <section className={styles.confirm}>
+        <div className={styles['confirm-inner']}>
+          <h2 className={styles['confirm-title']}>
+            사진은 3장까지 업로드 가능합니다.
+          </h2>
+          <button
+            type="button"
+            className={styles['btn-ok']}
+            onClick={photoNoticeAction}
+          >
+            확인
+          </button>
+        </div>
       </section>
     ),
   };

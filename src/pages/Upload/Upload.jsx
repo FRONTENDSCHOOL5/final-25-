@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useNavigate } from 'react-router-dom';
+import AlertModal from '../../components/common/Modal/AlertModal/AlertModal';
 import minusIcon from '../../assets/images/minus.svg';
 import minusActiveIcon from '../../assets/images/minus-active.svg';
 import plusIcon from '../../assets/images/plus.svg';
@@ -16,30 +17,38 @@ function Upload() {
   const [textValue, setTextValue] = useState('');
   const [placeInput, setPlaceInput] = useState('');
   const [peopleCount, setPeopleCount] = useState(2);
+  const [photoItems, setPhotoItems] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [modalType, setModalType] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [postId, setPostId] = useState('');
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState('');
   const [peopleInputClass, setPeopleInputClass] = useState(
     `${styles['btn-people-num']} ${styles['btn-people-num-text']}`,
   );
+
   useEffect(() => {
     if (
       (titleInput.trim() !== '' &&
         textValue.trim() !== '' &&
         selectedDate !== '' &&
         placeInput.trim() !== '') ||
-      selectedPhoto !== null
+      selectedPhoto !== null ||
+      photoItems.length > 0
     ) {
       setBtnState(true);
     } else {
       setBtnState(false);
     }
-  }, [titleInput, textValue, selectedDate, placeInput, selectedPhoto]);
-
-  const handleBtnClick = () => {
-    setBtnState(!btnState);
-  };
+  }, [
+    titleInput,
+    textValue,
+    selectedDate,
+    placeInput,
+    selectedPhoto,
+    photoItems,
+  ]);
 
   const handleTitleInputChange = event => {
     setTitleInput(event.target.value);
@@ -61,43 +70,75 @@ function Upload() {
     }
   };
 
-  useEffect(() => {
-    if (peopleCount === 2) {
-      setPeopleInputClass(styles['input-people-min']);
-    } else {
-      setPeopleInputClass(styles['btn-people-num']);
-    }
-  }, [peopleCount]);
+  const handleInputChange = event => {
+    setTitleInput(event.target.value);
+  };
 
-  // 선택된 날짜를 상태로 설정
+  useEffect(() => {
+    if (
+      titleInput.trim() ||
+      textValue.trim() ||
+      placeInput.trim() ||
+      selectedDate
+    ) {
+      setPeopleInputClass(
+        `${styles['btn-people-num']} ${styles['input-filled']}`,
+      );
+    } else {
+      setPeopleInputClass(
+        `${styles['btn-people-num']} ${styles['input-blur']}`,
+      );
+    }
+  }, [textValue, titleInput, placeInput, selectedDate]);
+
   const handleDateChange = date => {
     setSelectedDate(date);
   };
-  const handleRemovePhoto = () => {
-    setSelectedPhoto(null);
+
+  const handleRemovePhoto = index => {
+    const updatedItems = [...photoItems];
+    updatedItems.splice(index, 1);
+    setPhotoItems(updatedItems);
   };
 
   const handlePhotoChange = event => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    const files = event.target.files;
+    const updatedItems = [...photoItems];
+    const remainingSlots = 3 - updatedItems.length;
 
-    reader.onload = e => {
-      setSelectedPhoto(e.target.result);
-    };
+    if (remainingSlots === 0) {
+      setModalType('photo-notice');
+      setIsModalOpen(true);
+      return;
+    }
 
-    if (file) {
-      reader.readAsDataURL(file);
+    const filesToAdd = Array.from(files).slice(0, remainingSlots);
+
+    for (let i = 0; i < filesToAdd.length; i++) {
+      const file = filesToAdd[i];
+      const url = URL.createObjectURL(file);
+      updatedItems.push(url);
+    }
+
+    setPhotoItems(updatedItems);
+    if (updatedItems.length === 3) {
+      setModalType('photo-notice');
+      setIsModalOpen(true);
     }
   };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   const token = localStorage.getItem('token');
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!titleInput || !placeInput || !selectedDate) {
+    if (!titleInput || !textValue || !placeInput || !selectedDate) {
       return;
     }
 
-    // 데이터 수정
     const formattedPlanDate = formatPlanDate(selectedDate);
 
     const dataPlan = {
@@ -107,6 +148,7 @@ function Upload() {
       people: peopleCount + '명',
       place: placeInput,
     };
+
     const jsonDataPlan = JSON.stringify(dataPlan);
     console.log('json1', jsonDataPlan);
 
@@ -127,7 +169,7 @@ function Upload() {
           body: JSON.stringify({
             post: {
               content: contents,
-              image: selectedPhoto,
+              image: [...photoItems, selectedPhoto],
             },
           }),
         });
@@ -169,176 +211,218 @@ function Upload() {
       }
     }
   }
+
   useEffect(() => {
     if (postId !== '') {
       navigate(`/post/${postId}`);
     }
   }, [postId]);
 
+  const currentDateTime = new Date();
+  const currentDateTimeString = currentDateTime.toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  /*global kakao*/
+  // const Location = () => {
+  //   useEffect(() => {
+  //     const container = document.getElementById('map');
+  //     const options = {
+  //       center: new kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
+  //       level: 3,
+  //     };
+
+  //     const map = new kakao.maps.Map(container, options);
+  //     const markerPosition = new kakao.maps.LatLng(
+  //       37.365264512305174,
+  //       127.10676860117488,
+  //     );
+  //     const marker = new kakao.maps.Marker({
+  //       position: markerPosition,
+  //     });
+  //     marker.setMap(map);
+  //   }, []);
+  // };
+
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <Layout btnHandler={btnState}>
-          <section className="wrap">
-            <h1 className="a11y-hidden">게시물 작성</h1>
-            <article className={`${styles['title-wrap']} ${styles['line']}`}>
-              <div className={styles['title-inner']}>
-                <input
-                  type="text"
-                  className={styles['title-user-input']}
-                  value={titleInput}
-                  onChange={handleTitleInputChange}
-                  placeholder="신전떡볶이"
-                  readOnly
-                />
-                같이 먹을 사람?
-              </div>
-            </article>
+      <div
+        className={`upload-wrapper ${isModalOpen ? styles['modal-open'] : ''}`}
+      >
+        <form onSubmit={handleSubmit}>
+          <Layout btnHandler={btnState}>
             <section className="body-wrap">
-              <article>
-                <textarea
-                  className={styles['text-box']}
-                  placeholder="신전떡볶이 패밀리 세트 먹을 사람~ 여기~ 여기~ 붙어라~!"
-                  value={textValue}
-                  onChange={handleTextChange}
-                  maxLength="50"
-                ></textarea>
-                <div className={styles['text-count']}>
-                  {textValue.length}/50
+              <h1 className="a11y-hidden">게시물 작성</h1>
+              <article className={`${styles['title-wrap']} ${styles['line']}`}>
+                <div className={styles['title-inner']}>
+                  <span className={styles['title-user']}>
+                    {titleInput.length > 6
+                      ? `${titleInput.slice(0, 6)}...`
+                      : titleInput}
+                  </span>
+                  <span className={styles['title-user-default']}>
+                    같이 먹을 사람?
+                  </span>
                 </div>
               </article>
-              <article>
-                <ul className={styles['items-wrap']}>
-                  <li
-                    className={`${styles['item-menu']} ${styles['item-all']}`}
-                  >
-                    메뉴
-                    <div className={styles['item-input']}>
-                      <input
-                        type="text"
-                        className={styles['title-user-input-menu']}
-                        value={titleInput}
-                        onChange={handleTitleInputChange}
-                        placeholder="신전떡볶이"
-                      />
-                    </div>
-                  </li>
-                  <li
-                    className={`${styles['item-people']} ${styles['item-all']}`}
-                  >
-                    인원
-                    <div
-                      className={`${styles['people-wrap']} ${styles['item-input']}`}
+              <section className="body-wrap">
+                <article>
+                  <textarea
+                    className={styles['text-box']}
+                    placeholder="신전떡볶이 패밀리 세트 먹을 사람~ 여기~ 여기~ 붙어라~!"
+                    value={textValue}
+                    onChange={handleTextChange}
+                    maxLength="50"
+                  ></textarea>
+                  <div className={styles['text-count']}>
+                    {textValue.length}/50
+                  </div>
+                </article>
+                <article>
+                  <ul className={styles['items-wrap']}>
+                    <li
+                      className={`${styles['item-menu']} ${styles['item-all']}`}
                     >
-                      <button
-                        type="button"
-                        className={`${styles['btn-people']} ${styles['minus']}`}
-                        onClick={handleDecrease}
-                        style={{
-                          cursor: peopleCount === 2 ? 'unset' : 'pointer',
-                        }}
+                      메뉴
+                      <div className={styles['item-input']}>
+                        <input
+                          type="text"
+                          className={`${styles['title-user-input-menu']} ${styles['title-ellipsis']}`}
+                          value={titleInput}
+                          onChange={handleTitleInputChange}
+                          placeholder="신전떡볶이"
+                        />
+                      </div>
+                    </li>
+                    <li
+                      className={`${styles['item-people']} ${styles['item-all']}`}
+                    >
+                      인원
+                      <div
+                        className={`${styles['people-wrap']} ${styles['item-input']}`}
                       >
-                        {peopleCount === 2 ? (
-                          <img src={minusIcon} alt="Minus Icon" />
-                        ) : (
-                          <img src={minusActiveIcon} alt="Minus Active Icon" />
-                        )}
-                      </button>
-                      <input
-                        className={peopleInputClass}
-                        placeholder="2"
-                        type="number"
-                        value={peopleCount}
-                        readOnly
-                      />
-                      <button
-                        type="button"
-                        className={`${styles['btn-people']} ${styles['plus']}`}
-                        onClick={handleIncrease}
-                        style={{
-                          cursor: peopleCount > 6 ? 'unset' : 'pointer',
-                        }}
-                      >
-                        {peopleCount >= 6 ? (
-                          <img src={plusIcon} alt="Plus Icon" />
-                        ) : (
-                          <img src={plusActiveIcon} alt="Plus Active Icon" />
-                        )}
-                      </button>
-                    </div>
-                  </li>
-                  <li
-                    className={`${styles['item-date']} ${styles['item-all']}`}
-                  >
-                    날짜
-                    <div className={styles['item-input']}>
-                      <DatePicker
-                        placeholderText="0000/00/00/ 오전 0:00"
-                        className={styles['item-input-date']}
-                        locale={ko}
-                        selected={selectedDate}
-                        onChange={handleDateChange} // handleDateChange 함수를 등록
-                        showTimeSelect
-                        minDate={new Date()}
-                        minTime={new Date().setHours(0, 0, 0)}
-                        maxTime={new Date().setHours(23, 30, 0)}
-                        dateFormat="yyyy/MM/dd/ aa h:mm"
-                      />
-                    </div>
-                  </li>
-                  <li
-                    className={`${styles['item-place']} ${styles['item-all']}`}
-                  >
-                    장소
-                    <div className={styles['item-input']}>
-                      <input
-                        type="text"
-                        className={styles['item-input-text']}
-                        value={placeInput}
-                        onChange={event => setPlaceInput(event.target.value)}
-                        placeholder="위니브"
-                      />
-                    </div>
-                  </li>
-                </ul>
-              </article>
-              <article className={styles['photo']}>
-                <div className={styles['photo-item']}>
-                  {selectedPhoto && (
-                    <>
-                      <img
-                        src={selectedPhoto}
-                        className={styles['photo-img']}
-                        alt=""
-                      />
+                        <button
+                          type="button"
+                          className={`${styles['btn-people']} ${styles['minus']}`}
+                          onClick={handleDecrease}
+                          style={{
+                            cursor: peopleCount === 2 ? 'unset' : 'pointer',
+                          }}
+                        >
+                          {peopleCount === 2 ? (
+                            <img src={minusIcon} alt="Minus Icon" />
+                          ) : (
+                            <img
+                              src={minusActiveIcon}
+                              alt="Minus Active Icon"
+                            />
+                          )}
+                        </button>
+                        <input
+                          className={peopleInputClass}
+                          placeholder="2"
+                          type="number"
+                          value={peopleCount}
+                          readOnly
+                          onChange={handleInputChange}
+                        />
+                        <button
+                          type="button"
+                          className={`${styles['btn-people']} ${styles['plus']}`}
+                          onClick={handleIncrease}
+                          style={{
+                            cursor: peopleCount > 6 ? 'unset' : 'pointer',
+                          }}
+                        >
+                          {peopleCount >= 6 ? (
+                            <img src={plusIcon} alt="Plus Icon" />
+                          ) : (
+                            <img src={plusActiveIcon} alt="Plus Active Icon" />
+                          )}
+                        </button>
+                      </div>
+                    </li>
+                    <li
+                      className={`${styles['item-date']} ${styles['item-all']}`}
+                    >
+                      날짜
+                      <div className={styles['item-input']}>
+                        <DatePicker
+                          placeholderText={currentDateTimeString}
+                          className={styles['item-input-date']}
+                          locale={ko}
+                          selected={selectedDate}
+                          onChange={handleDateChange}
+                          showTimeSelect
+                          minDate={new Date()}
+                          minTime={new Date().setHours(0, 0, 0)}
+                          maxTime={new Date().setHours(23, 30, 0)}
+                          dateFormat="yyyy. MM. dd. aa h:mm"
+                        />
+                      </div>
+                    </li>
+                    <li
+                      className={`${styles['item-place']} ${styles['item-all']}`}
+                    >
+                      장소
+                      <div className={styles['item-input']}>
+                        <input
+                          type="text"
+                          className={styles['item-input-text']}
+                          value={placeInput}
+                          onChange={event => setPlaceInput(event.target.value)}
+                          placeholder="위니브"
+                        />
+                      </div>
+                    </li>
+                  </ul>
+                  {/* <div id="map" style={{ width: '390px', height: '200px' }}></div> */}
+                </article>
+                <article className={styles['photo']}>
+                  {photoItems.map((photo, index) => (
+                    <div className={styles['photo-item']} key={index}>
+                      <img src={photo} className={styles['photo-img']} alt="" />
                       <button
                         type="button"
                         className={styles['btn-close']}
-                        onClick={handleRemovePhoto}
+                        onClick={() => handleRemovePhoto(index)}
                       ></button>
-                    </>
-                  )}
-                </div>
-              </article>
+                    </div>
+                  ))}
+                </article>
+                <section className={styles['upload-wrap']}>
+                  <div className={styles['upload-photo']}>
+                    <div className={styles['btn-photo']}>
+                      <input
+                        type="file"
+                        id="btn-photo-input"
+                        className={styles['btn-photo-input']}
+                        onChange={handlePhotoChange}
+                        multiple
+                      />
+                      <label
+                        htmlFor="btn-photo-input"
+                        className={styles['btn-photo-label']}
+                      ></label>
+                    </div>
+                  </div>
+                </section>
+              </section>
             </section>
-            <section className={styles.photos}>
-              <div className={styles['btn-photo']}>
-                <input
-                  type="file"
-                  id="btn-photo-input"
-                  className={styles['btn-photo-input']}
-                  onChange={handlePhotoChange}
-                />
-                <label
-                  htmlFor="btn-photo-input"
-                  className={styles['btn-photo-label']}
-                ></label>
-              </div>
-              <div className={styles['upload-photo']}></div>
-            </section>
-          </section>
-        </Layout>
-      </form>
+          </Layout>
+        </form>
+        {isModalOpen && (
+          <AlertModal
+            type={modalType}
+            modalOpen={isModalOpen}
+            modalClose={closeModal}
+          />
+        )}
+      </div>
     </>
   );
 }
