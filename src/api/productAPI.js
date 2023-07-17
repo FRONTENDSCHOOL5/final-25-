@@ -21,6 +21,35 @@ const productAPI = {
       console.error(error);
     }
   },
+  async addProduct(token, productName, productPrice, saleLink, productImg) {
+    try {
+      const response = await fetch(BASE_URL + `/product`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          product: {
+            itemName: productName,
+            price: parseInt(productPrice.replace(/,/g, '')), // 1원 이상
+            link: saleLink,
+            itemImage: productImg,
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('네트워크에 문제가 있습니다!');
+      }
+
+      const result = await response.json();
+      console.log(result);
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+  },
 };
 
 export default productAPI;
