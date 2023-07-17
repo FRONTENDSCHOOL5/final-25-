@@ -1,10 +1,18 @@
 import React from 'react';
 import './Layout.module.css';
-import Header from '../common/HeaderTest/Header';
+import Header from '../common/Header/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
+export default function Layout({
+  children,
+  btnHandler,
+  chatTitle,
+  modalOpen,
+  setKeyword,
+  postDetailId,
+  loadCommentMore,
+}) {
   let headerType;
   let footerType;
   let pathToCheck;
@@ -94,6 +102,7 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
         btnHandler={btnHandler}
         chatTitle={chatTitle}
         modalOpen={modalOpen}
+        setKeyword={setKeyword}
       />
       <main>{children}</main>
 
@@ -101,7 +110,11 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
       footerType === 'comment' ||
       footerType === 'chatting' ? (
         <footer>
-          <Input type={footerType} />
+          <Input
+            type={footerType}
+            postId={postDetailId}
+            loadCommentMore={loadCommentMore}
+          />
         </footer>
       ) : (
         <TabMenu type={footerType} />

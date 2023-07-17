@@ -142,7 +142,6 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
             className={styles['author-profile']}
             src={data['author']['image']}
             alt="작성자 프로필 이미지"
-            onError={basicProfileImg}
           />
           <div className={styles['author-info']}>
             {planContents && (

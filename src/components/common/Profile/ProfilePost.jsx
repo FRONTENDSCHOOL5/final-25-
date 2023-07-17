@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Post from '../Post/Post';
-import styles from './ProfilePost.module.css';
+import { useInView } from 'react-intersection-observer';
 import postAPI from '../../../api/postAPI';
+import styles from './ProfilePost.module.css';
+import Post from '../Post/Post';
 import FeedNone from '../../../pages/Feed/FeedNone';
 import postListOn from '../../../assets/images/icon-post-list-on.svg';
 import postListOff from '../../../assets/images/icon-post-list-off.svg';
 import postAlbumOn from '../../../assets/images/icon-post-album-on.svg';
 import postAlbumOff from '../../../assets/images/icon-post-album-off.svg';
+
+const LIMIT = 6;
 
 export default function ProfilePost({
   type,
@@ -16,11 +19,20 @@ export default function ProfilePost({
 }) {
   const token = localStorage.getItem('token');
   const pathName = document.location.pathname;
-  const userAccountName = pathName.includes('/profile/')
+  const accountName = pathName.includes('/profile/')
     ? document.location.pathname.replace('/profile/', '')
     : localStorage.getItem('accountname');
 
-  console.log(type, userAccountName);
+  console.log(type, accountName);
+
+  // 유저 게시글 목록
+  const [postId, setPostDetailId] = useState(postDetailId);
+  const [skip, setSkip] = useState(0);
+  const [feedList, setFeedList] = useState([]);
+  const [postDetail, setPostDetail] = useState();
+  const [userPost, setUserPost] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [ref, inView] = useInView();
 
   // false가 리스트로 보기
   // true가 앨범으로 보기
@@ -38,36 +50,63 @@ export default function ProfilePost({
     }
   };
 
-  // 유저 게시글 목록
-  const [accountName, setAccountName] = useState(userAccountName);
-  const [postId, setPostDetailId] = useState(postDetailId);
-  const [feedList, setFeedList] = useState([]);
-  const [postDetail, setPostDetail] = useState();
-  const [userPost, setUserPost] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const fetchUserPost = async () => {
+    let data;
+    try {
+      setIsLoading(true);
+      data = await postAPI.getUserpost(token, accountName);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    setUserPost(data.post);
+  };
+
+  const fetchFeed = async options => {
+    let data;
+    try {
+      setIsLoading(true);
+      data = await postAPI.getFeed(options);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+
+    if (options.skip === 0) {
+      setFeedList(data.posts);
+    } else {
+      setFeedList(prev => [...prev, ...data.posts]);
+    }
+
+    setSkip(options.skip + data.posts.length);
+  };
+
+  const loadFeedMore = () => {
+    console.log('more');
+    console.log({ token, limit: LIMIT, skip });
+    fetchFeed({ token, limit: LIMIT, skip });
+  };
 
   useEffect(() => {
-    const fetchFeed = async () => {
-      const data = await postAPI.getFeed(token);
-      // setIsLoading(false);
-      console.log(data);
-      setFeedList(data['posts']);
-    };
+    if (inView) {
+      console.log(inView, '무한 스크롤 요청 🎃');
 
+      loadFeedMore();
+    }
+  }, [inView]);
+
+  useEffect(() => {
     const fetchPostDetail = async () => {
       const data = await postAPI.getPostDetail(token, postId);
       setPostDetail(data['post']);
     };
 
-    const fetchUserPost = async () => {
-      const data = await postAPI.getUserpost(token, accountName);
-      setIsLoading(false);
-      setUserPost(data['post']);
-    };
-
     switch (type) {
       case 'feed':
-        fetchFeed();
+        fetchFeed({ token, limit: LIMIT, skip: 0 });
         break;
       case 'post':
         fetchPostDetail();
@@ -81,34 +120,34 @@ export default function ProfilePost({
   }, [type]);
 
   const userPostImgArray = [];
-  userPost.forEach(element => {
-    element['image']
-      ? userPostImgArray.push(element['image'])
+  userPost.map(item => {
+    item['image']
+      ? userPostImgArray.push(item['image'])
       : console.log('이미지 없어유');
   });
 
   const ProfilePostUI = {
-    feed:
-      feedList.length === 0 ? (
-        <FeedNone />
-      ) : (
-        <section className={styles.feed}>
-          <ul className={styles['post-list']}>
-            {feedList.map(item => {
-              return (
-                <li id={item.id}>
-                  <Post
-                    data={item}
-                    account={accountName}
-                    modalOpen={modalOpen}
-                    getPostId={getPostId}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      ),
+    feed: !feedList.length ? (
+      <FeedNone />
+    ) : (
+      <section className={styles.feed}>
+        <ul className={styles['post-list']}>
+          {feedList.map(item => {
+            return (
+              <li key={item.id}>
+                <Post
+                  data={item}
+                  account={accountName}
+                  modalOpen={modalOpen}
+                  getPostId={getPostId}
+                />
+              </li>
+            );
+          })}
+        </ul>
+        <div ref={ref}></div>
+      </section>
+    ),
     post: (
       <section className={styles.post}>
         {postDetail && accountName ? (
@@ -124,7 +163,7 @@ export default function ProfilePost({
       </section>
     ),
     profile:
-      userPost.length === 0 ? (
+      userPost.length === 0 || isLoading ? (
         <></>
       ) : (
         <section className={styles.profile}>

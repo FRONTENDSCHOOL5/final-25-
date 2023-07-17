@@ -1,7 +1,7 @@
 /* 댓글 리스트 */
 .comment-area {
   width: 100%;
-  border-top: 1px solid #DBDBDB;
+  border-top: 1px solid #dbdbdb;
   padding: 30px 16px;
 }
 
@@ -9,5 +9,5 @@
   margin: 16px 0;
 }
 .comment-list li:first-child {
-  margin-top: 20px;
+  margin: 0;
 }

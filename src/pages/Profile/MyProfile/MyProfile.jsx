@@ -9,6 +9,8 @@ export default function MyProfile() {
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
   const [postId, setPostId] = useState('');
+  const [productId, setProductId] = useState('');
+  const [productUrl, setProductUrl] = useState('');
 
   function modalOpen(menu) {
     setIsModalShow(true);
@@ -31,7 +33,13 @@ export default function MyProfile() {
     <>
       <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
         <UserProfile />
-        <ProfileProduct />
+        <ProfileProduct
+          modalOpen={() =>
+            modalOpen(['product-delete', 'product-modi', 'product-more'])
+          }
+          setProductId={setProductId}
+          setProductUrl={setProductUrl}
+        />
         <ProfilePost
           type="profile"
           modalOpen={() => modalOpen(['delete-post'])}
@@ -42,6 +50,8 @@ export default function MyProfile() {
             modalClose={modalClose}
             modalMenu={modalMenu}
             postId={postId}
+            productId={productId}
+            productUrl={productUrl}
           />
         )}
       </Layout>
