@@ -207,7 +207,8 @@ export default function AlertModal({
             </button>
           </div>
         </article>
-),
+      </section>
+    ),
     'photo-notice': (
       <section className={styles.confirm}>
         <div className={styles['confirm-inner']}>
