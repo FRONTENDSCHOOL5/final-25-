@@ -3,6 +3,11 @@
 
 <br/>
 
+
+>  배포 URL
+> - <a href="https://wouldyou25.netlify.app/">먹을사람 바로가기</a>
+<br/>
+
 >  이메일 로그인 테스트 계정
 >  - ID : `WouldU5@last25.com`
 >  - Password : `252525`

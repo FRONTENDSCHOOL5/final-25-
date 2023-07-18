@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styles from './AddProduct.module.css';
 import Layout from '../../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
+import productAPI from '../../api/productAPI';
+import imageAPI from '../../api/imageAPI';
 
 export default function AddProduct() {
   const [productImg, setProductImg] = useState('');
@@ -74,24 +76,8 @@ export default function AddProduct() {
   };
 
   const handleImageInput = async e => {
-    const formData = new FormData();
-    const imageFile = e.target.files[0];
-    formData.append('image', imageFile);
-
     try {
-      const res = await fetch(
-        'https://api.mandarin.weniv.co.kr/image/uploadfile',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      );
-
-      if (!res.ok) {
-        throw new Error('Image upload failed');
-      }
-      const json = await res.json();
-      const imageSrc = 'https://api.mandarin.weniv.co.kr/' + json.filename;
+      const imageSrc = await imageAPI.uploadImg(e);
       setProductImg(imageSrc);
       console.log(imageSrc);
     } catch (error) {
@@ -116,33 +102,25 @@ export default function AddProduct() {
   };
   const token = localStorage.getItem('token');
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     if (!isFormValid) {
       return; // 폼이 유효하지 않으면 제출하지 않음
     }
-    fetch('https://api.mandarin.weniv.co.kr/product', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        product: {
-          itemName: productName,
-          price: parseInt(productPrice.replace(/,/g, '')), //1원 이상
-          link: saleLink,
-          itemImage: productImg,
-        },
-      }),
-    })
-      .then(response => response.json())
-      .then(result => {
-        console.log(result);
-        navigate('/profile');
-      })
-      .catch(error => console.log(error));
+    try {
+      const result = await productAPI.addProduct(
+        token,
+        productName,
+        productPrice,
+        saleLink,
+        productImg,
+      );
+      console.log(result);
+      navigate('/profile');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
