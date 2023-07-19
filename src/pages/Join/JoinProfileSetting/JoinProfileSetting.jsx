@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
-import styles from './JoinProfileSettiong.module.css';
+import styles from './JoinProfileSetting.module.css';
 import BasicProfile from '../../../assets/images/basic-profile-img.png';
 import { useLocation, useNavigate } from 'react-router-dom';
 import userAPI from '../../../api/userAPI';
