@@ -37,6 +37,8 @@ export default function Followings() {
     }
   }, [followers.length, accountname, user.token]);
 
+  console.log('Followers 데이터 확인:', followers);
+
   const updateButtonState = index => {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
@@ -54,6 +56,7 @@ export default function Followings() {
   return (
     <Layout>
       <h2 className="a11y-hidden">팔로잉 목록</h2>
+
       <section className={styles['followers-list']}>
         {followers.length > 0 ? (
           followers.map((follower, index) => (
@@ -80,14 +83,17 @@ export default function Followings() {
               >
                 {follower.intro}
               </p>
-              <button
-                type="button"
-                id={`btn-${index}`}
-                className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
-                onClick={() => updateButtonState(index)}
-              >
-                {buttonStates[index]?.text}
-              </button>
+
+              {follower.accountname !== user.accountname && (
+                <button
+                  type="button"
+                  id={`btn-${index}`}
+                  className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
+                  onClick={() => updateButtonState(index)}
+                >
+                  {buttonStates[index]?.text}
+                </button>
+              )}
             </article>
           ))
         ) : (
