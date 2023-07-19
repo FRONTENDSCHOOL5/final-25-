@@ -23,8 +23,8 @@ export default function Followers() {
 
         // 각 팔로워의 초기 버튼 상태 설정
         const initialButtonStates = new Array(response.length).fill({
-          text: '팔로우',
-          className: styles['followers-btn-follow'],
+          text: '취소',
+          className: styles['followers-btn-unfollow'],
         });
         setButtonStates(initialButtonStates);
       } catch (error) {
@@ -41,11 +41,11 @@ export default function Followers() {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
       updatedStates[index] = {
-        text: prevStates[index].text === '팔로우' ? '취소' : '팔로우',
+        text: prevStates[index].text === '취소' ? '팔로우' : '취소',
         className:
-          prevStates[index].className === styles['followers-btn-follow']
-            ? styles['followers-btn-unfollow']
-            : styles['followers-btn-follow'],
+          prevStates[index].className === styles['followers-btn-unfollow']
+            ? styles['followers-btn-follow']
+            : styles['followers-btn-unfollow'],
       };
       return updatedStates;
     });
@@ -64,11 +64,16 @@ export default function Followers() {
               className={styles.followers}
             >
               <div className={styles['followers-photo']}>
-                <img
-                  src={follower.image}
-                  alt="프로필 사진"
-                  className={styles['followers-photo']}
-                />
+                {!follower.image && (
+                  <div className={styles['followers-photo-bg']} />
+                )}
+                {follower.image && (
+                  <img
+                    src={follower.image}
+                    alt="프로필 사진"
+                    className={styles['followers-photo-img']}
+                  />
+                )}
               </div>
               <p
                 className={`${styles['followers-inner']} ${styles['followers-name']}`}

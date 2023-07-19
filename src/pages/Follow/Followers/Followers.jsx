@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+// import { useHistory } from 'react-router-dom';
 import styles from '../Follow.module.css';
 import Layout from '../../../components/layout/Layout';
 import { AuthContext } from '../../../context/AuthContext';
@@ -10,6 +11,7 @@ export default function Followings() {
   const [buttonStates, setButtonStates] = useState([]);
   const { user } = useContext(AuthContext);
   const { accountname } = useParams();
+  // const history = useHistory();
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -23,8 +25,8 @@ export default function Followings() {
 
         // 각 팔로워의 초기 버튼 상태 설정
         const initialButtonStates = new Array(response.length).fill({
-          text: '팔로우',
-          className: styles['followers-btn-follow'],
+          text: '삭제',
+          className: styles['followers-btn-unfollow'],
         });
         setButtonStates(initialButtonStates);
       } catch (error) {
@@ -43,7 +45,7 @@ export default function Followings() {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
       updatedStates[index] = {
-        text: prevStates[index].text === '팔로우' ? '취소' : '팔로우',
+        text: prevStates[index].text === '팔로우' ? '삭제' : '팔로우',
         className:
           prevStates[index].className === styles['followers-btn-follow']
             ? styles['followers-btn-unfollow']
@@ -53,10 +55,14 @@ export default function Followings() {
     });
   };
 
+  // 프로필 페이지로 이동하는 함수
+  // const navigateToProfile = accountname => {
+  //   history.push(`/profile/${accountname}`);
+  // };
+
   return (
     <Layout>
       <h2 className="a11y-hidden">팔로잉 목록</h2>
-
       <section className={styles['followers-list']}>
         {followers.length > 0 ? (
           followers.map((follower, index) => (
@@ -67,14 +73,20 @@ export default function Followings() {
               className={styles.followers}
             >
               <div className={styles['followers-photo']}>
-                <img
-                  src={follower.image}
-                  alt="프로필 사진"
-                  className={styles['followers-photo']}
-                />
+                {!follower.image && (
+                  <div className={styles['followers-photo-bg']} />
+                )}
+                {follower.image && (
+                  <img
+                    src={follower.image}
+                    alt="프로필 사진"
+                    className={styles['followers-photo-img']}
+                  />
+                )}
               </div>
               <p
                 className={`${styles['followers-inner']} ${styles['followers-name']}`}
+                // onClick={() => navigateToProfile(follower.accountname)}
               >
                 {follower.username}
               </p>
@@ -83,7 +95,6 @@ export default function Followings() {
               >
                 {follower.intro}
               </p>
-
               {follower.accountname !== user.accountname && (
                 <button
                   type="button"
