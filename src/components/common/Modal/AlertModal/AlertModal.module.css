@@ -74,7 +74,8 @@ section .alert-title,
   border-bottom-left-radius: 10px;
 }
 .btn-delete,
-.btn-logout {
+.btn-logout,
+.btn-chat-out {
   color: #7d4b0f;
   background: #fffcf1;
   border-bottom-right-radius: 10px;
