@@ -11,6 +11,34 @@ import minusActiveIcon from '../../assets/images/minus-active.svg';
 import plusIcon from '../../assets/images/plus.svg';
 import plusActiveIcon from '../../assets/images/plus-active.svg';
 
+async function getAddressFromLatLng(latitude, longitude) {
+  try {
+    const response = await fetch(
+      `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: 'KakaoAK bb9458fc0ab4e3e0faaf85e82ed2c62b',
+          KA: 'sdk/1.0.0 os/javascript origin/http://localhost:3000/',
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    const addressInfo = data.documents[0].address;
+    const address = `${addressInfo.region_1depth_name} ${addressInfo.region_2depth_name} ${addressInfo.region_3depth_name}`;
+
+    return address;
+  } catch (error) {
+    console.error('Error getting address from coordinates:', error);
+    return null;
+  }
+}
+
 function Upload() {
   const [btnState, setBtnState] = useState(false);
   const [titleInput, setTitleInput] = useState('');
@@ -24,6 +52,7 @@ function Upload() {
   const [postId, setPostId] = useState('');
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState('');
+  const [currentLocation, setCurrentLocation] = useState('');
   const [peopleInputClass, setPeopleInputClass] = useState(
     `${styles['btn-people-num']} ${styles['btn-people-num-text']}`,
   );
@@ -95,6 +124,39 @@ function Upload() {
     setSelectedDate(date);
   };
 
+  // 주어진 함수를 사용하여 Kakao API에서 위치 정보를 가져오고, 해당 정보를 화면에 표시합니다.
+  useEffect(() => {
+    // 위치 감시 시작
+    const watchId = navigator.geolocation.watchPosition(
+      position => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        // 위도와 경도를 이용하여 주소를 가져오기 위해 getAddressFromLatLng 함수 호출
+        getAddressFromLatLng(latitude, longitude)
+          .then(address => {
+            setCurrentLocation(
+              address || `위도: ${latitude}, 경도: ${longitude}`,
+            );
+          })
+          .catch(error => {
+            console.error('Error getting address:', error);
+            setCurrentLocation(`위도: ${latitude}, 경도: ${longitude}`);
+          });
+      },
+      error => {
+        // 위치를 가져오는 데 실패한 경우 처리할 로직을 여기에 작성하세요.
+        console.error('Error getting current location:', error);
+        setCurrentLocation('위치 정보를 가져오는 데 실패했습니다.');
+      },
+    );
+
+    // 컴포넌트 언마운트 시 위치 감시 종료
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, []);
+
   const handleRemovePhoto = index => {
     const updatedItems = [...photoItems];
     updatedItems.splice(index, 1);
@@ -139,12 +201,12 @@ function Upload() {
       return;
     }
 
-    const formattedPlanDate = formatPlanDate(selectedDate);
+    // const formattedPlanDate = formatPlanDate(selectedDate);
 
     const dataPlan = {
       menu: titleInput,
       title: titleInput + ' 먹을 사람?',
-      date: formattedPlanDate,
+      date: selectedDate,
       people: peopleCount + '명',
       place: placeInput,
     };
@@ -182,35 +244,35 @@ function Upload() {
     }
   };
 
-  function formatPlanDate(date) {
-    const currentDate = new Date();
-    const targetDate = new Date(date);
+  // function formatPlanDate(date) {
+  //   const currentDate = new Date();
+  //   const targetDate = new Date(date);
 
-    const isToday = currentDate.toDateString() === targetDate.toDateString();
+  //   const isToday = currentDate.toDateString() === targetDate.toDateString();
 
-    if (isToday) {
-      const hours = targetDate.getHours();
-      const minutes = targetDate.getMinutes();
-      return `오늘, ${hours}시 ${minutes}분`;
-    } else {
-      const tomorrow = new Date(currentDate);
-      tomorrow.setDate(currentDate.getDate() + 1);
+  //   if (isToday) {
+  //     const hours = targetDate.getHours();
+  //     const minutes = targetDate.getMinutes();
+  //     return `오늘, ${hours}시 ${minutes}분`;
+  //   } else {
+  //     const tomorrow = new Date(currentDate);
+  //     tomorrow.setDate(currentDate.getDate() + 1);
 
-      const isTomorrow = tomorrow.toDateString() === targetDate.toDateString();
+  //     const isTomorrow = tomorrow.toDateString() === targetDate.toDateString();
 
-      if (isTomorrow) {
-        const hours = targetDate.getHours();
-        const minutes = targetDate.getMinutes();
-        return `내일, ${hours}시 ${minutes}분`;
-      } else {
-        const month = String(targetDate.getMonth() + 1).padStart(2, '0');
-        const day = String(targetDate.getDate()).padStart(2, '0');
-        const hours = targetDate.getHours();
-        const minutes = targetDate.getMinutes();
-        return `${month}/${day} ${hours}시 ${minutes}분`;
-      }
-    }
-  }
+  //     if (isTomorrow) {
+  //       const hours = targetDate.getHours();
+  //       const minutes = targetDate.getMinutes();
+  //       return `내일, ${hours}시 ${minutes}분`;
+  //     } else {
+  //       const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+  //       const day = String(targetDate.getDate()).padStart(2, '0');
+  //       const hours = targetDate.getHours();
+  //       const minutes = targetDate.getMinutes();
+  //       return `${month}/${day} ${hours}시 ${minutes}분`;
+  //     }
+  //   }
+  // }
 
   useEffect(() => {
     if (postId !== '') {
@@ -226,27 +288,6 @@ function Upload() {
     hour: '2-digit',
     minute: '2-digit',
   });
-
-  /*global kakao*/
-  // const Location = () => {
-  //   useEffect(() => {
-  //     const container = document.getElementById('map');
-  //     const options = {
-  //       center: new kakao.maps.LatLng(37.365264512305174, 127.10676860117488),
-  //       level: 3,
-  //     };
-
-  //     const map = new kakao.maps.Map(container, options);
-  //     const markerPosition = new kakao.maps.LatLng(
-  //       37.365264512305174,
-  //       127.10676860117488,
-  //     );
-  //     const marker = new kakao.maps.Marker({
-  //       position: markerPosition,
-  //     });
-  //     marker.setMap(map);
-  //   }, []);
-  // };
 
   return (
     <>
@@ -375,12 +416,11 @@ function Upload() {
                           className={styles['item-input-text']}
                           value={placeInput}
                           onChange={event => setPlaceInput(event.target.value)}
-                          placeholder="위니브"
+                          placeholder={currentLocation} // 현재 위치를 placeholder로 설정
                         />
                       </div>
                     </li>
                   </ul>
-                  {/* <div id="map" style={{ width: '390px', height: '200px' }}></div> */}
                 </article>
                 <article className={styles['photo']}>
                   {photoItems.map((photo, index) => (
