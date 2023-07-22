@@ -13,6 +13,7 @@ export default function UserProfile({ alertOpen }) {
   const [isLoading, setIsLoading] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
   const [isFollow, setIsFollow] = useState(false);
+  const url = window.location.href;
   const navigate = useNavigate();
 
   const fetchProfile = async () => {
@@ -81,8 +82,7 @@ export default function UserProfile({ alertOpen }) {
   };
   const shareClickHandler = () => {
     console.log('공유하기');
-    // 없어도 실행됨
-    // navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(url);
     alertOpen();
   };
 
