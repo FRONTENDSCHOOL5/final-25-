@@ -36,24 +36,23 @@ export default function Followers() {
     if (followers.length === 0) {
       fetchFollowers();
     }
-  }, [followers.length, accountname, user.token]);
-
-  // 삭제 되면 콘솔에는 찍히는데
-  // useEffect(() => {
-  //   console.log('Followers state updated:', followers);
-  // }, [followers]);
+  }, [followers, accountname, user.token]);
 
   // 언팔로잉 api연결
-  const getUnfollowUser = async followerId => {
+  const getUnfollowUser = async (followerId, selectedFollower) => {
     console.log('언팔 확인중', followerId);
 
     try {
-      await followAPI.unfollowingPost(user.token, accountname);
+      const result = await followAPI.unfollowingPost(
+        user.token,
+        selectedFollower.accountname,
+      );
+      console.log('언팔 결과', result);
       console.log('확인');
 
-      // setFollowers(prevFollowers =>
-      //   prevFollowers.filter(follower => follower._id !== followerId),
-      // );
+      setFollowers(prevFollowers =>
+        prevFollowers.filter(follower => follower._id !== followerId),
+      );
 
       //api 리스트를 다시 불러온다.
       console.log('set 확인중', followers);
@@ -62,24 +61,16 @@ export default function Followers() {
     }
   };
 
-  // const updateButtonState = index => {
-  //   setButtonStates(prevStates => {
-  //     const updatedStates = [...prevStates];
-  //     updatedStates[index] = {
-  //       text: prevStates[index].text === '취소' ? '팔로우' : '취소',
-  //       className:
-  //         prevStates[index].className === styles['followers-btn-unfollow']
-  //           ? styles['followers-btn-follow']
-  //           : styles['followers-btn-unfollow'],
-  //     };
-  //     return updatedStates;
-  //   });
-  // };
-
   const updateButtonState = async (index, followerId) => {
+    // id 뽑아내기 계정가져오는중
+    const selectedFollower = followers.find(
+      follower => follower._id === followerId,
+    );
+    console.log('선택한 구독자 정보: ', selectedFollower);
+
     if (buttonStates[index]?.text === '취소') {
       console.log('버튼 누르면 이벤트 값이 넘어와지는 확인중', followerId);
-      await getUnfollowUser(followerId);
+      await getUnfollowUser(followerId, selectedFollower);
     }
 
     setButtonStates(prevStates => {
@@ -98,53 +89,55 @@ export default function Followers() {
   return (
     <Layout>
       <h2 className="a11y-hidden">팔로워 목록</h2>
-      <section className={styles['followers-list']}>
+      <ul className={styles['followers-list']}>
         {followers.length > 0 ? (
           followers.map((follower, index) => (
-            <article
-              key={index}
-              index={index}
-              data={follower}
-              className={styles.followers}
-            >
-              <div className={styles['followers-photo']}>
-                {!follower.image && (
-                  <div className={styles['followers-photo-bg']} />
-                )}
-                {follower.image && (
-                  <img
-                    src={follower.image}
-                    alt="프로필 사진"
-                    className={styles['followers-photo-img']}
-                  />
-                )}
-              </div>
-              <p
-                className={`${styles['followers-inner']} ${styles['followers-name']}`}
+            <li key={follower._id}>
+              <article
+                // 키값은 id로 주는게 좋고
+                index={index}
+                data={follower}
+                className={styles.followers}
               >
-                {follower.username}
-              </p>
-              <p
-                className={`${styles['followers-inner']} ${styles['followers-info']}`}
-              >
-                {follower.intro}
-              </p>
-              {follower.accountname !== user.accountname && (
-                <button
-                  type="button"
-                  id={`btn-${index}`}
-                  className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
-                  onClick={() => updateButtonState(index, follower._id)}
+                <div className={styles['followers-photo']}>
+                  {!follower.image && (
+                    <div className={styles['followers-photo-bg']} />
+                  )}
+                  {follower.image && (
+                    <img
+                      src={follower.image}
+                      alt="프로필 사진"
+                      className={styles['followers-photo-img']}
+                    />
+                  )}
+                </div>
+                <p
+                  className={`${styles['followers-inner']} ${styles['followers-name']}`}
                 >
-                  {buttonStates[index]?.text}
-                </button>
-              )}
-            </article>
+                  {follower.username}
+                </p>
+                <p
+                  className={`${styles['followers-inner']} ${styles['followers-info']}`}
+                >
+                  {follower.intro}
+                </p>
+                {follower.accountname !== user.accountname && (
+                  <button
+                    type="button"
+                    id={`btn-${index}`}
+                    className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
+                    onClick={() => updateButtonState(index, follower._id)}
+                  >
+                    {buttonStates[index]?.text}
+                  </button>
+                )}
+              </article>
+            </li>
           ))
         ) : (
           <p>No followers found.</p>
         )}
-      </section>
+      </ul>
     </Layout>
   );
 }
