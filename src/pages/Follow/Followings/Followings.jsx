@@ -85,14 +85,16 @@ export default function Followers() {
               >
                 {follower.intro}
               </p>
-              <button
-                type="button"
-                id={`btn-${index}`}
-                className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
-                onClick={() => updateButtonState(index)}
-              >
-                {buttonStates[index]?.text}
-              </button>
+              {follower.accountname !== user.accountname && (
+                <button
+                  type="button"
+                  id={`btn-${index}`}
+                  className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
+                  onClick={() => updateButtonState(index)}
+                >
+                  {buttonStates[index]?.text}
+                </button>
+              )}
             </article>
           ))
         ) : (
