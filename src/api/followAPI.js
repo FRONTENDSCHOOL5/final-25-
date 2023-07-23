@@ -14,18 +14,13 @@ const followAPI = {
   },
 
   async unfollowingPost(token, pageAccount) {
-    const response = await fetch(
-      `${BASE_URL}/profile/${pageAccount}/unfollow`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
+    await fetch(`${BASE_URL}/profile/${pageAccount}/unfollow`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
       },
-    );
-    const data = await response.json();
-    return data;
+    });
   },
 };
 

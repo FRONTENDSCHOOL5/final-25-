@@ -4,6 +4,7 @@ import Layout from '../../../components/layout/Layout';
 import { AuthContext } from '../../../context/AuthContext';
 import { useParams } from 'react-router-dom';
 import profileAPI from '../../../api/profileAPI2';
+import followAPI from '../../../api/followAPI';
 
 export default function Followers() {
   const [followers, setFollowers] = useState([]);
@@ -37,7 +38,50 @@ export default function Followers() {
     }
   }, [followers.length, accountname, user.token]);
 
-  const updateButtonState = index => {
+  // 삭제 되면 콘솔에는 찍히는데
+  // useEffect(() => {
+  //   console.log('Followers state updated:', followers);
+  // }, [followers]);
+
+  // 언팔로잉 api연결
+  const getUnfollowUser = async followerId => {
+    console.log('언팔 확인중', followerId);
+
+    try {
+      await followAPI.unfollowingPost(user.token, accountname);
+      console.log('확인');
+
+      // setFollowers(prevFollowers =>
+      //   prevFollowers.filter(follower => follower._id !== followerId),
+      // );
+
+      //api 리스트를 다시 불러온다.
+      console.log('set 확인중', followers);
+    } catch (error) {
+      console.error('Error unfollowing user:', error);
+    }
+  };
+
+  // const updateButtonState = index => {
+  //   setButtonStates(prevStates => {
+  //     const updatedStates = [...prevStates];
+  //     updatedStates[index] = {
+  //       text: prevStates[index].text === '취소' ? '팔로우' : '취소',
+  //       className:
+  //         prevStates[index].className === styles['followers-btn-unfollow']
+  //           ? styles['followers-btn-follow']
+  //           : styles['followers-btn-unfollow'],
+  //     };
+  //     return updatedStates;
+  //   });
+  // };
+
+  const updateButtonState = async (index, followerId) => {
+    if (buttonStates[index]?.text === '취소') {
+      console.log('버튼 누르면 이벤트 값이 넘어와지는 확인중', followerId);
+      await getUnfollowUser(followerId);
+    }
+
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
       updatedStates[index] = {
@@ -90,7 +134,7 @@ export default function Followers() {
                   type="button"
                   id={`btn-${index}`}
                   className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
-                  onClick={() => updateButtonState(index)}
+                  onClick={() => updateButtonState(index, follower._id)}
                 >
                   {buttonStates[index]?.text}
                 </button>
