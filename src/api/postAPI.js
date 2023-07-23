@@ -60,6 +60,21 @@ const postAPI = {
       console.error(error);
     }
   },
+  // 게시글 신고
+  async reportPost({ token, postId }) {
+    console.log({ token, postId });
+    const response = await fetch(BASE_URL + `/post/${postId}/report`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('네트워크에 문제가 있습니다!');
+    }
+  },
 };
 
 export default postAPI;

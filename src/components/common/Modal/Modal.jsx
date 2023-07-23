@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Modal.module.css';
+import postAPI from '../../../api/postAPI';
 import commentAPI from '../../../api/commentAPI';
 import AlertModal from './AlertModal/AlertModal';
 
@@ -25,6 +26,19 @@ export default function Modal({
     window.open(productUrl, '_blank');
   };
 
+  const postReportAction = async () => {
+    await reportPost().then(() => alertOpen('report'));
+    console.log(postId, '신고됨');
+
+    async function reportPost() {
+      try {
+        await postAPI.reportPost({ token, postId });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   const commetReportAction = async () => {
     await reportComment().then(() => alertOpen('report'));
 
@@ -47,10 +61,7 @@ export default function Modal({
       </button>
     ),
     'report-post': (
-      <button
-        className={styles['report-post']}
-        onClick={() => alertOpen('report')}
-      >
+      <button className={styles['report-post']} onClick={postReportAction}>
         신고하기
       </button>
     ),
