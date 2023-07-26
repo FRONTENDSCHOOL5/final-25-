@@ -40,7 +40,7 @@ export default function Followings() {
 
   console.log('Followers 데이터 확인:', followers);
 
-  //팔로우 버튼
+  //팔로우 삭제 버튼
   const updateButtonState = index => {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];

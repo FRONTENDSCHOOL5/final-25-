@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
 import styles from '../Follow.module.css';
 import Layout from '../../../components/layout/Layout';
 import { AuthContext } from '../../../context/AuthContext';
+import { useParams, useNavigate } from 'react-router-dom';
 import profileAPI from '../../../api/profileAPI2';
+import followAPI from '../../../api/followAPI';
 
 export default function Followers() {
   const [followers, setFollowers] = useState([]);
@@ -36,10 +37,44 @@ export default function Followers() {
     if (followers.length === 0) {
       fetchFollowers();
     }
-  }, [followers.length, accountname, user.token]);
+  }, [followers, accountname, user.token]);
 
-  //팔로우 버튼
-  const updateButtonState = index => {
+  // 언팔로잉 api연결
+  const getUnfollowUser = async (followerId, selectedFollower) => {
+    console.log('언팔 확인중', followerId);
+
+    try {
+      const result = await followAPI.unfollowingPost(
+        user.token,
+        selectedFollower.accountname,
+      );
+      console.log('언팔 결과', result);
+      console.log('확인');
+
+      setFollowers(prevFollowers =>
+        prevFollowers.filter(follower => follower._id !== followerId),
+      );
+
+      //api 리스트를 다시 불러온다.
+      console.log('set 확인중', followers);
+    } catch (error) {
+      console.error('Error unfollowing user:', error);
+    }
+  };
+
+  const updateButtonState = async (index, followerId) => {
+    // id 뽑아내기 계정가져오는중
+    const selectedFollower = followers.find(
+      follower => follower._id === followerId,
+    );
+    console.log('선택한 구독자 정보: ', selectedFollower);
+
+    if (buttonStates[index]?.text === '취소') {
+      console.log('버튼 누르면 이벤트 값이 넘어와지는 확인중', followerId);
+      await getUnfollowUser(followerId, selectedFollower);
+    }
+
+    //팔로우 취소 버튼
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
       updatedStates[index] = {
@@ -56,53 +91,59 @@ export default function Followers() {
   return (
     <Layout>
       <h2 className="a11y-hidden">팔로워 목록</h2>
-      <section className={styles['followers-list']}>
+      <ul className={styles['followers-list']}>
         {followers.length > 0 ? (
           followers.map((follower, index) => (
-            <article
-              key={index}
-              index={index}
-              data={follower}
-              className={styles.followers}
-            >
-              <div className={styles['followers-photo']}>
-                {!follower.image && (
-                  <div className={styles['followers-photo-bg']} />
+            <li key={follower._id}>
+              <article
+                // 키값은 id로 주는게 좋고
+                index={index}
+                data={follower}
+                className={styles.followers}
+              >
+                <div className={styles['followers-photo']}>
+                  {!follower.image && (
+                    <div className={styles['followers-photo-bg']} />
+                  )}
+                  {follower.image && (
+                    <img
+                      src={follower.image}
+                      alt="프로필 사진"
+                      className={styles['followers-photo-img']}
+                      onClick={() =>
+                        navigate(`/profile/${follower.accountname}`)
+                      }
+                    ></img>
+                  )}
+                </div>
+                <p
+                  className={`${styles['followers-inner']} ${styles['followers-name']}`}
+                  onClick={() => navigate(`/profile/${follower.accountname}`)}
+                >
+                  {follower.username}
+                </p>
+                <p
+                  className={`${styles['followers-inner']} ${styles['followers-info']}`}
+                >
+                  {follower.intro}
+                </p>
+                {follower.accountname !== user.accountname && (
+                  <button
+                    type="button"
+                    id={`btn-${index}`}
+                    className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
+                    onClick={() => updateButtonState(index, follower._id)}
+                  >
+                    {buttonStates[index]?.text}
+                  </button>
                 )}
-                {follower.image && (
-                  <img
-                    src={follower.image}
-                    alt="프로필 사진"
-                    className={styles['followers-photo-img']}
-                    onClick={() => navigate(`/profile/${follower.accountname}`)}
-                  ></img>
-                )}
-              </div>
-              <p
-                className={`${styles['followers-inner']} ${styles['followers-name']}`}
-                onClick={() => navigate(`/profile/${follower.accountname}`)} // followers-name을 클릭할 때 이동
-              >
-                {follower.username}
-              </p>
-              <p
-                className={`${styles['followers-inner']} ${styles['followers-info']}`}
-              >
-                {follower.intro}
-              </p>
-              <button
-                type="button"
-                id={`btn-${index}`}
-                className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
-                onClick={() => updateButtonState(index)}
-              >
-                {buttonStates[index]?.text}
-              </button>
-            </article>
+              </article>
+            </li>
           ))
         ) : (
           <p>No followers found.</p>
         )}
-      </section>
+      </ul>
     </Layout>
   );
 }
