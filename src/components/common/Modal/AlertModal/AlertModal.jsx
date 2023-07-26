@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './AlertModal.module.css';
+import postAPI from '../../../../api/postAPI';
 import commentAPI from '../../../../api/commentAPI';
 
 export default function AlertModal({
@@ -13,24 +14,16 @@ export default function AlertModal({
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
-  const postDeleteAction = event => {
+  const postDeleteAction = async event => {
     modalClose(event);
-    fetchPostDelete();
-    window.location.reload();
+    await fetchPostDelete().then(() => window.location.reload());
+  };
 
-    async function fetchPostDelete() {
-      const response = await fetch(
-        `https://api.mandarin.weniv.co.kr/post/${postId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      const data = await response.json();
-      console.log(postId, data);
+  const fetchPostDelete = async () => {
+    try {
+      await postAPI.deletePost({ token, postId });
+    } catch (error) {
+      console.error(error);
     }
   };
 
