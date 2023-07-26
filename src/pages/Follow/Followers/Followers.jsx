@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from '../Follow.module.css';
 import Layout from '../../../components/layout/Layout';
 import { AuthContext } from '../../../context/AuthContext';
-import { useParams } from 'react-router-dom';
 import profileAPI from '../../../api/profileAPI2';
 
 export default function Followings() {
@@ -11,7 +10,7 @@ export default function Followings() {
   const [buttonStates, setButtonStates] = useState([]);
   const { user } = useContext(AuthContext);
   const { accountname } = useParams();
-  // const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -41,6 +40,7 @@ export default function Followings() {
 
   console.log('Followers 데이터 확인:', followers);
 
+  //팔로우 버튼
   const updateButtonState = index => {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
@@ -54,11 +54,6 @@ export default function Followings() {
       return updatedStates;
     });
   };
-
-  // 프로필 페이지로 이동하는 함수
-  // const navigateToProfile = accountname => {
-  //   history.push(`/profile/${accountname}`);
-  // };
 
   return (
     <Layout>
@@ -81,12 +76,13 @@ export default function Followings() {
                     src={follower.image}
                     alt="프로필 사진"
                     className={styles['followers-photo-img']}
+                    onClick={() => navigate(`/profile/${follower.accountname}`)}
                   />
                 )}
               </div>
               <p
                 className={`${styles['followers-inner']} ${styles['followers-name']}`}
-                // onClick={() => navigateToProfile(follower.accountname)}
+                onClick={() => navigate(`/profile/${follower.accountname}`)}
               >
                 {follower.username}
               </p>

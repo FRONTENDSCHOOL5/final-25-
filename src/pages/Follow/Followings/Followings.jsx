@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from '../Follow.module.css';
 import Layout from '../../../components/layout/Layout';
 import { AuthContext } from '../../../context/AuthContext';
-import { useParams } from 'react-router-dom';
 import profileAPI from '../../../api/profileAPI2';
 
 export default function Followers() {
@@ -10,6 +10,7 @@ export default function Followers() {
   const [buttonStates, setButtonStates] = useState([]);
   const { user } = useContext(AuthContext);
   const { accountname } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -37,6 +38,7 @@ export default function Followers() {
     }
   }, [followers.length, accountname, user.token]);
 
+  //팔로우 버튼
   const updateButtonState = index => {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
@@ -72,11 +74,13 @@ export default function Followers() {
                     src={follower.image}
                     alt="프로필 사진"
                     className={styles['followers-photo-img']}
-                  />
+                    onClick={() => navigate(`/profile/${follower.accountname}`)}
+                  ></img>
                 )}
               </div>
               <p
                 className={`${styles['followers-inner']} ${styles['followers-name']}`}
+                onClick={() => navigate(`/profile/${follower.accountname}`)} // followers-name을 클릭할 때 이동
               >
                 {follower.username}
               </p>
