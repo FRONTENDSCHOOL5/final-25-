@@ -107,7 +107,7 @@ function Upload() {
     const remainingSlots = 3 - updatedItems.length;
 
     if (remainingSlots === 0) {
-      setModalType('photo-notice');
+      setModalType('notice');
       setIsModalOpen(true);
       return;
     }
@@ -122,7 +122,7 @@ function Upload() {
 
     setPhotoItems(updatedItems);
     if (updatedItems.length === 3) {
-      setModalType('photo-notice');
+      setModalType('notice');
       setIsModalOpen(true);
     }
   };
