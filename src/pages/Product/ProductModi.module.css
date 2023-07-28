@@ -66,3 +66,8 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
+.error-message {
+  color: #eb5757;
+  margin: 10px 0;
+}

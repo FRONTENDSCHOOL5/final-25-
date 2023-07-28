@@ -19,6 +19,8 @@ export default function Layout({
   console.log(modalOpen);
 
   const path = document.location.pathname;
+  console.log(path);
+
   if (path.includes('/profile/m')) {
     pathToCheck = '/profile/m';
   } else if (path.includes('/profile/')) {
@@ -31,6 +33,8 @@ export default function Layout({
     pathToCheck = '/post/upload';
   } else if (path.includes('/post/')) {
     pathToCheck = '/post';
+  } else if (path.includes('/product/m')) {
+    pathToCheck = '/product/m';
   } else if (path.includes('/chat/')) {
     pathToCheck = '/chat/:accountname';
   } else {
@@ -55,7 +59,7 @@ export default function Layout({
       footerType = 'none';
       break;
     case '/product/m':
-      headerType = 'colorButton';
+      headerType = btnHandler() ? 'colorButton' : 'saveButton';
       footerType = 'none';
       break;
     case '/followers':
