@@ -74,7 +74,7 @@ export default function Modal({
       </button>
     ),
     'product-modi': (
-      <Link to="/product/m" className={styles['product-modi']}>
+      <Link to={`/product/m/${productId}`} className={styles['product-modi']}>
         수정
       </Link>
     ),

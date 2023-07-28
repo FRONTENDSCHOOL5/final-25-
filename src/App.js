@@ -38,7 +38,7 @@ export default function App() {
           <Route path="followings/:accountname" element={<Followings />} />
           <Route path="/product">
             <Route index element={<AddProduct />} />
-            <Route path="m" element={<ProductModi />} />
+            <Route path="m/:id" element={<ProductModi />} />
           </Route>
           <Route path="/post/:postid" element={<PostDetail />} />
           <Route path="/post/upload" element={<Upload />} />
