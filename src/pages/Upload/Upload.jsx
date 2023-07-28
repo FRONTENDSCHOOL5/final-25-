@@ -56,7 +56,6 @@ function Upload() {
   const [peopleInputClass, setPeopleInputClass] = useState(
     `${styles['btn-people-num']} ${styles['btn-people-num-text']}`,
   );
-
   useEffect(() => {
     if (
       (titleInput.trim() !== '' &&
@@ -124,6 +123,15 @@ function Upload() {
     setSelectedDate(date);
   };
 
+  const currentDateTime = new Date();
+  const currentDateTimeString = currentDateTime.toLocaleString('ko-KR', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
   // 주어진 함수를 사용하여 Kakao API에서 위치 정보를 가져오고, 해당 정보를 화면에 표시합니다.
   useEffect(() => {
     // 위치 감시 시작
@@ -156,13 +164,11 @@ function Upload() {
       navigator.geolocation.clearWatch(watchId);
     };
   }, []);
-
   const handleRemovePhoto = index => {
     const updatedItems = [...photoItems];
     updatedItems.splice(index, 1);
     setPhotoItems(updatedItems);
   };
-
   const handlePhotoChange = event => {
     const files = event.target.files;
     const updatedItems = [...photoItems];
@@ -201,8 +207,6 @@ function Upload() {
       return;
     }
 
-    // const formattedPlanDate = formatPlanDate(selectedDate);
-
     const dataPlan = {
       menu: titleInput,
       title: titleInput + ' 먹을 사람?',
@@ -210,15 +214,14 @@ function Upload() {
       people: peopleCount + '명',
       place: placeInput,
     };
-
     const jsonDataPlan = JSON.stringify(dataPlan);
     console.log('json1', jsonDataPlan);
-
+    const imagesString = photoItems.join(',');
     const contents = textValue + jsonDataPlan;
     fetchPost();
-    console.log(contents);
-    console.log('타입', typeof contents);
-    console.log(postId);
+    // console.log(contents);
+    // console.log('타입', typeof contents);
+    // console.log(postId);
 
     async function fetchPost() {
       try {
@@ -231,7 +234,7 @@ function Upload() {
           body: JSON.stringify({
             post: {
               content: contents,
-              image: [...photoItems, selectedPhoto],
+              image: imagesString,
             },
           }),
         });
@@ -244,50 +247,11 @@ function Upload() {
     }
   };
 
-  // function formatPlanDate(date) {
-  //   const currentDate = new Date();
-  //   const targetDate = new Date(date);
-
-  //   const isToday = currentDate.toDateString() === targetDate.toDateString();
-
-  //   if (isToday) {
-  //     const hours = targetDate.getHours();
-  //     const minutes = targetDate.getMinutes();
-  //     return `오늘, ${hours}시 ${minutes}분`;
-  //   } else {
-  //     const tomorrow = new Date(currentDate);
-  //     tomorrow.setDate(currentDate.getDate() + 1);
-
-  //     const isTomorrow = tomorrow.toDateString() === targetDate.toDateString();
-
-  //     if (isTomorrow) {
-  //       const hours = targetDate.getHours();
-  //       const minutes = targetDate.getMinutes();
-  //       return `내일, ${hours}시 ${minutes}분`;
-  //     } else {
-  //       const month = String(targetDate.getMonth() + 1).padStart(2, '0');
-  //       const day = String(targetDate.getDate()).padStart(2, '0');
-  //       const hours = targetDate.getHours();
-  //       const minutes = targetDate.getMinutes();
-  //       return `${month}/${day} ${hours}시 ${minutes}분`;
-  //     }
-  //   }
-  // }
-
   useEffect(() => {
     if (postId !== '') {
-      navigate(`/post/${postId}`);
+      navigate(`/profile`);
     }
   }, [postId]);
-
-  const currentDateTime = new Date();
-  const currentDateTimeString = currentDateTime.toLocaleString('ko-KR', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
 
   return (
     <>
@@ -296,7 +260,7 @@ function Upload() {
       >
         <form onSubmit={handleSubmit}>
           <Layout btnHandler={btnState}>
-            <section className="body-wrap">
+            <section className="wrap">
               <h1 className="a11y-hidden">게시물 작성</h1>
               <article className={`${styles['title-wrap']} ${styles['line']}`}>
                 <div className={styles['title-inner']}>
