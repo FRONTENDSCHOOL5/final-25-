@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './LoginEmail.module.css';
 import { useNavigate, Link } from 'react-router-dom';
+import userAPI from '../../../api/userAPI';
 
 export default function LoginEmail() {
   const [email, setEmail] = useState('');
@@ -44,36 +45,25 @@ export default function LoginEmail() {
     return inlineStyle;
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     // 폼 제출 논리 구현
-    fetch('https://api.mandarin.weniv.co.kr/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user: {
-          email: email,
-          password: password,
-        },
-      }),
-    })
-      .then(response => response.json())
-      .then(result => {
-        setWarningMessage(result.message);
-        if (result.user) {
-          console.log(result);
-          localStorage.setItem('token', result.user.token);
-          localStorage.setItem('username', result.user.username);
-          localStorage.setItem('accountname', result.user.accountname);
-          // 페이지 이동!!
-          navigate('/');
-        } else {
-          setWarningMessage('*이메일과 비밀번호가 일치하지 않습니다.');
-        }
-      })
-      .catch(error => console.log(error));
+    try {
+      const result = await userAPI.getLogin(email, password);
+      setWarningMessage(result.message);
+      if (result.user) {
+        console.log(result);
+        localStorage.setItem('token', result.user.token);
+        localStorage.setItem('username', result.user.username);
+        localStorage.setItem('accountname', result.user.accountname);
+        // 페이지 이동!!
+        navigate('/');
+      } else {
+        setWarningMessage('*이메일과 비밀번호가 일치하지 않습니다.');
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
