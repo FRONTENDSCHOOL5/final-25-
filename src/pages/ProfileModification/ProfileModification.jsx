@@ -13,6 +13,7 @@ export default function ProfileModification() {
   const navigate = useNavigate();
   const { user, dispatch } = useContext(AuthContext);
   const Token = user.token;
+  const [currentId, setCurrentId] = useState(null);
 
   // 유효성 검토 후 제출 여부를 컨트롤
   const [isFormValid, setIsFormValid] = useState(true);
@@ -37,17 +38,20 @@ export default function ProfileModification() {
       setProfileImg(Data.user.image || BasicProfile);
       setValue('idInput', Data.user.accountname);
       setValue('introduceInput', Data.user.intro);
+      setCurrentId(Data.user.accountname);
     };
     console.log('서버로 받은 데이터 확인중');
     getUserInfo();
   }, [Token, setValue]);
 
   // 계정  ID 바뀌면 api 연결을 위해 업데이트
-  const handleIdChange = async event => {
+  const onIdChangeHandler = async event => {
     const userId = event.target.value;
-    setValue('idInput', userId);
-    await checkAccount({ accountname: userId }); // ID가 변경될 때마다 중복검사를 수행합니다.
-    console.log('id 중복성 api 연결?');
+    if (currentId !== userId && userId !== '') {
+      setValue('idInput', userId);
+      await checkAccount({ accountname: userId }); // ID가 변경될 때마다 중복검사를 수행합니다.
+      console.log('id 중복성 api 연결?');
+    }
   };
 
   // -----------------이미지 저장 api-----------------
@@ -208,7 +212,7 @@ export default function ProfileModification() {
                 aria-invalid={
                   !isDirty ? undefined : errors.idInput ? 'true' : 'false'
                 }
-                onInput={handleIdChange}
+                onInput={onIdChangeHandler}
                 onBlur={handleSubmit(checkAccount)}
                 {...register('idInput', {
                   required: '계정 ID는 필수 입력입니다.',
