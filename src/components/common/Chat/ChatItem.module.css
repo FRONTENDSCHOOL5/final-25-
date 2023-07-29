@@ -30,6 +30,7 @@
   object-fit: cover;
   margin-right: 10px;
   position: relative;
+  border-radius: 50px;
 }
 
 .chat-content {
@@ -54,9 +55,9 @@
 
 .chat-date {
   margin-left: auto;
+  display: block;
   color: lightgray;
   font-weight: 400;
   font-size: 10px;
-  /* 세로 기준 아래 정렬이 왜 안되지..? */
   vertical-align: bottom;
 }
