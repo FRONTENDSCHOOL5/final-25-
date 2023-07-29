@@ -28,7 +28,6 @@ export default function ProfileModification() {
 
   const [profileImg, setProfileImg] = useState(null);
   const profileInputRef = useRef(null);
-  console.log('이건뭐지', profileInputRef);
 
   // ----------------- 서버에 저장된 유저 정보 호출 api-----------------
   useEffect(() => {
@@ -48,11 +47,11 @@ export default function ProfileModification() {
     const userId = event.target.value;
     setValue('idInput', userId);
     await checkAccount({ accountname: userId }); // ID가 변경될 때마다 중복검사를 수행합니다.
-    console.log('되나?');
+    console.log(' id확인 api 연결확인');
   };
 
   // -----------------이미지 저장 api-----------------
-  const handleImageChange = async event => {
+  const onImageChangeHandler = async event => {
     const imageSrc = await imageAPI.uploadImg(event);
 
     console.log('이미지 확인중: ', imageSrc);
@@ -66,7 +65,7 @@ export default function ProfileModification() {
 
   // ----------------- 계정 ID 중복검사 api-----------------
   const checkAccount = async data => {
-    console.log('이것도 되는거지?');
+    console.log('계정id 중복검사');
     try {
       const accountName = data.accountname;
       const response = await userAPI.checkAccountValid(accountName);
@@ -87,8 +86,7 @@ export default function ProfileModification() {
   // ----------------- 수정된 정보 등록하는 api-----------------
   const onSubmit = async data => {
     const { userNameInput, idInput, introduceInput } = data;
-    console.log('찍혀라', profileImg);
-    console.log('찍혀라2', data);
+    console.log('수정 정보 확인', profileImg);
     const response = await profileAPI.putModifyData(
       userNameInput,
       idInput,
@@ -109,13 +107,9 @@ export default function ProfileModification() {
     // navigate(`/profile/m`);
   };
 
-  // console.log('확인필요:', profileInputRef.current);
-
   //버튼 활성화
   const handler = () => {
     const { userNameInput, idInput, introduceInput } = watch();
-    console.log('isSubmitting:', isSubmitting);
-    console.log('isFormValid:', isFormValid);
     if (
       userNameInput !== '' &&
       idInput !== '' &&
@@ -142,7 +136,7 @@ export default function ProfileModification() {
                 id="profile"
                 type="file"
                 accept="image/jpg, image/jpeg, image/png"
-                onChange={handleImageChange}
+                onChange={onImageChangeHandler}
                 ref={profileInputRef}
               />
             </label>
@@ -206,7 +200,6 @@ export default function ProfileModification() {
                 id="idInput"
                 name="idInput"
                 placeholder="영문, 숫자, 밑줄 및 마침표만 사용 가능합니다."
-                // className={styles['input']}
                 className={`${styles['input']} ${
                   !isFormValid ? styles['input-error'] : ''
                 }`}
