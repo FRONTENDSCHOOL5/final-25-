@@ -3,3 +3,7 @@
 .main-top {
   margin-top: 72px;
 }
+
+li {
+  cursor: pointer;
+}
