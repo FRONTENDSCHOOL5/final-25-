@@ -85,8 +85,8 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
   };
 
   // 게시글 하단 작성 일자
-  const formattedDate = formateCreateDate(data['createdAt']);
-  function formateCreateDate(dateString) {
+  const formattedCreateDate = formatCreateDate(data['createdAt']);
+  function formatCreateDate(dateString) {
     const currentDate = new Date();
     const targetDate = new Date(dateString);
 
@@ -123,6 +123,44 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
   const match = contentTxt?.match(regex);
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
+
+  // 게시글 내 일정 > 일시
+  const formattedPlanDate =
+    planContents && formatPlanDate(planContents['date']);
+  function formatPlanDate(date) {
+    // '시'가 포함되어 있으면 그냥 return
+    if (date.includes('시')) {
+      return date;
+    }
+
+    const currentDate = new Date();
+    const targetDate = new Date(date);
+
+    const isToday = currentDate.toDateString() === targetDate.toDateString();
+
+    if (isToday) {
+      const hours = targetDate.getHours();
+      const minutes = targetDate.getMinutes();
+      return `오늘, ${hours}시 ${minutes}분`;
+    } else {
+      const tomorrow = new Date(currentDate);
+      tomorrow.setDate(currentDate.getDate() + 1);
+
+      const isTomorrow = tomorrow.toDateString() === targetDate.toDateString();
+
+      if (isTomorrow) {
+        const hours = targetDate.getHours();
+        const minutes = targetDate.getMinutes();
+        return `내일, ${hours}시 ${minutes}분`;
+      } else {
+        const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+        const day = String(targetDate.getDate()).padStart(2, '0');
+        const hours = targetDate.getHours();
+        const minutes = targetDate.getMinutes();
+        return `${month}/${day} ${hours}시 ${minutes}분`;
+      }
+    }
+  }
 
   // ======= postId 전달
   const moreInfoAction = event => {
@@ -173,7 +211,7 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
               <li className={styles.date}>
                 일시
                 <span className={styles['date-value']}>
-                  {planContents['date']}
+                  {formattedPlanDate}
                 </span>
               </li>
               <li className={styles.personnel}>
@@ -227,7 +265,7 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
               </span>
             </div>
           </div>
-          <span className={styles['create-date']}>{formattedDate}</span>
+          <span className={styles['create-date']}>{formattedCreateDate}</span>
         </div>
         <button
           className={styles['btn-post-more']}
