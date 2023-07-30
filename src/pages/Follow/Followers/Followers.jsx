@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from '../Follow.module.css';
 import Layout from '../../../components/layout/Layout';
 import { AuthContext } from '../../../context/AuthContext';
-import { useParams } from 'react-router-dom';
 import profileAPI from '../../../api/profileAPI2';
 
 export default function Followings() {
@@ -10,6 +10,7 @@ export default function Followings() {
   const [buttonStates, setButtonStates] = useState([]);
   const { user } = useContext(AuthContext);
   const { accountname } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -21,10 +22,10 @@ export default function Followings() {
         setFollowers(response);
         console.log('response 데이터 확인:', response);
 
-        // 각 팔로워의 초기 버튼 상태 설정
+        // 각 팔로워의 초기 버튼 상태 설정, api 하게 되면 필요없는 코드가 될수 있음
         const initialButtonStates = new Array(response.length).fill({
-          text: '팔로우',
-          className: styles['followers-btn-follow'],
+          text: '삭제',
+          className: styles['followers-btn-unfollow'],
         });
         setButtonStates(initialButtonStates);
       } catch (error) {
@@ -37,11 +38,14 @@ export default function Followings() {
     }
   }, [followers.length, accountname, user.token]);
 
+  console.log('Followers 데이터 확인:', followers);
+
+  //팔로우 삭제 버튼 들어갈 텍스트 값을 구분해주면
   const updateButtonState = index => {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
       updatedStates[index] = {
-        text: prevStates[index].text === '팔로우' ? '취소' : '팔로우',
+        text: prevStates[index].text === '팔로우' ? '삭제' : '팔로우',
         className:
           prevStates[index].className === styles['followers-btn-follow']
             ? styles['followers-btn-unfollow']
@@ -64,14 +68,21 @@ export default function Followings() {
               className={styles.followers}
             >
               <div className={styles['followers-photo']}>
-                <img
-                  src={follower.image}
-                  alt="프로필 사진"
-                  className={styles['followers-photo']}
-                />
+                {!follower.image && (
+                  <div className={styles['followers-photo-bg']} />
+                )}
+                {follower.image && (
+                  <img
+                    src={follower.image}
+                    alt="프로필 사진"
+                    className={styles['followers-photo-img']}
+                    onClick={() => navigate(`/profile/${follower.accountname}`)}
+                  />
+                )}
               </div>
               <p
                 className={`${styles['followers-inner']} ${styles['followers-name']}`}
+                onClick={() => navigate(`/profile/${follower.accountname}`)}
               >
                 {follower.username}
               </p>
@@ -80,14 +91,16 @@ export default function Followings() {
               >
                 {follower.intro}
               </p>
-              <button
-                type="button"
-                id={`btn-${index}`}
-                className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
-                onClick={() => updateButtonState(index)}
-              >
-                {buttonStates[index]?.text}
-              </button>
+              {follower.accountname !== user.accountname && (
+                <button
+                  type="button"
+                  id={`btn-${index}`}
+                  className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
+                  onClick={() => updateButtonState(index)}
+                >
+                  {buttonStates[index]?.text}
+                </button>
+              )}
             </article>
           ))
         ) : (
