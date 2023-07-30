@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
-import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
 export default function Post({ data, accountName, modalOpen, getPostId }) {
   console.log('props로 전달받은 data: ', data);
@@ -162,6 +161,27 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
     }
   }
 
+  // ===== 이미지 리스트 생성
+  const [imageList, setImageList] = useState([]);
+  const [isImage, setIsImage] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // 버튼 클릭 이벤트
+  const handleImageControlClick = (event, index) => {
+    setCurrentImageIndex(index);
+    const imageContainer = event.target.parentElement.closest('div').firstChild;
+    const translateXValue = -309 * index;
+    imageContainer.style.transform = `translateX(${translateXValue}px)`;
+    imageContainer.style.transition = 'transform 0.5s'; // 트랜지션 효과 설정
+  };
+
+  useEffect(() => {
+    if (data['image'] !== '') {
+      setIsImage(true);
+      setImageList(data['image'].split(','));
+    }
+  }, [data['image']]);
+
   // ======= postId 전달
   const moreInfoAction = event => {
     modalOpen(event);
@@ -224,23 +244,38 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
           )}
 
           <div className={styles['post-img-container']}>
-            <ul className={styles['post-img-list']}>
-              {data['image'] ? (
-                <li className={`${styles['post-img']} ${styles['on']}`}>
-                  <img src={data['image']} alt="음식 사진" />
-                </li>
-              ) : (
-                <></>
-              )}
-            </ul>
-            <ul className={styles['post-img-control']}>
-              <li>
-                <button className={styles['on']} type="button"></button>
-              </li>
-              <li>
-                <button className="" type="button"></button>
-              </li>
-            </ul>
+            {isImage ? (
+              <ul
+                className={styles['post-img-list']}
+                style={{
+                  transform: `translateX(${-309 * currentImageIndex}px)`,
+                }}
+              >
+                {imageList.map((imageUrl, index) => (
+                  <li key={index} className={styles['on']}>
+                    <img src={imageUrl} alt={`음식 사진 ${index + 1}`} />
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <></>
+            )}
+
+            {imageList.length > 1 && (
+              <ul className={styles['post-img-control']}>
+                {imageList.map((_, index) => (
+                  <li key={index}>
+                    <button
+                      className={
+                        index === currentImageIndex ? styles['on'] : ''
+                      }
+                      type="button"
+                      onClick={event => handleImageControlClick(event, index)}
+                    ></button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <p className={styles['post-text']}>
             {planContents
