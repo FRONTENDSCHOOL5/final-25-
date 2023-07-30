@@ -14,7 +14,7 @@ export default function JoinEmail() {
     setError,
   } = useForm({ mode: 'onBlur' });
 
-  const onSubmit = async data => {
+  const onSubmitHandler = async data => {
     try {
       const email = data.email;
       const response = await userAPI.checkEmailValid(email);
@@ -42,7 +42,7 @@ export default function JoinEmail() {
   return (
     <section className={styles['join-main']}>
       <h1 className={styles['email-header']}>이메일로 회원가입</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
         {/* 이메일 인풋 */}
         <div className={styles['input-wrapper']}>
           <label htmlFor="email" className={styles['input-title']}>
