@@ -12,8 +12,7 @@ export default function JoinProfileSetting() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isDirty, errors },
-    setValue,
+    formState: { isDirty, errors },
     watch,
   } = useForm({ mode: 'onBlur' });
 
@@ -27,7 +26,7 @@ export default function JoinProfileSetting() {
   const accountName = watch('idInput');
   const intro = watch('introduceInput');
 
-  const handleIdChange = async event => {
+  const onIdChangeHandler = async event => {
     const accountName = event.target.value;
     await checkAccount({ accountname: accountName });
   };
@@ -38,7 +37,7 @@ export default function JoinProfileSetting() {
   console.log('joinData밖에:', joinData);
 
   // 이미지 저장 api
-  const handleImageChange = async event => {
+  const onImageChangeHandler = async event => {
     const imageSrc = await imageAPI.uploadImg(event);
 
     setProfileImg(imageSrc);
@@ -50,13 +49,16 @@ export default function JoinProfileSetting() {
     console.log('중복검사 확인');
     try {
       const accountName = accountData.accountname;
-      const response = await userAPI.checkAccountValid(accountName);
-      console.log(response.message);
 
-      if (response.message === '사용 가능한 계정ID 입니다.') {
-        setIsFormValid(true);
-      } else {
-        setIsFormValid(false);
+      if (accountName !== '') {
+        const response = await userAPI.checkAccountValid(accountName);
+        console.log(response.message);
+
+        if (response.message === '사용 가능한 계정ID 입니다.') {
+          setIsFormValid(true);
+        } else {
+          setIsFormValid(false);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -108,7 +110,7 @@ export default function JoinProfileSetting() {
               type="file"
               accept="image/jpg, image/jpeg, image/png"
               ref={profileInputRef}
-              onChange={handleImageChange}
+              onChange={onImageChangeHandler}
             />
           </label>
           <button
@@ -173,7 +175,7 @@ export default function JoinProfileSetting() {
                 !isFormValid ? styles['input-error'] : ''
               }`}
               aria-invalid={errors.idInput && !isFormValid ? 'true' : 'false'}
-              onInput={handleIdChange}
+              onInput={onIdChangeHandler}
               onBlur={checkAccount}
               {...register('idInput', {
                 required: '*계정 ID는 필수 입력입니다.',
