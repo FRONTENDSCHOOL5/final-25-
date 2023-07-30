@@ -40,7 +40,7 @@ export default function ProductList({
 
   return (
     <>
-      {product.length !== 0 || !isLoading ? (
+      {product.length !== 0 && !isLoading ? (
         <section className={styles.product}>
           <h2 className={styles['product-title']}>공구 중인 상품</h2>
           <ul className={styles['product-list']}>
