@@ -22,7 +22,7 @@ export default function Followings() {
         setFollowers(response);
         console.log('response 데이터 확인:', response);
 
-        // 각 팔로워의 초기 버튼 상태 설정
+        // 각 팔로워의 초기 버튼 상태 설정, api 하게 되면 필요없는 코드가 될수 있음
         const initialButtonStates = new Array(response.length).fill({
           text: '삭제',
           className: styles['followers-btn-unfollow'],
@@ -40,7 +40,7 @@ export default function Followings() {
 
   console.log('Followers 데이터 확인:', followers);
 
-  //팔로우 삭제 버튼
+  //팔로우 삭제 버튼 들어갈 텍스트 값을 구분해주면
   const updateButtonState = index => {
     setButtonStates(prevStates => {
       const updatedStates = [...prevStates];
