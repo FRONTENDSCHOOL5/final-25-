@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './JoinEmail.module.css';
 import { useForm } from 'react-hook-form';
 import userAPI from '../../../api/userAPI';
@@ -11,22 +11,10 @@ export default function JoinEmail() {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
-    setValue,
-    trigger,
+    setError,
   } = useForm({ mode: 'onBlur' });
 
-  const [isEmailValid, setIsEmailValid] = useState(true);
-
-  const handleEmailChange = event => {
-    const email = event.target.value;
-    setValue('email', email);
-  };
-
-  const handleEmailBlur = async () => {
-    await trigger('email');
-  };
-
-  const onSubmit = async data => {
+  const onSubmitHandler = async data => {
     try {
       const email = data.email;
       const response = await userAPI.checkEmailValid(email);
@@ -40,11 +28,13 @@ export default function JoinEmail() {
           },
         });
       } else {
-        setIsEmailValid(false);
+        setError('email', {
+          type: 'manual',
+          message: '이미 가입된 주소 입니다.',
+        });
       }
     } catch (error) {
       console.error(error);
-      setIsEmailValid(true);
       alert('회원가입에 실패하였습니다.');
     }
   };
@@ -52,7 +42,7 @@ export default function JoinEmail() {
   return (
     <section className={styles['join-main']}>
       <h1 className={styles['email-header']}>이메일로 회원가입</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmitHandler)}>
         {/* 이메일 인풋 */}
         <div className={styles['input-wrapper']}>
           <label htmlFor="email" className={styles['input-title']}>
@@ -64,8 +54,6 @@ export default function JoinEmail() {
             placeholder="이메일 주소를 입력해주세요."
             className={styles['input']}
             aria-invalid={!errors.email}
-            onChange={handleEmailChange}
-            onBlur={handleEmailBlur} // 수정: onBlur 이벤트 핸들러 추가
             {...register('email', {
               required: '*이메일은 필수 입력입니다.',
               pattern: {
@@ -75,13 +63,8 @@ export default function JoinEmail() {
             })}
           />
           {errors.email && (
-            <small className={styles['error-message']} role="alert">
+            <small role="alert" className={styles['error-message']}>
               {errors.email.message}
-            </small>
-          )}
-          {!isEmailValid && (
-            <small className={styles['error-message']} role="alert">
-              *이미 사용 중인 이메일입니다.
             </small>
           )}
         </div>
@@ -106,7 +89,7 @@ export default function JoinEmail() {
             })}
           />
           {errors.password && (
-            <small className={styles['error-message']} role="alert">
+            <small role="alert" className={styles['error-message']}>
               {errors.password.message}
             </small>
           )}
@@ -119,7 +102,7 @@ export default function JoinEmail() {
               : styles['submit-btn-active']
           }`}
           type="submit"
-          disabled={!isDirty || Object.keys(errors).length > 0}
+          disabled={isSubmitting}
         >
           다음
         </button>
