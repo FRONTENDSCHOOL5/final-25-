@@ -130,23 +130,25 @@ export default function ProfilePost({
     feed: !feedList.length ? (
       <FeedNone />
     ) : (
-      <section className={styles.feed}>
-        <ul className={styles['post-list']}>
-          {feedList.map(item => {
-            return (
-              <li key={item.id}>
-                <Post
-                  data={item}
-                  account={accountName}
-                  modalOpen={modalOpen}
-                  getPostId={getPostId}
-                />
-              </li>
-            );
-          })}
-        </ul>
-        <div ref={ref}></div>
-      </section>
+      !isLoading && (
+        <section className={styles.feed}>
+          <ul className={styles['post-list']}>
+            {feedList.map(item => {
+              return (
+                <li key={item.id}>
+                  <Post
+                    data={item}
+                    account={accountName}
+                    modalOpen={modalOpen}
+                    getPostId={getPostId}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+          <div ref={ref}></div>
+        </section>
+      )
     ),
     post: (
       <section className={styles.post}>
