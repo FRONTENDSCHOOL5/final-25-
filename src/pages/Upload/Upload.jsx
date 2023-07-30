@@ -1,43 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Upload.module.css';
 import Layout from '../../components/layout/Layout';
+import { useNavigate } from 'react-router-dom';
+import { getAddressFromLatLng } from '../../api/mapAPI';
+import uploadAPI from '../../api/uploadAPI';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import { useNavigate } from 'react-router-dom';
 import AlertModal from '../../components/common/Modal/AlertModal/AlertModal';
 import minusIcon from '../../assets/images/minus.svg';
 import minusActiveIcon from '../../assets/images/minus-active.svg';
 import plusIcon from '../../assets/images/plus.svg';
 import plusActiveIcon from '../../assets/images/plus-active.svg';
-
-async function getAddressFromLatLng(latitude, longitude) {
-  try {
-    const response = await fetch(
-      `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${longitude}&y=${latitude}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: 'KakaoAK bb9458fc0ab4e3e0faaf85e82ed2c62b',
-          KA: 'sdk/1.0.0 os/javascript origin/http://localhost:3000/',
-        },
-      },
-    );
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    const addressInfo = data.documents[0].address;
-    const address = `${addressInfo.region_1depth_name} ${addressInfo.region_2depth_name} ${addressInfo.region_3depth_name}`;
-
-    return address;
-  } catch (error) {
-    console.error('Error getting address from coordinates:', error);
-    return null;
-  }
-}
 
 function Upload() {
   const [btnState, setBtnState] = useState(false);
@@ -56,6 +30,8 @@ function Upload() {
   const [peopleInputClass, setPeopleInputClass] = useState(
     `${styles['btn-people-num']} ${styles['btn-people-num-text']}`,
   );
+  const { postId: postIdUpload, fetchPost: fetchPostUpload } = uploadAPI();
+
   useEffect(() => {
     if (
       (titleInput.trim() !== '' &&
@@ -77,6 +53,11 @@ function Upload() {
     selectedPhoto,
     photoItems,
   ]);
+  useEffect(() => {
+    if (postIdUpload !== '') {
+      navigate(`/profile`);
+    }
+  }, [postIdUpload]);
 
   const handleTitleInputChange = event => {
     setTitleInput(event.target.value);
@@ -164,11 +145,8 @@ function Upload() {
       navigator.geolocation.clearWatch(watchId);
     };
   }, []);
-  const handleRemovePhoto = index => {
-    const updatedItems = [...photoItems];
-    updatedItems.splice(index, 1);
-    setPhotoItems(updatedItems);
-  };
+
+  //사진올리기
   const handlePhotoChange = event => {
     const files = event.target.files;
     const updatedItems = [...photoItems];
@@ -195,12 +173,21 @@ function Upload() {
     }
   };
 
+  //3장이상일때의 모달 닫기
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
+  //올린 사진 삭제
+  const handleRemovePhoto = index => {
+    const updatedItems = [...photoItems];
+    updatedItems.splice(index, 1);
+    setPhotoItems(updatedItems);
+  };
+
   const token = localStorage.getItem('token');
 
+  //업로드버튼 활성화 후 데이터 넘기기
   const handleSubmit = e => {
     e.preventDefault();
     if (!titleInput || !textValue || !placeInput || !selectedDate) {
@@ -218,35 +205,15 @@ function Upload() {
     console.log('json1', jsonDataPlan);
     const imagesString = photoItems.join(',');
     const contents = textValue + jsonDataPlan;
-    fetchPost();
+
+    // 변경된 postIdUpload와 fetchPostUpload를 사용합니다.
+    fetchPostUpload(contents, imagesString);
     // console.log(contents);
     // console.log('타입', typeof contents);
-    // console.log(postId);
-
-    async function fetchPost() {
-      try {
-        const response = await fetch('https://api.mandarin.weniv.co.kr/post', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify({
-            post: {
-              content: contents,
-              image: imagesString,
-            },
-          }),
-        });
-        const data = await response.json();
-        console.log('DDDDD', data);
-        setPostId(data['post']['id']);
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    // console.log(postIdUpload);
   };
 
+  //데이터 넘긴 후 프로필로 이동
   useEffect(() => {
     if (postId !== '') {
       navigate(`/profile`);
