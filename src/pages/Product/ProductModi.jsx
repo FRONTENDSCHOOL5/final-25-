@@ -29,7 +29,7 @@ export default function ProductModi() {
       setProduct(data.product);
       setProductImg(data.product.itemImage);
       setProductName(data.product.itemName);
-      setProductPrice(data.product.price);
+      setProductPrice(Number(data.product.price).toLocaleString('en-US'));
       setSaleLink(data.product.link);
     } catch (error) {
       console.error(error);
@@ -61,13 +61,19 @@ export default function ProductModi() {
       setIsFormValid(false);
     }
     handler();
+    console.log(productName);
   };
   const handlePriceChange = e => {
-    const value = e.target.value;
-    if (value.length <= 9) {
-      setProductPrice(value);
+    let value = e.target.value.replace(/,/g, '');
+    if (value.length > 9) {
+      value = value.slice(0, 9);
+    }
+    if (/^\d+$/.test(value) && value.length <= 9) {
+      const formattedValue = formatPrice(value);
+      setProductPrice(formattedValue);
       setProductPriceError('');
       setIsFormValid(value !== '');
+      console.log(formattedValue);
     } else {
       setProductPrice(value);
       setProductPriceError(
@@ -77,6 +83,9 @@ export default function ProductModi() {
     }
     handler();
   };
+  function formatPrice(price) {
+    return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
   const handleLinkChange = e => {
     const value = e.target.value;
     if (isValidUrl(value)) {
@@ -97,7 +106,8 @@ export default function ProductModi() {
   };
   const handler = () => {
     if (
-      productName !== '' &&
+      productName.length >= 2 &&
+      productName.length <= 15 &&
       productPrice !== '' &&
       saleLink !== '' &&
       productImg !== ''
@@ -163,12 +173,14 @@ export default function ProductModi() {
           </section>
           <section className={styles['product-title']}>
             <div>공구 이름</div>
+            <label htmlFor="productName" className="a11y-hidden"></label>
             <input
               className={styles['product-title-input']}
               type="text"
               placeholder={'2~15자 이내여야 합니다.'}
               defaultValue={product.itemName}
               onChange={handleNameChange}
+              id="productName"
               required
             />
             {Boolean(nameError) && nameError !== '' && (
@@ -177,12 +189,14 @@ export default function ProductModi() {
           </section>
           <section className={styles['product-title']}>
             <div>가격</div>
+            <label htmlFor="productPrice" className="a11y-hidden"></label>
             <input
               className={styles['product-title-input']}
-              type="number"
+              type="text"
               placeholder="숫자만 입력 가능합니다."
-              defaultValue={product.price}
+              value={productPrice}
               onChange={handlePriceChange}
+              id="productPrice"
               required
             />
             {Boolean(productPriceError) && productPriceError !== '' && (
@@ -191,12 +205,14 @@ export default function ProductModi() {
           </section>
           <section className={styles['product-title']}>
             <div>판매링크</div>
+            <label htmlFor="saleLink"></label>
             <input
               className={styles['product-title-input']}
               type="text"
               placeholder="URL을 입력해 주세요"
               defaultValue={product.link}
               onChange={handleLinkChange}
+              id="saleLink"
               required
             />
             {saleLinkError && (

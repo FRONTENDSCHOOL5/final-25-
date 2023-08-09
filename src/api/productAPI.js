@@ -88,7 +88,8 @@ const productAPI = {
         product: {
           itemName: productName,
           // price: parseInt(productPrice.replace(',', '')),
-          price: parseInt(productPrice),
+          price: Number(productPrice.replace(/,/g, '')),
+          // price: parseInt(productPrice),
           link: saleLink,
           itemImage: productImg,
         },
