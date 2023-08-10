@@ -44,7 +44,7 @@ export default function Followings() {
 
   console.log('Followers 데이터 확인:', followers);
 
-  // 팔로우시 추가 api 통신
+  // 팔로우시 리스트에 추가 api 통신
   const onFollowStateHandler = async (index, follower) => {
     if (buttonStates[index]?.text === '팔로우') {
       try {
