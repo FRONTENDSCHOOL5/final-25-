@@ -4,6 +4,7 @@ import styles from '../Follow.module.css';
 import Layout from '../../../components/layout/Layout';
 import { AuthContext } from '../../../context/AuthContext';
 import profileAPI from '../../../api/profileAPI2';
+import followAPI from '../../../api/followAPI';
 
 export default function Followings() {
   const [followers, setFollowers] = useState([]);
@@ -12,6 +13,7 @@ export default function Followings() {
   const { accountname } = useParams();
   const navigate = useNavigate();
 
+  //팔로워 리스트 api 통신
   useEffect(() => {
     const fetchFollowers = async () => {
       try {
@@ -22,7 +24,7 @@ export default function Followings() {
         setFollowers(response);
         console.log('response 데이터 확인:', response);
 
-        // 각 팔로워의 초기 버튼 상태 설정, api 하게 되면 필요없는 코드가 될수 있음
+        // 버튼 상태 결정 기능
         const initialButtonStates = response.map(follower => ({
           text: follower.isfollow ? '삭제' : '팔로우',
           className: follower.isfollow
@@ -42,19 +44,45 @@ export default function Followings() {
 
   console.log('Followers 데이터 확인:', followers);
 
-  //팔로우 삭제 버튼 들어갈 텍스트 값을 구분해주면
-  const updateButtonState = index => {
-    setButtonStates(prevStates => {
-      const updatedStates = [...prevStates];
-      updatedStates[index] = {
-        text: prevStates[index].text === '팔로우' ? '삭제' : '팔로우',
-        className:
-          prevStates[index].className === styles['followers-btn-follow']
-            ? styles['followers-btn-unfollow']
-            : styles['followers-btn-follow'],
+  // 팔로우시 추가 api 통신
+  const onFollowStateHandler = async (index, follower) => {
+    if (buttonStates[index]?.text === '팔로우') {
+      try {
+        const response = await followAPI.followingPost(
+          user.token,
+          follower.accountname,
+        );
+        console.log('팔로우 추가 메시지 : ', response.message);
+
+        onToggleFollowButton(index, true);
+      } catch (error) {
+        console.error(error);
+        // setIsEmailValid(true);
+        alert('팔로우에 실패하였습니다.');
+      }
+    } else {
+      // 삭제 상태일 경우에도 비슷한 방식으로 변경하실 수 있습니다.
+      // ... 삭제 API 호출 후 버튼 상태 변경 및 리렌더링 코드 작성
+      onToggleFollowButton(index, false);
+    }
+  };
+
+  // 버튼값이 변경되면 리렌더링이됨
+  const onToggleFollowButton = (idx, follow) => {
+    const newButtonStates = buttonStates.slice();
+
+    if (follow) {
+      newButtonStates[idx] = {
+        text: '팔로잉',
+        className: styles.following,
       };
-      return updatedStates;
-    });
+    } else {
+      newButtonStates[idx] = {
+        text: '팔로우',
+        className: styles.follow,
+      };
+    }
+    setButtonStates(newButtonStates);
   };
 
   return (
@@ -98,7 +126,7 @@ export default function Followings() {
                   type="button"
                   id={`btn-${index}`}
                   className={`${styles['followers-btn']} ${buttonStates[index]?.className}`}
-                  onClick={() => updateButtonState(index)}
+                  onClick={() => onFollowStateHandler(index, follower)}
                 >
                   {buttonStates[index]?.text}
                 </button>
