@@ -12,7 +12,7 @@ export default function ProductModi() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [saleLink, setSaleLink] = useState('');
-  const [btnState, setBtnstate] = useState(false);
+  const [btnState, setBtnState] = useState(false);
   // 에러
   const [nameError, setNameError] = useState('');
   const [productPriceError, setProductPriceError] = useState('');
@@ -44,11 +44,15 @@ export default function ProductModi() {
     try {
       const imageSrc = await imageAPI.uploadImg(e);
       setProductImg(imageSrc);
-      console.log(imageSrc);
     } catch (error) {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    setIsFormValid(true);
+  }, [productImg]);
+
   const handleNameChange = e => {
     const value = e.target.value;
     if (value.length >= 2 && value.length <= 15) {
@@ -61,7 +65,6 @@ export default function ProductModi() {
       setIsFormValid(false);
     }
     handler();
-    console.log(productName);
   };
   const handlePriceChange = e => {
     let value = e.target.value.replace(/,/g, '');
@@ -73,7 +76,6 @@ export default function ProductModi() {
       setProductPrice(formattedValue);
       setProductPriceError('');
       setIsFormValid(value !== '');
-      console.log(formattedValue);
     } else {
       setProductPrice(value);
       setProductPriceError(
@@ -109,14 +111,13 @@ export default function ProductModi() {
       productName.length >= 2 &&
       productName.length <= 15 &&
       productPrice !== '' &&
-      saleLink !== '' &&
-      productImg !== ''
+      saleLink !== ''
     ) {
-      setBtnstate(true);
+      setBtnState(true);
       return true;
       // 모두 유효하면 버튼 상태를 true로 설정
     } else {
-      setBtnstate(false);
+      setBtnState(false);
       return false;
     }
   };
