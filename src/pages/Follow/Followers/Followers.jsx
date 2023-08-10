@@ -23,10 +23,12 @@ export default function Followings() {
         console.log('response 데이터 확인:', response);
 
         // 각 팔로워의 초기 버튼 상태 설정, api 하게 되면 필요없는 코드가 될수 있음
-        const initialButtonStates = new Array(response.length).fill({
-          text: '삭제',
-          className: styles['followers-btn-unfollow'],
-        });
+        const initialButtonStates = response.map(follower => ({
+          text: follower.isfollow ? '삭제' : '팔로우',
+          className: follower.isfollow
+            ? styles['followers-btn-unfollow']
+            : styles['followers-btn-follow'],
+        }));
         setButtonStates(initialButtonStates);
       } catch (error) {
         console.error('Error fetching followers:', error);
