@@ -63,6 +63,16 @@ export default function Followings() {
     } else {
       // 삭제 상태일 경우에도 비슷한 방식으로 변경하실 수 있습니다.
       // ... 삭제 API 호출 후 버튼 상태 변경 및 리렌더링 코드 작성
+      try {
+        const response = await followAPI.unfollowingPost(
+          user.token,
+          follower.accountname,
+        );
+        console.log('언팔 메시지 : ', response.message);
+      } catch (error) {
+        console.log(error);
+        alert('언팔에 실패하였습니다.');
+      }
       onToggleFollowButton(index, false);
     }
   };
@@ -73,13 +83,13 @@ export default function Followings() {
 
     if (follow) {
       newButtonStates[idx] = {
-        text: '팔로잉',
-        className: styles.following,
+        text: '삭제',
+        className: styles['followers-btn-unfollow'],
       };
     } else {
       newButtonStates[idx] = {
         text: '팔로우',
-        className: styles.follow,
+        className: styles['followers-btn-follow'],
       };
     }
     setButtonStates(newButtonStates);
