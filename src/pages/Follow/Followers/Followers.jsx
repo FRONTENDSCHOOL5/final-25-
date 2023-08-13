@@ -26,7 +26,7 @@ export default function Followings() {
 
         // 버튼 상태 결정 기능
         const initialButtonStates = response.map(follower => ({
-          text: follower.isfollow ? '삭제' : '팔로우',
+          text: follower.isfollow ? '취소' : '팔로우',
           className: follower.isfollow
             ? styles['followers-btn-unfollow']
             : styles['followers-btn-follow'],
@@ -61,8 +61,7 @@ export default function Followings() {
         alert('팔로우에 실패하였습니다.');
       }
     } else {
-      // 삭제 상태일 경우에도 비슷한 방식으로 변경하실 수 있습니다.
-      // ... 삭제 API 호출 후 버튼 상태 변경 및 리렌더링 코드 작성
+      // 버튼이 팔로우가 아닌 경우
       try {
         const response = await followAPI.unfollowingPost(
           user.token,
@@ -83,7 +82,7 @@ export default function Followings() {
 
     if (follow) {
       newButtonStates[idx] = {
-        text: '삭제',
+        text: '취소',
         className: styles['followers-btn-unfollow'],
       };
     } else {
