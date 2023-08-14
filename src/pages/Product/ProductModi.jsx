@@ -12,7 +12,7 @@ export default function ProductModi() {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [saleLink, setSaleLink] = useState('');
-  const [btnState, setBtnState] = useState(false);
+  const [isBtnState, setBtnState] = useState(false);
   // 에러
   const [nameError, setNameError] = useState('');
   const [productPriceError, setProductPriceError] = useState('');
@@ -22,7 +22,7 @@ export default function ProductModi() {
 
   const productId = window.location.pathname.replace('/product/m/', '');
 
-  async function fetchProductDetail() {
+  async function loadProductDetails() {
     try {
       const data = await productAPI.getProductDetail(token, productId);
       console.log('ddd상세', data);
@@ -37,10 +37,10 @@ export default function ProductModi() {
   }
 
   useEffect(() => {
-    fetchProductDetail();
+    loadProductDetails();
   }, []);
 
-  const handleImageInput = async e => {
+  const onHandleImageInput = async e => {
     try {
       const imageSrc = await imageAPI.uploadImg(e);
       setProductImg(imageSrc);
@@ -53,7 +53,7 @@ export default function ProductModi() {
     setIsFormValid(true);
   }, [productImg]);
 
-  const handleNameChange = e => {
+  const onHandleNameChange = e => {
     const value = e.target.value;
     if (value.length >= 2 && value.length <= 15) {
       setProductName(value);
@@ -64,15 +64,15 @@ export default function ProductModi() {
       setNameError(value !== '' ? '이름은 2~15자 이내여야 합니다.' : '');
       setIsFormValid(false);
     }
-    handler();
+    isHandler();
   };
-  const handlePriceChange = e => {
+  const onHandlePriceChange = e => {
     let value = e.target.value.replace(/,/g, '');
     if (value.length > 9) {
       value = value.slice(0, 9);
     }
     if (/^\d+$/.test(value) && value.length <= 9) {
-      const formattedValue = formatPrice(value);
+      const formattedValue = getFormatPrice(value);
       setProductPrice(formattedValue);
       setProductPriceError('');
       setIsFormValid(value !== '');
@@ -83,12 +83,12 @@ export default function ProductModi() {
       );
       setIsFormValid(false);
     }
-    handler();
+    isHandler();
   };
-  function formatPrice(price) {
+  function getFormatPrice(price) {
     return price.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   }
-  const handleLinkChange = e => {
+  const onHandleLinkChange = e => {
     const value = e.target.value;
     if (isValidUrl(value)) {
       setSaleLink(value);
@@ -99,14 +99,14 @@ export default function ProductModi() {
       setSaleLinkError(value !== '' ? '유효한 URL을 입력해주세요.' : '');
       setIsFormValid(false);
     }
-    handler();
+    isHandler();
   };
   const isValidUrl = url => {
     const urlRegex =
       /^(http[s]?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}\/?([^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(\/[\w.-]*)*\/?$/;
     return urlRegex.test(url);
   };
-  const handler = () => {
+  const isHandler = () => {
     if (
       productName.length >= 2 &&
       productName.length <= 15 &&
@@ -153,7 +153,7 @@ export default function ProductModi() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Layout btnHandler={handler} btn={btnState}>
+        <Layout btnHandler={isHandler} btn={isBtnState}>
           <section className={styles['product-image-container']}>
             <div className={styles['product-file-font']}>이미지 등록</div>
             <label
@@ -169,7 +169,7 @@ export default function ProductModi() {
               className="a11y-hidden"
               type="file"
               id="productImg"
-              onChange={handleImageInput}
+              onChange={onHandleImageInput}
             />
           </section>
           <section className={styles['product-title']}>
@@ -180,7 +180,7 @@ export default function ProductModi() {
               type="text"
               placeholder={'2~15자 이내여야 합니다.'}
               defaultValue={product.itemName}
-              onChange={handleNameChange}
+              onChange={onHandleNameChange}
               id="productName"
               required
             />
@@ -196,7 +196,7 @@ export default function ProductModi() {
               type="text"
               placeholder="숫자만 입력 가능합니다."
               value={productPrice}
-              onChange={handlePriceChange}
+              onChange={onHandlePriceChange}
               id="productPrice"
               required
             />
@@ -212,7 +212,7 @@ export default function ProductModi() {
               type="text"
               placeholder="URL을 입력해 주세요"
               defaultValue={product.link}
-              onChange={handleLinkChange}
+              onChange={onHandleLinkChange}
               id="saleLink"
               required
             />

@@ -16,10 +16,10 @@ export default function AddProduct() {
   const [saleLinkError, setSaleLinkError] = useState('');
   //제출 할것인지?
   const [isFormValid, setIsFormValid] = useState(false);
-  const [btnState, setBtnstate] = useState(false);
+  const [isBtnState, setBtnstate] = useState(false);
   const navigate = useNavigate();
 
-  const handleName = e => {
+  const onHandleName = e => {
     const value = e.target.value;
     if (value.length >= 2 && value.length <= 15) {
       setProductName(value);
@@ -31,10 +31,10 @@ export default function AddProduct() {
       setNameError(value !== '' ? '이름은 2~15자 이내여야 합니다.' : '');
       setIsFormValid(false);
     }
-    handler();
+    isHandler();
   };
 
-  const handlePrice = e => {
+  const onHandlePrice = e => {
     let value = e.target.value.replace(/[^0-9]/g, '');
     if (value.length > 9) {
       value = value.slice(0, 9);
@@ -44,29 +44,27 @@ export default function AddProduct() {
       setProductPrice(formattedPrice);
       setProductPriceError('');
       setIsFormValid(value !== '');
-      console.log(formattedPrice);
     } else {
       setProductPrice(value);
       setProductPriceError('가격은 최대 9자리 숫자로 입력해주세요.');
       setIsFormValid(false);
     }
-    handler();
+    isHandler();
   };
 
-  const handleSaleLink = e => {
+  const onHandleSaleLink = e => {
     const value = e.target.value;
     if (isValidUrl(value)) {
       setSaleLink(value);
       setSaleLinkError('');
       setIsFormValid(value !== '');
-      console.log(value);
     } else {
       setSaleLink(value);
       setSaleLinkError(value !== '' ? '유효한 URL을 입력해주세요.' : '');
       setIsFormValid(false);
       return;
     }
-    handler();
+    isHandler();
   };
 
   const isValidUrl = url => {
@@ -75,17 +73,16 @@ export default function AddProduct() {
     return urlRegex.test(url);
   };
 
-  const handleImageInput = async e => {
+  const onHandleImageInput = async e => {
     try {
       const imageSrc = await imageAPI.uploadImg(e);
       setProductImg(imageSrc);
-      console.log(imageSrc);
     } catch (error) {
       console.log(error);
     }
   };
   // 버튼 핸들러
-  const handler = () => {
+  const isHandler = () => {
     if (
       productName !== '' &&
       productPrice !== '' &&
@@ -126,7 +123,7 @@ export default function AddProduct() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <Layout btnHandler={handler} btn={btnState}>
+        <Layout btnHandler={isHandler} btn={isBtnState}>
           <section className={styles['product-image-container']}>
             <div className={styles['product-file-font']}>이미지 등록</div>
             <label
@@ -142,7 +139,7 @@ export default function AddProduct() {
               className="a11y-hidden"
               type="file"
               id="productImg"
-              onChange={handleImageInput}
+              onChange={onHandleImageInput}
             />
             <section className={styles['product-title']}>
               <div>공구 이름</div>
@@ -153,7 +150,7 @@ export default function AddProduct() {
                 placeholder="2~15자 이내여야 합니다."
                 required
                 id="productName"
-                onChange={handleName}
+                onChange={onHandleName}
               />
               {Boolean(nameError) && nameError !== '' && (
                 <p className={styles['error-message']}>{nameError}</p>
@@ -169,7 +166,7 @@ export default function AddProduct() {
                 required
                 id="productPrice"
                 value={productPrice}
-                onChange={handlePrice}
+                onChange={onHandlePrice}
               />
               {productPriceError && (
                 <p className={styles['error-message']}>{productPriceError}</p>
@@ -184,7 +181,7 @@ export default function AddProduct() {
                 placeholder="URL을 입력해 주세요"
                 required
                 id="saleLink"
-                onChange={handleSaleLink}
+                onChange={onHandleSaleLink}
               />
               {saleLinkError && (
                 <p className={styles['error-message']}>{saleLinkError}</p>

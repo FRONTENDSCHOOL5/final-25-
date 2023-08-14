@@ -7,7 +7,7 @@ import LoginEmail from '../LoginEmail/LoginEmail';
 export default function LoginMain() {
   const [isEmailLogin, setIsEmailLogin] = useState(false);
 
-  const handleEmailLogin = () => {
+  const onHandleEmailLogin = () => {
     setIsEmailLogin(true);
   };
   return (
@@ -41,7 +41,7 @@ export default function LoginMain() {
               <button
                 type="button"
                 className={styles['btn-email']}
-                onClick={handleEmailLogin}
+                onClick={onHandleEmailLogin}
               >
                 이메일로 로그인
               </button>
