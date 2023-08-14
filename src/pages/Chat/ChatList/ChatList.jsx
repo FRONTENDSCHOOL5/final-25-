@@ -10,6 +10,8 @@ import profileAPI from '../../../api/profileAPI2';
 export default function ChatList() {
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
+  const [followers, setFollowers] = useState([]);
+  const { user } = useContext(AuthContext);
 
   function modalOpen(menu) {
     setIsModalShow(true);
@@ -22,15 +24,10 @@ export default function ChatList() {
     }
   }
 
-  const [followers, setFollowers] = useState([]);
-  const { user } = useContext(AuthContext);
-
-  console.log('확인중', user.accountname);
-
   useEffect(() => {
     const fetchFollowers = async () => {
       try {
-        const response = await profileAPI.getFollowingdata(
+        const response = await profileAPI.getFollowerList(
           user.token,
           user.accountname,
         );
@@ -44,15 +41,17 @@ export default function ChatList() {
     if (followers.length === 0) {
       fetchFollowers();
     }
-  }, [followers.length, user.accountname, user.token]);
+  }, [followers, user.accountname, user.token]);
 
-  const chats = followers.map(item => ({
-    id: item._id,
-    username: item.username,
-    image: item.image ? item.image : ProfileImg,
-    message: item.intro,
-    date: '2023.07.30',
-  }));
+  const chats = followers
+    .filter(follower => follower.isfollow)
+    .map(item => ({
+      id: item._id,
+      username: item.username,
+      image: item.image ? item.image : ProfileImg,
+      message: item.intro,
+      date: '2023.07.30',
+    }));
   console.log('item', chats);
 
   return (
