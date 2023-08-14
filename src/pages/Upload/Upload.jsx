@@ -4,6 +4,8 @@ import Layout from '../../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { getAddressFromLatLng } from '../../api/mapAPI';
 import uploadAPI from '../../api/uploadAPI';
+// import imageAPI from '../../api/imageAPI';
+import imagesAPI from '../../api/imagesAPI';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
@@ -147,7 +149,41 @@ function Upload() {
   }, []);
 
   //사진올리기
+  const handlePhotoChangeT = async event => {
+    // 이벤트로부터 선택된 파일들을 가져옵니다.
+    const files = event.target.files;
+    console.log(files);
+
+    // 선택된 파일이 있는지 확인합니다.
+    if (files.length === 0) {
+      return;
+    }
+
+    // 남은 슬롯 수를 계산합니다.
+    const updatedItems = [...photoItems];
+    console.log(updatedItems);
+    const remainingSlots = 3 - updatedItems.length;
+
+    // for (let i = 0; i < files.length; i++) {
+    //   const file = files[i];
+    //   try {
+    //     const imageUrl = await imagesAPI.uploadImg(file);
+    //     updatedItems.push(imageUrl);
+    //   } catch (error) {
+    //     console.error('Error uploading image:', error);
+    //   }
+    // }
+
+    setPhotoItems(updatedItems);
+    if (updatedItems.length === 3) {
+      setModalType('notice');
+      setIsModalOpen(true);
+    }
+  };
+
+  // ===== 원래 handlephotochange
   const handlePhotoChange = event => {
+    // console.log('its working');
     const files = event.target.files;
     const updatedItems = [...photoItems];
     const remainingSlots = 3 - updatedItems.length;
@@ -160,13 +196,55 @@ function Upload() {
 
     const filesToAdd = Array.from(files).slice(0, remainingSlots);
 
-    for (let i = 0; i < filesToAdd.length; i++) {
-      const file = filesToAdd[i];
-      const url = URL.createObjectURL(file);
-      updatedItems.push(url);
-    }
+    console.log(filesToAdd);
 
-    setPhotoItems(updatedItems);
+    const imageBody = new FormData();
+
+    filesToAdd.forEach(file => {
+      imageBody.append('image', file);
+    });
+
+    console.log(imageBody);
+
+    fetchImages().then(newImages => {
+      const filteredImages = newImages.filter(
+        imageUrl => !updatedItems.includes(imageUrl),
+      );
+      setPhotoItems([...updatedItems, ...filteredImages]);
+
+      if (updatedItems.length + filteredImages.length === 3) {
+        setModalType('notice');
+        setIsModalOpen(true);
+      }
+    });
+
+    async function fetchImages() {
+      const response = await fetch(
+        'https://api.mandarin.weniv.co.kr/image/uploadfiles',
+        {
+          method: 'POST',
+          header: {
+            'Content-type': 'multipart/form-data',
+          },
+          body: imageBody,
+        },
+      );
+
+      const data = await response.json();
+      console.log('images', data);
+
+      const newImages = data.map(
+        item => 'https://api.mandarin.weniv.co.kr/' + item.filename,
+      );
+      return newImages;
+    }
+    // for (let i = 0; i < filesToAdd.length; i++) {
+    //   const file = filesToAdd[i];
+    //   const url = URL.createObjectURL(file);
+    //   updatedItems.push(url);
+    // }
+
+    console.log(photoItems);
     if (updatedItems.length === 3) {
       setModalType('notice');
       setIsModalOpen(true);
@@ -208,9 +286,8 @@ function Upload() {
 
     // 변경된 postIdUpload와 fetchPostUpload를 사용합니다.
     fetchPostUpload(contents, imagesString);
-    // console.log(contents);
-    // console.log('타입', typeof contents);
-    // console.log(postIdUpload);
+
+    // handlePhotoChange();
   };
 
   //데이터 넘긴 후 프로필로 이동
@@ -372,8 +449,9 @@ function Upload() {
                         type="file"
                         id="btn-photo-input"
                         className={styles['btn-photo-input']}
-                        onChange={handlePhotoChange}
+                        accept="image/jpg, image/jpeg, image/png"
                         multiple
+                        onChange={handlePhotoChange}
                       />
                       <label
                         htmlFor="btn-photo-input"
