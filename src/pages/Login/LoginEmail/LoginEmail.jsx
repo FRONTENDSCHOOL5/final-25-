@@ -9,19 +9,19 @@ export default function LoginEmail() {
   const [warningMessage, setWarningMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleEmailChange = e => {
+  const onHandleEmailChange = e => {
     if (e.target.type === 'email') {
       setEmail(e.target.value);
       if (e.target.value.trim() === '') {
         setWarningMessage('');
-      } else if (validateEmail(e.target.value)) {
+      } else if (isValidateEmail(e.target.value)) {
         setWarningMessage('');
       } else {
         setWarningMessage('*올바른 이메일 형식이 아닙니다.');
       }
     }
   };
-  const handlePasswordChange = e => {
+  const onHandlePasswordChange = e => {
     if (e.target.type === 'password') {
       setPassword(e.target.value);
       if (e.target.value.trim() === '') {
@@ -33,7 +33,7 @@ export default function LoginEmail() {
       }
     }
   };
-  const validateEmail = email => {
+  const isValidateEmail = email => {
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return emailRegex.test(email);
   };
@@ -79,7 +79,7 @@ export default function LoginEmail() {
               name="email"
               className={styles['login-input']}
               value={email}
-              onChange={handleEmailChange}
+              onChange={onHandleEmailChange}
             />
           </article>
           <article className={styles['login-main-input']}>
@@ -91,7 +91,7 @@ export default function LoginEmail() {
               name="password"
               className={styles['login-input']}
               value={password}
-              onChange={handlePasswordChange}
+              onChange={onHandlePasswordChange}
               required
             />
           </article>
