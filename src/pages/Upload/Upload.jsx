@@ -4,7 +4,6 @@ import Layout from '../../components/layout/Layout';
 import { useNavigate } from 'react-router-dom';
 import { getAddressFromLatLng } from '../../api/mapAPI';
 import uploadAPI from '../../api/uploadAPI';
-// import imageAPI from '../../api/imageAPI';
 import imagesAPI from '../../api/imagesAPI';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -34,6 +33,7 @@ function Upload() {
   );
   const { postId: postIdUpload, fetchPost: fetchPostUpload } = uploadAPI();
 
+  // 입력된 데이터의 유효성을 확인한 후 업로드 버튼 활성화 상태관리
   useEffect(() => {
     if (
       (titleInput.trim() !== '' &&
@@ -55,36 +55,44 @@ function Upload() {
     selectedPhoto,
     photoItems,
   ]);
+
+  // 게시물 업로드시 postIdUpload 값이 변경되었을 때 프로필 페이지로 자동으로 이동
   useEffect(() => {
     if (postIdUpload !== '') {
       navigate(`/profile`);
     }
   }, [postIdUpload]);
 
+  // 텍스트를 입력하면 handleTitleInputChange 함수가 호출되어 해당 텍스트가 titleInput 상태 변수에 저장
   const handleTitleInputChange = event => {
     setTitleInput(event.target.value);
   };
 
+  // 본문을 입력하거나 수정할 때마다 이 함수가 실행되며, 입력한 내용을 textValue 상태 변수에 업데이트
   const handleTextChange = event => {
     setTextValue(event.target.value);
   };
 
+  // 메뉴 제목을 입력하면 호출되며, 입력된 값을 setTitleInput 함수를 사용하여 titleInput 상태 변수에 업데이트
+  const handleInputChange = event => {
+    setTitleInput(event.target.value);
+  };
+
+  // 인원감소버튼
   const handleDecrease = () => {
     if (peopleCount > 2) {
       setPeopleCount(peopleCount - 1);
     }
   };
 
+  // 인원증가버튼
   const handleIncrease = () => {
     if (peopleCount < 6) {
       setPeopleCount(peopleCount + 1);
     }
   };
 
-  const handleInputChange = event => {
-    setTitleInput(event.target.value);
-  };
-
+  // 메뉴 제목, 텍스트 내용, 장소, 날짜 중 하나라도 입력하거나 선택한 경우에는 입력 필드의 스타일이 변경
   useEffect(() => {
     if (
       titleInput.trim() ||
@@ -102,10 +110,12 @@ function Upload() {
     }
   }, [textValue, titleInput, placeInput, selectedDate]);
 
+  // DatePicker 컴포넌트에서 사용자가 날짜를 선택할 때 호출되므로, 선택된 날짜를 처리하고 UI를 업데이트
   const handleDateChange = date => {
     setSelectedDate(date);
   };
 
+  // 현재 날짜와 시간을 가져와서 문자열로 형식화
   const currentDateTime = new Date();
   const currentDateTimeString = currentDateTime.toLocaleString('ko-KR', {
     year: 'numeric',
@@ -115,7 +125,7 @@ function Upload() {
     minute: '2-digit',
   });
 
-  // 주어진 함수를 사용하여 Kakao API에서 위치 정보를 가져오고, 해당 정보를 화면에 표시합니다.
+  // 주어진 함수를 사용하여 KakaoAPI에서 위치 정보를 가져오고, 해당 정보를 화면에 표시
   useEffect(() => {
     // 위치 감시 시작
     const watchId = navigator.geolocation.watchPosition(
@@ -141,122 +151,51 @@ function Upload() {
         setCurrentLocation('위치 정보를 가져오는 데 실패했습니다.');
       },
     );
-
     // 컴포넌트 언마운트 시 위치 감시 종료
     return () => {
       navigator.geolocation.clearWatch(watchId);
     };
   }, []);
 
-  //사진올리기
-  const handlePhotoChangeT = async event => {
-    // 이벤트로부터 선택된 파일들을 가져옵니다.
-    const files = event.target.files;
-    console.log(files);
-
-    // 선택된 파일이 있는지 확인합니다.
-    if (files.length === 0) {
-      return;
-    }
-
-    // 남은 슬롯 수를 계산합니다.
-    const updatedItems = [...photoItems];
-    console.log(updatedItems);
-    const remainingSlots = 3 - updatedItems.length;
-
-    // for (let i = 0; i < files.length; i++) {
-    //   const file = files[i];
-    //   try {
-    //     const imageUrl = await imagesAPI.uploadImg(file);
-    //     updatedItems.push(imageUrl);
-    //   } catch (error) {
-    //     console.error('Error uploading image:', error);
-    //   }
-    // }
-
-    setPhotoItems(updatedItems);
-    if (updatedItems.length === 3) {
-      setModalType('notice');
-      setIsModalOpen(true);
-    }
-  };
-
-  // ===== 원래 handlephotochange
+  // 이미지업로드
   const handlePhotoChange = event => {
-    // console.log('its working');
     const files = event.target.files;
     const updatedItems = [...photoItems];
     const remainingSlots = 3 - updatedItems.length;
+    // 첫 번째 파일만 선택하도록
+    const fileToAdd = files[0];
 
+    if (fileToAdd) {
+      // 이미지API연결
+      imagesAPI
+        .uploadImage(fileToAdd)
+        .then(newImage => {
+          setPhotoItems([...updatedItems, newImage]);
+
+          if (updatedItems.length + 1 === 3) {
+            setModalType('notice');
+            setIsModalOpen(true);
+          }
+        })
+        .catch(error => {
+          console.error('Error uploading image:', error);
+          // Handle error if needed
+        });
+    }
+    // 3장이상일때 모달 열기
     if (remainingSlots === 0) {
       setModalType('notice');
       setIsModalOpen(true);
       return;
     }
-
-    const filesToAdd = Array.from(files).slice(0, remainingSlots);
-
-    console.log(filesToAdd);
-
-    const imageBody = new FormData();
-
-    filesToAdd.forEach(file => {
-      imageBody.append('image', file);
-    });
-
-    console.log(imageBody);
-
-    fetchImages().then(newImages => {
-      const filteredImages = newImages.filter(
-        imageUrl => !updatedItems.includes(imageUrl),
-      );
-      setPhotoItems([...updatedItems, ...filteredImages]);
-
-      if (updatedItems.length + filteredImages.length === 3) {
-        setModalType('notice');
-        setIsModalOpen(true);
-      }
-    });
-
-    async function fetchImages() {
-      const response = await fetch(
-        'https://api.mandarin.weniv.co.kr/image/uploadfiles',
-        {
-          method: 'POST',
-          header: {
-            'Content-type': 'multipart/form-data',
-          },
-          body: imageBody,
-        },
-      );
-
-      const data = await response.json();
-      console.log('images', data);
-
-      const newImages = data.map(
-        item => 'https://api.mandarin.weniv.co.kr/' + item.filename,
-      );
-      return newImages;
-    }
-    // for (let i = 0; i < filesToAdd.length; i++) {
-    //   const file = filesToAdd[i];
-    //   const url = URL.createObjectURL(file);
-    //   updatedItems.push(url);
-    // }
-
-    console.log(photoItems);
-    if (updatedItems.length === 3) {
-      setModalType('notice');
-      setIsModalOpen(true);
-    }
   };
 
-  //3장이상일때의 모달 닫기
+  // 3장이상일때의 모달 닫기
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  //올린 사진 삭제
+  // 올린 사진 삭제
   const handleRemovePhoto = index => {
     const updatedItems = [...photoItems];
     updatedItems.splice(index, 1);
@@ -265,13 +204,13 @@ function Upload() {
 
   const token = localStorage.getItem('token');
 
-  //업로드버튼 활성화 후 데이터 넘기기
+  // 업로드버튼 활성화 후 데이터 넘기기
   const handleSubmit = e => {
     e.preventDefault();
     if (!titleInput || !textValue || !placeInput || !selectedDate) {
       return;
     }
-
+    //넘어갈 데이터
     const dataPlan = {
       menu: titleInput,
       title: titleInput + ' 먹을 사람?',
@@ -284,10 +223,8 @@ function Upload() {
     const imagesString = photoItems.join(',');
     const contents = textValue + jsonDataPlan;
 
-    // 변경된 postIdUpload와 fetchPostUpload를 사용합니다.
+    // 변경된 postIdUpload와 fetchPostUpload를 사용
     fetchPostUpload(contents, imagesString);
-
-    // handlePhotoChange();
   };
 
   //데이터 넘긴 후 프로필로 이동
