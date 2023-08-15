@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './AlertModal.module.css';
 import postAPI from '../../../../api/postAPI';
 import commentAPI from '../../../../api/commentAPI';
+import productAPI from '../../../../api/productAPI';
 
 export default function AlertModal({
   type,
@@ -30,23 +31,13 @@ export default function AlertModal({
   const productDeleteAction = async event => {
     modalClose(event);
     console.log(productId);
-    await fetchPostDelete();
-    window.location.reload();
 
-    async function fetchPostDelete() {
-      console.log({ token, postId, commentId });
-      const response = await fetch(
-        `https://api.mandarin.weniv.co.kr/product/${productId}`,
-        {
-          method: 'DELETE',
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      const data = await response.json();
-      console.log(productId, data);
+    try {
+      await productAPI.deleteProduct({ token, productId });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      window.location.reload();
     }
   };
 
@@ -67,9 +58,7 @@ export default function AlertModal({
 
   const logoutAction = event => {
     modalClose(event);
-    localStorage.removeItem('token');
-    localStorage.removeItem('accountname');
-    localStorage.removeItem('username');
+    window.localStorage.clear();
     navigate('/');
   };
 

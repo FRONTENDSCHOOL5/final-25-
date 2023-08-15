@@ -104,6 +104,24 @@ const productAPI = {
     console.log('ㄴㄴㄴ', result);
     return result;
   },
+  // 상품 삭제
+  async deleteProduct({ token, productId }) {
+    const response = await fetch(BASE_URL + `/product/${productId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('네트워크에 문제가 있습니다!');
+    }
+
+    const data = await response.json();
+    console.log('productAPI.deleteProduct: 상품 샥제', data);
+    return data;
+  },
 };
 
 export default productAPI;
