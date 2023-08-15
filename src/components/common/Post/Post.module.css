@@ -150,7 +150,6 @@
   height: 228px;
   border: 0.5px solid #dbdbdb;
   border-radius: 10px;
-  margin-right: 2px;
   transition: transform 0.5s; /* transform 속성에 대해 0.5초의 트랜지션 효과 적용 */
 }
 .post-img-list li img {
