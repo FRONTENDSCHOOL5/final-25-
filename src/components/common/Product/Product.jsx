@@ -8,8 +8,8 @@ export default function ProfileProduct({
   setProductUrl,
 }) {
   console.log('ssss', data);
-  // const price = data['price'].toLocaleString();
-  const price = data['price'];
+  const price = data['price'].toLocaleString();
+  // const price = data['price'];
 
   const productClickHandelr = () => {
     if (document.location.pathname === '/profile') {
