@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../../../components/layout/Layout';
 import UserProfile from '../../../components/common/Profile/UserProfile';
-import ProfileProduct from '../../../components/common/Profile/ProfileProduct';
+import ProductList from '../../../components/common/Product/ProductList';
 import ProfilePost from '../../../components/common/Profile/ProfilePost';
 import Modal from '../../../components/common/Modal/Modal';
 
@@ -33,7 +33,7 @@ export default function MyProfile() {
     <>
       <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
         <UserProfile />
-        <ProfileProduct
+        <ProductList
           modalOpen={() =>
             modalOpen(['product-delete', 'product-modi', 'product-more'])
           }
