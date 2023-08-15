@@ -59,9 +59,6 @@ export default function AlertModal({
   const logoutAction = event => {
     modalClose(event);
     window.localStorage.clear();
-    localStorage.removeItem('token');
-    localStorage.removeItem('accountname');
-    localStorage.removeItem('username');
     navigate('/');
   };
 
