@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../../../components/layout/Layout';
 import OtherProfile from '../../../components/common/Profile/OtherProfile';
-import ProfileProduct from '../../../components/common/Profile/ProfileProduct';
+import ProductList from '../../../components/common/Product/ProductList';
 import ProfilePost from '../../../components/common/Profile/ProfilePost';
 import Modal from '../../../components/common/Modal/Modal';
 import AlertModal from '../../../components/common/Modal/AlertModal/AlertModal';
@@ -44,7 +44,7 @@ export default function YourProfile() {
     <>
       <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
         <OtherProfile alertOpen={() => alertOpen()} />
-        <ProfileProduct />
+        <ProductList />
         <ProfilePost
           type="profile"
           modalOpen={() => modalOpen(['report-post'])}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import styles from './ProfileProduct.module.css';
+import styles from './ProductList.module.css';
 import productAPI from '../../../api/productAPI';
-import Product from '../Product/Product';
+import Product from './Product';
 
 export default function ProductList({
   modalOpen,
