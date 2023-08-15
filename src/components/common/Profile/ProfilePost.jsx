@@ -122,7 +122,7 @@ export default function ProfilePost({
   const userPostImgArray = [];
   userPost.map(item => {
     item['image']
-      ? userPostImgArray.push(item['image'])
+      ? userPostImgArray.push(item['image'].split(',')[0])
       : console.log('이미지 없어유');
   });
 
