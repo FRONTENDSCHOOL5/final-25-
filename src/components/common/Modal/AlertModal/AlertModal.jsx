@@ -65,6 +65,10 @@ export default function AlertModal({
   const photoNoticeAction = event => {
     modalClose(event);
   };
+  const chatOutAction = event => {
+    modalClose(event);
+    navigate('/chat');
+  };
 
   const AlertModalUI = {
     'post-delete': (
@@ -207,6 +211,29 @@ export default function AlertModal({
             </button>
           </div>
         </article>
+      </section>
+    ),
+    'chat-out': (
+      <section className={styles.alert}>
+        <div className={styles['alert-inner']}>
+          <h2 className={styles['alert-title']}>채팅방을 나가시겠어요?</h2>
+          <div className={styles['btn-wrapper']}>
+            <button
+              type="button"
+              className={styles['btn-cancel']}
+              onClick={modalClose}
+            >
+              취소
+            </button>
+            <button
+              type="button"
+              className={styles['btn-chat-out']}
+              onClick={chatOutAction}
+            >
+              나가기
+            </button>
+          </div>
+        </div>
       </section>
     ),
   };
