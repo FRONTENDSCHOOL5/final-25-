@@ -157,33 +157,40 @@ function Upload() {
     };
   }, []);
 
-  // 이미지업로드
+  // 이미지 업로드
   const handlePhotoChange = event => {
     const files = event.target.files;
     const updatedItems = [...photoItems];
     const remainingSlots = 3 - updatedItems.length;
-    // 첫 번째 파일만 선택하도록
-    const fileToAdd = files[0];
 
-    if (fileToAdd) {
-      // 이미지API연결
-      imagesAPI
-        .uploadImage(fileToAdd)
-        .then(newImage => {
-          setPhotoItems([...updatedItems, newImage]);
+    const filesArray = Array.from(files);
+    const filesToAdd = filesArray.slice(
+      0,
+      Math.min(remainingSlots, filesArray.length),
+    );
 
-          if (updatedItems.length + 1 === 3) {
-            setModalType('notice');
-            setIsModalOpen(true);
-          }
-        })
-        .catch(error => {
-          console.error('Error uploading image:', error);
-          // Handle error if needed
-        });
-    }
-    // 3장이상일때 모달 열기
-    if (remainingSlots === 0) {
+    const uploadPromises = filesToAdd.map(fileToAdd => {
+      if (fileToAdd) {
+        return imagesAPI.uploadImage(fileToAdd);
+      } else {
+        return Promise.reject('No file to upload');
+      }
+    });
+
+    Promise.all(uploadPromises)
+      .then(newImages => {
+        setPhotoItems([...updatedItems, ...newImages]);
+
+        if (updatedItems.length + newImages.length === 3) {
+          setModalType('notice');
+          setIsModalOpen(true);
+        }
+      })
+      .catch(error => {
+        console.error('이미지 업로드 오류:', error);
+      });
+
+    if (remainingSlots <= 0) {
       setModalType('notice');
       setIsModalOpen(true);
       return;
@@ -210,21 +217,24 @@ function Upload() {
     if (!titleInput || !textValue || !placeInput || !selectedDate) {
       return;
     }
-    //넘어갈 데이터
+
+    // 업로드한 이미지 파일 이름을 하나의 문자열로 합치기
+    const imagesString = photoItems.join(',');
+
+    // 데이터 계획 생성
     const dataPlan = {
       menu: titleInput,
       title: titleInput + ' 먹을 사람?',
       date: selectedDate,
       people: peopleCount + '명',
       place: placeInput,
+      images: imagesString, // 합쳐진 이미지 파일 이름 추가
     };
     const jsonDataPlan = JSON.stringify(dataPlan);
-    console.log('json1', jsonDataPlan);
-    const imagesString = photoItems.join(',');
     const contents = textValue + jsonDataPlan;
 
-    // 변경된 postIdUpload와 fetchPostUpload를 사용
-    fetchPostUpload(contents, imagesString);
+    // 컨텐츠를 서버로 보내기
+    fetchPostUpload(contents);
   };
 
   //데이터 넘긴 후 프로필로 이동
