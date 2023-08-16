@@ -243,8 +243,8 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
             </ul>
           )}
 
-          <div className={styles['post-img-container']}>
-            {isImage ? (
+          {isImage ? (
+            <div className={styles['post-img-container']}>
               <ul
                 className={styles['post-img-list']}
                 style={{
@@ -257,26 +257,25 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
                   </li>
                 ))}
               </ul>
-            ) : (
-              <></>
-            )}
-
-            {imageList.length > 1 && (
-              <ul className={styles['post-img-control']}>
-                {imageList.map((_, index) => (
-                  <li key={index}>
-                    <button
-                      className={
-                        index === currentImageIndex ? styles['on'] : ''
-                      }
-                      type="button"
-                      onClick={event => handleImageControlClick(event, index)}
-                    ></button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+              {imageList.length > 1 && (
+                <ul className={styles['post-img-control']}>
+                  {imageList.map((_, index) => (
+                    <li key={index}>
+                      <button
+                        className={
+                          index === currentImageIndex ? styles['on'] : ''
+                        }
+                        type="button"
+                        onClick={event => handleImageControlClick(event, index)}
+                      ></button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ) : (
+            <></>
+          )}
           <p className={styles['post-text']}>
             {planContents
               ? data['content'].replace(foundText, '')
