@@ -84,7 +84,8 @@ export default function AddProduct() {
   // 버튼 핸들러
   const isHandler = () => {
     if (
-      productName !== '' &&
+      productName.length >= 2 &&
+      productName.length <= 15 &&
       productPrice !== '' &&
       saleLink !== '' &&
       productImg !== ''
