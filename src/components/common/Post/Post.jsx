@@ -176,8 +176,9 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
   };
 
   useEffect(() => {
-    if (data['image'] !== '') {
+    if (typeof data['image'] === 'string') {
       setIsImage(true);
+      console.log(data['image']);
       setImageList(data['image'].split(','));
     }
   }, [data['image']]);
