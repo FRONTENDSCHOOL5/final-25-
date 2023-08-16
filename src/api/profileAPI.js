@@ -8,6 +8,8 @@ const profileAPI = {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
+        'Cache-Control': 'max-age=0',
+        ETag: 'unique-resource-version',
       },
     });
 
