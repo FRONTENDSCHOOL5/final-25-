@@ -228,13 +228,12 @@ function Upload() {
       date: selectedDate,
       people: peopleCount + '명',
       place: placeInput,
-      images: imagesString, // 합쳐진 이미지 파일 이름 추가
     };
     const jsonDataPlan = JSON.stringify(dataPlan);
     const contents = textValue + jsonDataPlan;
 
     // 컨텐츠를 서버로 보내기
-    fetchPostUpload(contents);
+    fetchPostUpload(contents, imagesString);
   };
 
   //데이터 넘긴 후 프로필로 이동
