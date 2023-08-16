@@ -6,6 +6,7 @@ import ProfilePost from '../../../components/common/Profile/ProfilePost';
 import Modal from '../../../components/common/Modal/Modal';
 
 export default function MyProfile() {
+  const token = localStorage.getItem('token');
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
   const [postId, setPostId] = useState('');
@@ -32,7 +33,7 @@ export default function MyProfile() {
   return (
     <>
       <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
-        <UserProfile />
+        <UserProfile token={token} />
         <ProductList
           modalOpen={() =>
             modalOpen(['product-delete', 'product-modi', 'product-more'])
