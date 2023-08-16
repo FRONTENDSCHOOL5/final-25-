@@ -12,6 +12,8 @@ export default function Followers() {
   const { user } = useContext(AuthContext);
   const { accountname } = useParams();
   const navigate = useNavigate();
+  const path = document.location.pathname;
+  const pageAccountname = path.replace('/profile/', '');
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -68,8 +70,11 @@ export default function Followers() {
       follower => follower._id === followerId,
     );
     console.log('선택한 구독자 정보: ', selectedFollower);
+    console.log('페이지계정: ', pageAccountname);
+    console.log('로그인계정: ', user.accountname);
+    const extractedPageAccountname = pageAccountname.match(/\/([^\/]+)$/)[1];
 
-    if (selectedFollower.accountname === user.accountname) {
+    if (extractedPageAccountname === user.accountname) {
       if (buttonStates[index]?.text === '취소') {
         console.log('버튼 누르면 이벤트 값이 넘어와지는 확인중', followerId);
         await getUnfollowUser(followerId, selectedFollower);
