@@ -69,23 +69,25 @@ export default function Followers() {
     );
     console.log('선택한 구독자 정보: ', selectedFollower);
 
-    if (buttonStates[index]?.text === '취소') {
-      console.log('버튼 누르면 이벤트 값이 넘어와지는 확인중', followerId);
-      await getUnfollowUser(followerId, selectedFollower);
-    }
+    if (selectedFollower.accountname === user.accountname) {
+      if (buttonStates[index]?.text === '취소') {
+        console.log('버튼 누르면 이벤트 값이 넘어와지는 확인중', followerId);
+        await getUnfollowUser(followerId, selectedFollower);
+      }
 
-    //팔로우 취소 버튼
-    setButtonStates(prevStates => {
-      const updatedStates = [...prevStates];
-      updatedStates[index] = {
-        text: prevStates[index].text === '취소' ? '팔로우' : '취소',
-        className:
-          prevStates[index].className === styles['followers-btn-unfollow']
-            ? styles['followers-btn-follow']
-            : styles['followers-btn-unfollow'],
-      };
-      return updatedStates;
-    });
+      //팔로우 취소 버튼
+      setButtonStates(prevStates => {
+        const updatedStates = [...prevStates];
+        updatedStates[index] = {
+          text: prevStates[index].text === '취소' ? '팔로우' : '취소',
+          className:
+            prevStates[index].className === styles['followers-btn-unfollow']
+              ? styles['followers-btn-follow']
+              : styles['followers-btn-unfollow'],
+        };
+        return updatedStates;
+      });
+    }
   };
 
   return (
