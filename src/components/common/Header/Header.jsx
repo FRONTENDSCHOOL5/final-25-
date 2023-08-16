@@ -59,7 +59,11 @@ export default function Header({ type, modalOpen, chatTitle, setKeyword }) {
     ),
     saveButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
+        <button
+          className={styles['btn-back']}
+          onClick={() => navigate(-1)}
+          type="button"
+        >
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save']} disabled>
@@ -69,7 +73,11 @@ export default function Header({ type, modalOpen, chatTitle, setKeyword }) {
     ),
     colorButton: (
       <header className={styles['header-wrap']}>
-        <button className={styles['btn-back']} onClick={() => navigate(-1)}>
+        <button
+          className={styles['btn-back']}
+          onClick={() => navigate(-1)}
+          type="button"
+        >
           <img src={IconArrowLeft} alt="뒤로가기" />
         </button>
         <button className={styles['btn-save-color']} type="submit">
