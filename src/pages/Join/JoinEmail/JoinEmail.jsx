@@ -57,7 +57,7 @@ export default function JoinEmail() {
             {...register('email', {
               required: '*이메일은 필수 입력입니다.',
               pattern: {
-                value: /\S+@\S+\.\S+/,
+                value: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
                 message: '*이메일 형식에 맞지 않습니다.',
               },
             })}
