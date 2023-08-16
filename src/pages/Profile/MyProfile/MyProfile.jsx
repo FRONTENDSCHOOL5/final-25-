@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import Layout from '../../../components/layout/Layout';
 import UserProfile from '../../../components/common/Profile/UserProfile';
-import ProfileProduct from '../../../components/common/Profile/ProfileProduct';
+import ProductList from '../../../components/common/Product/ProductList';
 import ProfilePost from '../../../components/common/Profile/ProfilePost';
 import Modal from '../../../components/common/Modal/Modal';
 
 export default function MyProfile() {
+  const token = localStorage.getItem('token');
   const [isModalShow, setIsModalShow] = useState(false);
   const [modalMenu, setmodalMenu] = useState(['delete-post']);
   const [postId, setPostId] = useState('');
+  const [productId, setProductId] = useState('');
+  const [productUrl, setProductUrl] = useState('');
 
   function modalOpen(menu) {
     setIsModalShow(true);
@@ -30,8 +33,14 @@ export default function MyProfile() {
   return (
     <>
       <Layout modalOpen={() => modalOpen(['setting', 'logout'])}>
-        <UserProfile />
-        <ProfileProduct />
+        <UserProfile token={token} />
+        <ProductList
+          modalOpen={() =>
+            modalOpen(['product-delete', 'product-modi', 'product-more'])
+          }
+          setProductId={setProductId}
+          setProductUrl={setProductUrl}
+        />
         <ProfilePost
           type="profile"
           modalOpen={() => modalOpen(['delete-post'])}
@@ -42,6 +51,8 @@ export default function MyProfile() {
             modalClose={modalClose}
             modalMenu={modalMenu}
             postId={postId}
+            productId={productId}
+            productUrl={productUrl}
           />
         )}
       </Layout>

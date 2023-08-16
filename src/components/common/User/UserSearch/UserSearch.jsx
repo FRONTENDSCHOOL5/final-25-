@@ -1,86 +1,47 @@
 import React from 'react';
-import styles from '.././User.module.css';
-import defaultProfileImg from '../../../../assets/images/profile-img42.png';
+import styles from './UserSearch.module.css';
+import { Link } from 'react-router-dom';
 
-export default function UserSearch() {
-  const chats = [
-    {
-      id: 1,
-      name: '냠냠이',
-    },
-    {
-      id: 2,
-      name: ' 쩝쩝이',
-    },
-    {
-      id: 3,
-      name: '호로록',
-    },
-    {
-      id: 4,
-      name: ' 통통이',
-    },
-  ];
-
+function UserListItem({ item, keyword }) {
   return (
     <>
-      <div className={`${styles['user']} ${styles['user-search']}`}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
+      <Link to={`/profile/${item.accountname}`} className={styles['user-to']}>
         <img
           className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
+          src={item.image}
+          alt={`${item.accountname} 프로필`}
         />
         <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span> {chats[0].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
+          {item.username.includes(keyword) && keyword !== '' ? (
+            <strong className={styles['user-name']}>
+              {item.username.split(keyword)[0]}
+              <span className={styles.keyword}>{keyword}</span>
+              {item.username.slice(
+                item.username.search(keyword) + keyword.length,
+              )}
+            </strong>
+          ) : (
+            <strong className={styles['user-name']}>{item.username}</strong>
+          )}
+          <span className={styles['user-id']}>@ {item.accountname}</span>
         </div>
-      </div>
-      <div className={styles['user']}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
-        <img
-          className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
-        />
-        <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span> {chats[1].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
-        </div>
-      </div>
-      <div className={styles['user']}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
-        <img
-          className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
-        />
-        <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span> {chats[2].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
-        </div>
-      </div>
-      <div className={styles['user']}>
-        <h2 className="a11y-hidden">사용자 계정</h2>
-        <img
-          className={styles['profile-cover']}
-          src={defaultProfileImg}
-          alt="프로필 이미지"
-        />
-        <div className={styles['user-info']}>
-          <h3 className={styles['user-name']}>
-            <span>애월읍</span>
-            {chats[3].name}
-          </h3>
-          <span className={styles['user-id']}>@ weniv_Mandarin</span>
-        </div>
-      </div>
+      </Link>
     </>
+  );
+}
+
+export default function UserList({ items, keyword }) {
+  const limitedItems = [...items].slice(0, 100);
+
+  return (
+    <ul className={styles['user-list']}>
+      {limitedItems.map(item => {
+        return (
+          <li key={item._id} className={styles['user-item']}>
+            <UserListItem item={item} keyword={keyword} />
+          </li>
+        );
+      })}
+    </ul>
   );
 }

@@ -3,21 +3,32 @@ import { useNavigate } from 'react-router-dom';
 import styles from './UserProfile.module.css';
 import profileAPI from '../../../api/profileAPI';
 
-const token = localStorage.getItem('token');
-
-export default function UserProfile() {
-  const [userProfile, setUserProfle] = useState([]);
+export default function UserProfile({ token }) {
+  const [userProfile, setUserProfile] = useState([]);
   const [accountName, setAccountName] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchMyProfile = async () => {
-      const data = await profileAPI.getMyProfile(token);
-      setUserProfle(data['user']);
-      setAccountName(data['user']['accountname']);
-    };
     fetchMyProfile();
   }, []);
+
+  const fetchMyProfile = async () => {
+    try {
+      setIsLoading(true);
+      setLoadingError(null);
+
+      const data = await profileAPI.getMyProfile(token);
+      setUserProfile(data['user']);
+      setAccountName(data['user']['accountname']);
+    } catch (error) {
+      setLoadingError(error);
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const followerClickHandler = event => {
     console.log(event);
@@ -29,7 +40,7 @@ export default function UserProfile() {
   };
 
   return (
-    <>
+    !isLoading && (
       <section className={styles['user-profile']}>
         <img
           className={styles['user-profile-cover']}
@@ -78,6 +89,6 @@ export default function UserProfile() {
           </a>
         </div>
       </section>
-    </>
+    )
   );
 }

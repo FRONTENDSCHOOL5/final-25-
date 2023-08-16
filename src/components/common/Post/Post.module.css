@@ -3,7 +3,7 @@
 /* 포스트 */
 .btn-group {
   text-align: right;
-  border-bottom: 0.5px solid #DBDBDB;
+  border-bottom: 0.5px solid #dbdbdb;
   padding: 9px 21px;
 }
 .btn-group button {
@@ -73,9 +73,9 @@
   text-align: left;
   color: #585858;
   margin: 20px 0;
-  grid-template-areas: 
-  "a b"
-  "c d";
+  grid-template-areas:
+    'a b'
+    'c d';
 }
 .plan-list span {
   width: 108px;
@@ -108,7 +108,7 @@
   height: 14px;
   border-radius: 10px;
   background: var(--sub-color-2);
-  vertical-align:text-bottom;
+  vertical-align: text-bottom;
   margin: 0 6px;
 }
 
@@ -148,12 +148,9 @@
   display: block;
   width: 309px;
   height: 228px;
-  border: 0.5px solid #DBDBDB;
+  border: 0.5px solid #dbdbdb;
   border-radius: 10px;
-  margin-right: 2px;
-}
-.post-img-list li.on{
-  transform: all 0.5s;
+  transition: transform 0.5s; /* transform 속성에 대해 0.5초의 트랜지션 효과 적용 */
 }
 .post-img-list li img {
   width: 100%;
@@ -207,12 +204,12 @@
   display: flex;
 }
 .btn-like {
-  background: #FFFFFF;
+  background: #ffffff;
   border: none;
   color: inherit;
 }
 .btn-like::before,
-.comment::before{
+.comment::before {
   content: '';
   width: 20px;
   height: 20px;

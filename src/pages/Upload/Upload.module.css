@@ -1,12 +1,16 @@
 @import '../../styles/global.css';
 @import '../../assets/font/font.css';
+.body-wrap {
+  position: relative;
+  z-index: 100;
+}
 .title-wrap {
   width: 90%;
   padding: 17px 0px 15px 0px;
   border-bottom: 1px solid #D9D9D9;
   display: flex;
   align-items: center;
-  text-indent: 16px;
+  text-indent: 12px;
   font-weight: 600;
   margin: 0 5% 0 5%;
 }
@@ -18,16 +22,30 @@
   background: url(../../assets/images/profile-img42.png) no-repeat center;
   background-size: cover;
 }
-.title-user-input {
+.title-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.title-user {
+  width: 10px;
   border: none;
-  width:100px;
   outline: none;
-  text-align: left;
+  text-align:center;
   font-family: 'Pretendard-Regular';
   font-size: 20px;
   font-weight: 600;
   color:var(--main-color);
   cursor: auto;
+}
+.title-user-default {
+  border: none;
+  outline: none;
+  margin-left: 10px;
+  font-family: 'Pretendard-Regular';
+  font-size: 20px;
+  font-weight: 600;
+  cursor: none;
 }
 .title-img {
   width: 42px;
@@ -92,8 +110,11 @@
   text-align: right;
   font-family: 'Pretendard-Regular';
   font-size: 14px;
+  width: 90px;
   color:var(--main-color);
   cursor: auto;
+  position: relative;
+  z-index: 100;
 }
 .item-input-text {
   border: none;
@@ -103,6 +124,9 @@
   font-size: 14px;
   color:var(--main-color);
   cursor: auto;
+}
+.item-input-text::placeholder{
+  color: #D9D9D9;
 }
 .item-input-date {
   border: none;
@@ -157,33 +181,25 @@
   display: flex;
   align-items: center;
 }
+.minus, 
+.plus {
+  background-color: #fff;
+}
+/* 인원표시 */
 .btn-people-num {
   width: 40px;
   border: none;
   outline: none;
   text-align: center;
   font-family: 'Pretendard-Regular';
-  color:var(--main-color);
   font-size: 14px;
   cursor: auto;
   margin-left: 10px;
-  }
-.btn-people-num::placeholder {
-  color : #D9D9D9;
-  }
-.minus, 
-.plus {
-  background-color: #fff;
 }
-.input-people-min {
-  width: 40px;
-  border: none;
-  outline: none;
-  text-align: center;
-  font-family: 'Pretendard-Regular';
-  font-size: 14px;
-  cursor: auto;
-  margin-left: 10px;
+.input-filled {
+  color: var(--main-color);
+}
+.input-blur {
   color: #D9D9D9;
 }
 /* 올린 사진 */
@@ -191,15 +207,13 @@
   display: flex;
   overflow-x: auto;
   width: 100%;
-  position: relative;
+ position: relative;
   justify-content: flex-end; 
-
 }
 .photo-item {
   position: relative;
   width: 40%;
-  margin-left: 20px;
-  margin-right: 3px;
+  margin: 0 2px;
 }
 .photo-img {
   position: relative;
@@ -220,14 +234,11 @@
   position: fixed;
   width: 50px;
   height: 50px;
-  margin-top: 10px;
+  margin-top: -40px;
   margin-bottom: 16px;
-  margin-right: px;
-  right: 0;
-  left: 45%;
-  transform: translateX(300%); 
+  /* left: 45%; */
+  transform: translateX(550%);
   overflow: hidden;
-  /* z-index: 9900; */
 }
 /* 사진 첨부(파일형식) */
 .btn-photo-input[type="file"] {
@@ -236,10 +247,10 @@
   height: 50px;
   margin-bottom: 16px;
   margin-right: 16px;
-  right: 0;
   left: 45%;
   opacity: 0;
   cursor: pointer;
+
 }
 /* 사진 첨부 라벨(파일형식) */
 .btn-photo-label {
@@ -249,6 +260,7 @@
   background-image: url(../../assets/images/upload-file.png);
   background-size: cover;
   cursor: pointer;
+
 }
 /* 화살표 이미지, 멘트 이미지 정렬 */
 .upload-photo,
@@ -272,5 +284,21 @@
   height: 16.22px;
   margin-top: -20px;
   margin-left: 100px;
+  transform: translateX(0%);
   background: url(../../assets/images/arrow.svg) no-repeat;
+}
+/*반응형 스타일 */
+@media (max-width: 389px) {
+  .upload-photo::after {
+    margin: -30px 0 0 -45px;
+    transform: rotate(-20deg);
+  }
+
+  .btn-photo {
+    transform: translateX(270%) translateY(-50%);
+  }
+
+  .upload-photo{
+    margin: 80px 0 0 calc(100% - 80%);
+  }
 }

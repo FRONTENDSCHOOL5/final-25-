@@ -1,17 +1,27 @@
 import React from 'react';
 import './Layout.module.css';
-import Header from '../common/HeaderTest/Header';
+import Header from '../common/Header/Header';
 import TabMenu from '../common/TabMenu/TabMenu';
 import Input from '../common/Input/Input';
 
-export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
+export default function Layout({
+  children,
+  btnHandler,
+  chatTitle,
+  modalOpen,
+  setKeyword,
+  postDetailId,
+  loadCommentMore,
+}) {
   let headerType;
   let footerType;
   let pathToCheck;
   console.log(modalOpen);
 
   const path = document.location.pathname;
-  if (path.includes('/profile/m')) {
+  console.log(path);
+
+  if (path === '/profile/m') {
     pathToCheck = '/profile/m';
   } else if (path.includes('/profile/')) {
     pathToCheck = '/profile/:accountname';
@@ -23,12 +33,15 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
     pathToCheck = '/post/upload';
   } else if (path.includes('/post/')) {
     pathToCheck = '/post';
+  } else if (path.includes('/product/m')) {
+    pathToCheck = '/product/m';
   } else if (path.includes('/chat/')) {
     pathToCheck = '/chat/:accountname';
   } else {
     pathToCheck = path;
   }
 
+  console.log(pathToCheck);
   switch (pathToCheck) {
     case '/':
       headerType = 'homeSearch';
@@ -47,7 +60,7 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
       footerType = 'none';
       break;
     case '/product/m':
-      headerType = 'colorButton';
+      headerType = btnHandler() ? 'colorButton' : 'saveButton';
       footerType = 'none';
       break;
     case '/followers':
@@ -94,6 +107,7 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
         btnHandler={btnHandler}
         chatTitle={chatTitle}
         modalOpen={modalOpen}
+        setKeyword={setKeyword}
       />
       <main>{children}</main>
 
@@ -101,7 +115,11 @@ export default function Layout({ children, btnHandler, chatTitle, modalOpen }) {
       footerType === 'comment' ||
       footerType === 'chatting' ? (
         <footer>
-          <Input type={footerType} />
+          <Input
+            type={footerType}
+            postId={postDetailId}
+            loadCommentMore={loadCommentMore}
+          />
         </footer>
       ) : (
         <TabMenu type={footerType} />

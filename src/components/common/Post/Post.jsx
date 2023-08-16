@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
-import basicProfileImg from '../../../assets/images/basic-profile-img.png';
 
 export default function Post({ data, accountName, modalOpen, getPostId }) {
   console.log('props로 전달받은 data: ', data);
@@ -85,8 +84,8 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
   };
 
   // 게시글 하단 작성 일자
-  const formattedDate = formateCreateDate(data['createdAt']);
-  function formateCreateDate(dateString) {
+  const formattedCreateDate = formatCreateDate(data['createdAt']);
+  function formatCreateDate(dateString) {
     const currentDate = new Date();
     const targetDate = new Date(dateString);
 
@@ -124,6 +123,66 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
   const foundText = match ? match[0] : null;
   const planContents = foundText ? JSON.parse(foundText) : null;
 
+  // 게시글 내 일정 > 일시
+  const formattedPlanDate =
+    planContents && formatPlanDate(planContents['date']);
+  function formatPlanDate(date) {
+    // '시'가 포함되어 있으면 그냥 return
+    if (date.includes('시')) {
+      return date;
+    }
+
+    const currentDate = new Date();
+    const targetDate = new Date(date);
+
+    const isToday = currentDate.toDateString() === targetDate.toDateString();
+
+    if (isToday) {
+      const hours = targetDate.getHours();
+      const minutes = targetDate.getMinutes();
+      return `오늘, ${hours}시 ${minutes}분`;
+    } else {
+      const tomorrow = new Date(currentDate);
+      tomorrow.setDate(currentDate.getDate() + 1);
+
+      const isTomorrow = tomorrow.toDateString() === targetDate.toDateString();
+
+      if (isTomorrow) {
+        const hours = targetDate.getHours();
+        const minutes = targetDate.getMinutes();
+        return `내일, ${hours}시 ${minutes}분`;
+      } else {
+        const month = String(targetDate.getMonth() + 1).padStart(2, '0');
+        const day = String(targetDate.getDate()).padStart(2, '0');
+        const hours = targetDate.getHours();
+        const minutes = targetDate.getMinutes();
+        return `${month}/${day} ${hours}시 ${minutes}분`;
+      }
+    }
+  }
+
+  // ===== 이미지 리스트 생성
+  const [imageList, setImageList] = useState([]);
+  const [isImage, setIsImage] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // 버튼 클릭 이벤트
+  const handleImageControlClick = (event, index) => {
+    setCurrentImageIndex(index);
+    const imageContainer = event.target.parentElement.closest('div').firstChild;
+    const translateXValue = -309 * index;
+    imageContainer.style.transform = `translateX(${translateXValue}px)`;
+    imageContainer.style.transition = 'transform 0.5s'; // 트랜지션 효과 설정
+  };
+
+  useEffect(() => {
+    if (typeof data['image'] === 'string') {
+      setIsImage(true);
+      console.log(data['image']);
+      setImageList(data['image'].split(','));
+    }
+  }, [data['image']]);
+
   // ======= postId 전달
   const moreInfoAction = event => {
     modalOpen(event);
@@ -142,7 +201,6 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
             className={styles['author-profile']}
             src={data['author']['image']}
             alt="작성자 프로필 이미지"
-            onError={basicProfileImg}
           />
           <div className={styles['author-info']}>
             {planContents && (
@@ -174,7 +232,7 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
               <li className={styles.date}>
                 일시
                 <span className={styles['date-value']}>
-                  {planContents['date']}
+                  {formattedPlanDate}
                 </span>
               </li>
               <li className={styles.personnel}>
@@ -186,25 +244,39 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
             </ul>
           )}
 
-          <div className={styles['post-img-container']}>
-            <ul className={styles['post-img-list']}>
-              {data['image'] ? (
-                <li className={`${styles['post-img']} ${styles['on']}`}>
-                  <img src={data['image']} alt="음식 사진" />
-                </li>
-              ) : (
-                <></>
+          {isImage ? (
+            <div className={styles['post-img-container']}>
+              <ul
+                className={styles['post-img-list']}
+                style={{
+                  transform: `translateX(${-309 * currentImageIndex}px)`,
+                }}
+              >
+                {imageList.map((imageUrl, index) => (
+                  <li key={index} className={styles['on']}>
+                    <img src={imageUrl} alt={`음식 사진 ${index + 1}`} />
+                  </li>
+                ))}
+              </ul>
+              {imageList.length > 1 && (
+                <ul className={styles['post-img-control']}>
+                  {imageList.map((_, index) => (
+                    <li key={index}>
+                      <button
+                        className={
+                          index === currentImageIndex ? styles['on'] : ''
+                        }
+                        type="button"
+                        onClick={event => handleImageControlClick(event, index)}
+                      ></button>
+                    </li>
+                  ))}
+                </ul>
               )}
-            </ul>
-            <ul className={styles['post-img-control']}>
-              <li>
-                <button className={styles['on']} type="button"></button>
-              </li>
-              <li>
-                <button className="" type="button"></button>
-              </li>
-            </ul>
-          </div>
+            </div>
+          ) : (
+            <></>
+          )}
           <p className={styles['post-text']}>
             {planContents
               ? data['content'].replace(foundText, '')
@@ -228,7 +300,7 @@ export default function Post({ data, accountName, modalOpen, getPostId }) {
               </span>
             </div>
           </div>
-          <span className={styles['create-date']}>{formattedDate}</span>
+          <span className={styles['create-date']}>{formattedCreateDate}</span>
         </div>
         <button
           className={styles['btn-post-more']}

@@ -1,14 +1,54 @@
 import React, { useState } from 'react';
-import AlertModal from './AlertModal';
+import { Link } from 'react-router-dom';
 import styles from './Modal.module.css';
+import postAPI from '../../../api/postAPI';
+import commentAPI from '../../../api/commentAPI';
+import AlertModal from './AlertModal/AlertModal';
 
-export default function Modal({ modalClose, modalMenu, postId }) {
+export default function Modal({
+  modalClose,
+  modalMenu,
+  postId,
+  productId,
+  productUrl,
+  commentId,
+}) {
+  const token = localStorage.getItem('token');
   const [alertShow, setAlertShow] = useState(false);
   const [alertType, setAlertType] = useState('post-delete');
 
   const alertOpen = type => {
     setAlertShow(true);
     setAlertType(type);
+  };
+
+  const productMoreClickHandler = () => {
+    window.open(productUrl, '_blank');
+  };
+
+  const postReportAction = async () => {
+    await reportPost().then(() => alertOpen('report'));
+    console.log(postId, '신고됨');
+
+    async function reportPost() {
+      try {
+        await postAPI.reportPost({ token, postId });
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
+  const commetReportAction = async () => {
+    await reportComment().then(() => alertOpen('report'));
+
+    async function reportComment() {
+      try {
+        await commentAPI.reportComment({ token, postId, commentId });
+      } catch (error) {
+        console.error(error);
+      }
+    }
   };
 
   const menuArr = {
@@ -21,15 +61,44 @@ export default function Modal({ modalClose, modalMenu, postId }) {
       </button>
     ),
     'report-post': (
-      <button
-        className={styles['report-post']}
-        onClick={() => alertOpen('report')}
-      >
+      <button className={styles['report-post']} onClick={postReportAction}>
         신고하기
       </button>
     ),
+    'product-delete': (
+      <button
+        className={styles['product-delete']}
+        onClick={() => alertOpen('product-delete')}
+      >
+        삭제
+      </button>
+    ),
+    'product-modi': (
+      <Link to={`/product/m/${productId}`} className={styles['product-modi']}>
+        수정
+      </Link>
+    ),
+    'product-more': (
+      <Link
+        to=""
+        className={styles['product-more']}
+        onClick={productMoreClickHandler}
+      >
+        웹사이트에서 상품보기
+      </Link>
+    ),
+    'delete-comment': (
+      <button
+        className={styles['report-comment']}
+        onClick={() => alertOpen('comment-delete')}
+      >
+        삭제하기
+      </button>
+    ),
     'report-comment': (
-      <button className={styles['report-comment']}>신고하기</button>
+      <button className={styles['report-comment']} onClick={commetReportAction}>
+        신고하기
+      </button>
     ),
     'report-chat': (
       <button
@@ -50,7 +119,22 @@ export default function Modal({ modalClose, modalMenu, postId }) {
         로그아웃
       </button>
     ),
-    exit: <button className={styles['exit-btn']}>채팅방 나가기</button>,
+    'photo-notice': (
+      <button
+        className={styles['photo-notice']}
+        onClick={() => alertOpen('photo-notice')}
+      >
+        삭제
+      </button>
+    ),
+    'chat-out': (
+      <button
+        className={styles['logout']}
+        onClick={() => alertOpen('chat-out')}
+      >
+        채팅방 나가기
+      </button>
+    ),
   };
 
   return (
@@ -67,7 +151,13 @@ export default function Modal({ modalClose, modalMenu, postId }) {
         </ul>
       </section>
       {alertShow && (
-        <AlertModal type={alertType} modalClose={modalClose} postId={postId} />
+        <AlertModal
+          type={alertType}
+          modalClose={modalClose}
+          postId={postId}
+          productId={productId}
+          commentId={commentId}
+        />
       )}
     </>
   );

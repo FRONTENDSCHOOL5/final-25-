@@ -1,11 +1,22 @@
 /* 채팅방 전체 */ 
 .chatroom {
-  display: flex;
   width: 100%;
   height: 100%;
-  flex-direction: column;
   /* background: #F2F2F2; */
-  /* overflow: hidden; */
+}
+.chatroom,
+.chatall {
+  display: flex;
+  flex-direction: column;
+}
+.chatall::before {
+  content: "";
+  display: block;
+  flex: 1;
+}
+.chatall {
+  flex: 1;
+  overflow: hidden;
 }
 /* 채팅메시지 그룹 레이아웃 */
 .received,
@@ -17,9 +28,9 @@
   width: 100%;
   margin-right: 48px;
 }
-.first { 
+/* .first { 
   padding-top: 294px;
-}
+} */
 /* 받은채팅, 보낸채팅 공통 레이아웃 */
 .received-chat,
 .sended-chat {
@@ -81,5 +92,10 @@
   color: #fff;
 }
 .sended-photo {
-border-radius: 10px 0px 10px 10px;
+  border-radius: 10px 0px 10px 10px;
+}
+
+.input-photo {
+width: 100%;
+border: 1px solid red;
 }

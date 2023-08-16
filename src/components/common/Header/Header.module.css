@@ -1,42 +1,14 @@
-@import '../../../styles/reset.css';
-@import '../../../styles/global.css';
-@import '../../../assets/font/font.css';
-
-body {
-  font-family: 'Pretendard';
-}
-
-header {
-  background-color: white;
-  /* position: fixed;
-  left: 0;
-  right: 0; */
-  margin: 0;
-}
-
 .header-wrap {
-  width: 100%;
-  height: 48px;
-  min-width: 390px;
-  /* margin: auto; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid #dbdbdb;
-  margin: 0;
+  padding: 8px 16px;
 }
 
 .btn-more,
 .btn-back {
   background: none;
-}
-
-.btn-back {
-  margin-left: 16px;
-}
-
-.btn-more {
-  margin-right: 12px;
 }
 
 .test {
@@ -46,7 +18,6 @@ header {
 /* HomeSearch 스타일 */
 .btn-search {
   background: none;
-  margin-right: 16px;
 }
 
 .inp-search {
@@ -55,6 +26,12 @@ header {
   border: none;
   color: #000000;
   padding: 13px 16px;
+}
+.title {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
 }
 
 /* UserSearch 스타일 */
@@ -68,13 +45,15 @@ header {
   border: 1px solid var(--main-color);
   border-radius: 32px;
   box-shadow: 0px 4px 4px var(--sub-color-2);
+  outline: none;
   margin-left: 20px;
-  margin-right: 16px;
   padding: 7px 19px;
   font-size: 14px;
-  color: #c4c4c4;
 }
 
+.inp-userSearch::placeholder {
+  color: #c4c4c4;
+}
 /* SaveButton 스타일 */
 .btn-save {
   width: 90px;
@@ -83,21 +62,29 @@ header {
   font-size: 14px;
   border-radius: 32px;
   background-color: var(--sub-color-2);
-  margin-right: 18px;
 }
 
-/* ChatHeader 스타일 */
-/* .header-chat-wrap {
-  width: 100%;
-  height: 48px;
-  min-width: 390px;
-  margin: auto;
+.left {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  border: 1px solid #dbdbdb;
-  margin: 0;
-} */
+  gap: 10px;
+}
+
+.chat-title {
+  font-size: 14px;
+}
+
+/* colorButton */
+.btn-save-color,
+.btn-upload-color {
+  width: 90px;
+  height: 32px;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 32px;
+  background-color: var(--main-color);
+}
 
 .left {
   display: flex;

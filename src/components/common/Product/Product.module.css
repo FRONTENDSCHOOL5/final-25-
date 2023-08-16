@@ -1,7 +1,7 @@
 @import '../../../assets/font/font.css';
 
 .product-item {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: 140px;
   height: 132px;
   cursor: pointer;
@@ -16,7 +16,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 15px;
-  border: 0.5px solid #DBDBDB;
+  border: 0.5px solid #dbdbdb;
   border-radius: 8px;
 }
 .product-name {
@@ -25,6 +25,9 @@
   font-size: 14px;
   line-height: 17px;
   color: #000000;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .product-price {
   font-weight: 700;

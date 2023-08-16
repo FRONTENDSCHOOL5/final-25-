@@ -1,42 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import styles from './OtherProfile.module.css';
+import profileAPI from '../../../api/profileAPI';
 
-export default function UserProfile() {
+const URL = window.location.href;
+
+export default function UserProfile({ alertOpen }) {
   const token = localStorage.getItem('token');
-  const userAccountName = document.location.pathname.replace('/profile/', '');
+  const accountName = document.location.pathname.replace('/profile/', '');
   const [profileInfo, setProfileInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [followerCount, setFollowerCount] = useState(0);
   const [isFollow, setIsFollow] = useState(false);
+  const url = window.location.href;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function fetchProfile() {
-      setIsLoading(true);
-      try {
-        const response = await fetch(
-          `https://api.mandarin.weniv.co.kr/profile/${userAccountName}`,
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
+  const fetchProfile = async () => {
+    let result;
 
-        if (!response.ok) {
-          throw new Error('네트워크에 문제가 있습니다!');
-        }
-        const data = await response.json();
-        console.log(data);
-        setProfileInfo(data['profile']);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setIsLoading(false);
-      }
+    try {
+      setIsLoading(true);
+      result = await profileAPI.getUserProfile(token, accountName);
+    } catch (error) {
+      console.error(error);
+      return;
+    } finally {
+      setIsLoading(false);
     }
+
+    setProfileInfo(result.profile);
+  };
+
+  useEffect(() => {
     fetchProfile();
   }, []);
 
@@ -49,42 +45,45 @@ export default function UserProfile() {
 
   const followHandler = async () => {
     if (isFollow) {
-      setIsFollow(false);
-      setFollowerCount(prev => followerCount - 1);
-      await fetchFollow('/unfollow', 'DELETE');
+      try {
+        setIsFollow(false);
+        setFollowerCount(prev => followerCount - 1);
+        await profileAPI.postUserFollow(
+          token,
+          accountName,
+          '/unfollow',
+          'DELETE',
+        );
+      } catch (error) {
+        console.error(error);
+        return;
+      }
     } else {
-      setIsFollow(true);
-      setFollowerCount(prev => followerCount + 1);
-      await fetchFollow('/follow', 'POST');
+      try {
+        setIsFollow(true);
+        setFollowerCount(prev => followerCount + 1);
+        await profileAPI.postUserFollow(token, accountName, '/follow', 'POST');
+      } catch (error) {
+        console.error(error);
+        return;
+      }
     }
   };
 
-  const fetchFollow = async (endpoint, method) => {
-    try {
-      const response = await fetch(
-        `https://api.mandarin.weniv.co.kr/profile/${userAccountName}${endpoint}`,
-        {
-          method: method,
-          headers: {
-            'Content-type': 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-      const data = await response.json();
-      console.log(endpoint, data);
-    } catch (error) {
-      console.error(error);
-    }
+  const followerClickHandler = () => {
+    navigate(`/followers/${accountName}`);
+  };
+  const followingClickHandler = () => {
+    navigate(`/followings/${accountName}`);
   };
 
-  const followerClickHandler = event => {
-    console.log(event);
-    navigate(`/followers/${userAccountName}`);
+  const chatClickHandler = () => {
+    navigate(`/chat/${accountName}`);
   };
-  const followingClickHandler = event => {
-    console.log(event);
-    navigate(`/followings/${userAccountName}`);
+  const shareClickHandler = () => {
+    console.log('공유하기');
+    navigator.clipboard.writeText(url);
+    alertOpen();
   };
 
   return (
@@ -126,9 +125,13 @@ export default function UserProfile() {
           </button>
         </div>
         <div className={styles['button-container']}>
-          <a className={styles['btn-chat']} href="/chat">
+          <button
+            className={styles['btn-chat']}
+            type="button"
+            onClick={chatClickHandler}
+          >
             <span className="a11y-hidden">채팅하기</span>
-          </a>
+          </button>
           {isFollow ? (
             <button
               className={styles['btn-unfollow']}
@@ -147,9 +150,11 @@ export default function UserProfile() {
             </button>
           )}
 
-          <div className={styles['btn-share']}>
-            <span className="a11y-hidden">공유하기</span>
-          </div>
+          <CopyToClipboard text={URL} onCopy={shareClickHandler}>
+            <button className={styles['btn-share']} type="button">
+              <span className="a11y-hidden">공유하기</span>
+            </button>
+          </CopyToClipboard>
         </div>
       </section>
     )
