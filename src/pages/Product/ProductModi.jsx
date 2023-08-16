@@ -64,8 +64,10 @@ export default function ProductModi() {
       setNameError(value !== '' ? '이름은 2~15자 이내여야 합니다.' : '');
       setIsFormValid(false);
     }
+
     isHandler();
   };
+
   const onHandlePriceChange = e => {
     let value = e.target.value.replace(/,/g, '');
     if (value.length > 9) {
@@ -171,54 +173,54 @@ export default function ProductModi() {
               id="productImg"
               onChange={onHandleImageInput}
             />
-          </section>
-          <section className={styles['product-title']}>
-            <div>공구 이름</div>
-            <label htmlFor="productName" className="a11y-hidden"></label>
-            <input
-              className={styles['product-title-input']}
-              type="text"
-              placeholder={'2~15자 이내여야 합니다.'}
-              defaultValue={product.itemName}
-              onChange={onHandleNameChange}
-              id="productName"
-              required
-            />
-            {Boolean(nameError) && nameError !== '' && (
-              <p className={styles['error-message']}>{nameError}</p>
-            )}
-          </section>
-          <section className={styles['product-title']}>
-            <div>가격</div>
-            <label htmlFor="productPrice" className="a11y-hidden"></label>
-            <input
-              className={styles['product-title-input']}
-              type="text"
-              placeholder="숫자만 입력 가능합니다."
-              value={productPrice}
-              onChange={onHandlePriceChange}
-              id="productPrice"
-              required
-            />
-            {Boolean(productPriceError) && productPriceError !== '' && (
-              <p className={styles['error-message']}>{productPriceError}</p>
-            )}
-          </section>
-          <section className={styles['product-title']}>
-            <div>판매링크</div>
-            <label htmlFor="saleLink"></label>
-            <input
-              className={styles['product-title-input']}
-              type="text"
-              placeholder="URL을 입력해 주세요"
-              defaultValue={product.link}
-              onChange={onHandleLinkChange}
-              id="saleLink"
-              required
-            />
-            {saleLinkError && (
-              <p className={styles['error-message']}>{saleLinkError}</p>
-            )}
+            <section className={styles['product-title']}>
+              <div>공구 이름</div>
+              <label htmlFor="productName" className="a11y-hidden"></label>
+              <input
+                className={styles['product-title-input']}
+                type="text"
+                placeholder={'2~15자 이내여야 합니다.'}
+                defaultValue={product.itemName}
+                onInput={onHandleNameChange}
+                id="productName"
+                required
+              />
+              {Boolean(nameError) && nameError !== '' && (
+                <p className={styles['error-message']}>{nameError}</p>
+              )}
+            </section>
+            <section className={styles['product-title']}>
+              <div>가격</div>
+              <label htmlFor="productPrice" className="a11y-hidden"></label>
+              <input
+                className={styles['product-title-input']}
+                type="text"
+                placeholder="숫자만 입력 가능합니다."
+                value={productPrice}
+                onChange={onHandlePriceChange}
+                id="productPrice"
+                required
+              />
+              {Boolean(productPriceError) && productPriceError !== '' && (
+                <p className={styles['error-message']}>{productPriceError}</p>
+              )}
+            </section>
+            <section className={styles['product-title']}>
+              <div>판매링크</div>
+              <label htmlFor="saleLink"></label>
+              <input
+                className={styles['product-title-input']}
+                type="text"
+                placeholder="URL을 입력해 주세요"
+                defaultValue={product.link}
+                onChange={onHandleLinkChange}
+                id="saleLink"
+                required
+              />
+              {saleLinkError && (
+                <p className={styles['error-message']}>{saleLinkError}</p>
+              )}
+            </section>
           </section>
         </Layout>
       </form>
