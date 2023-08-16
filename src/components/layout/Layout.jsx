@@ -21,7 +21,7 @@ export default function Layout({
   const path = document.location.pathname;
   console.log(path);
 
-  if (path.includes('/profile/m')) {
+  if (path === '/profile/m') {
     pathToCheck = '/profile/m';
   } else if (path.includes('/profile/')) {
     pathToCheck = '/profile/:accountname';
@@ -41,6 +41,7 @@ export default function Layout({
     pathToCheck = path;
   }
 
+  console.log(pathToCheck);
   switch (pathToCheck) {
     case '/':
       headerType = 'homeSearch';
