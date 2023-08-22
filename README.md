@@ -35,15 +35,12 @@
 
 # 2. 팀 소개 및 역할
 ## 2-1. 팀원소개
-<table>
-  <tbody>
-    <tr>
-      <td align="center"><a href="https://github.com/jjo-mi?tab=repositories"><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/5ee2d2b6-99c6-4bbd-9ead-33a209aec281"width="200px;" alt=""/><br /><sub><b> </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/6c50ddca-0f71-476f-812c-f5abd2ca5cb7" width="200px;" alt=""/><br /><sub><b> </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/f6b9f717-a8d3-4f96-a4b1-d16aadc0ca76" width="200px;" alt=""/><br /><sub><b> </b></sub></a><br /></td>
-      <td align="center"><a href=""><img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/fb49a736-ef12-4335-8ef7-abe7d5689c8d" width="200px;" alt=""/><br /><sub><b> </b></sub></a><br /></td>
-  </tbody>
-</table>     
+|정종미|김지우|신기찬|정선빈|
+| :---: | :---: | :---: | :---: |
+| <img width="180" alt="프로필_정종미" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/4b79def0-d3d6-48d7-b643-25bb6248cf97"> | <img width="180" alt="프로필_김지우" src=""> | <img width="180" alt="프로필_신기찬" src=""> | <img width="180" alt="프로필_정선빈" src=""> |
+| 🔗[jjo-mi](https://github.com/jjo-mi?tab=repositories) | 🔗[]() |  🔗[]() |  🔗[]() |
+| 팀장 | 팀원 | 팀원 | 팀원 |
+     
 
 <br/>
 
