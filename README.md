@@ -40,12 +40,14 @@
 | <img width="180" alt="프로필_정종미" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/4b79def0-d3d6-48d7-b643-25bb6248cf97"> | <img width="180" alt="프로필_김지우" src=""> | <img width="180" alt="프로필_신기찬" src=""> | <img width="180" alt="프로필_정선빈" src=""> |
 | 🔗[jjo-mi](https://github.com/jjo-mi?tab=repositories) | 🔗[]() |  🔗[]() |  🔗[]() |
 | 팀장 | 팀원 | 팀원 | 팀원 |     
+     
 
 <br/>
 
 ## 2-2. 역할분담
-<img src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/331b7305-1dd4-41ea-9910-23dae8c7ec03" width="1000" />
-
+|정종미|김지우|신기찬|정선빈|
+| :---: | :---: | :---: | :---: |
+| <img width="250" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/e902a43e-9d9e-43ab-9276-e87cb2571559"> | <img width="250" src =""> | <img width="250" src =""> | <img width="250" src =""> |
 
 <br/>
 
