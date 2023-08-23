@@ -37,7 +37,7 @@
 ## 2-1. 팀원소개
 |정종미|김지우|신기찬|정선빈|
 | :---: | :---: | :---: | :---: |
-| <img width="180" alt="프로필_정종미" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/4b79def0-d3d6-48d7-b643-25bb6248cf97"> | <img width="180" alt="프로필_김지우" src=""> | <img width="180" alt="프로필_신기찬" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/766daf1e-2869-48f7-9d76-5cc438c3cd0e"> | <img width="180" alt="프로필_정선빈" src=""> |
+| <img width="180" height="200" alt="프로필_정종미" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/509ec1fd-21bf-4b61-935f-c84328d7f171"> | <img width="180" alt="프로필_김지우" src=""> | <img width="180" height="200" alt="프로필_신기찬" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/766daf1e-2869-48f7-9d76-5cc438c3cd0e"> | <img width="180" alt="프로필_정선빈" src=""> |
 | 🔗[jjo-mi](https://github.com/jjo-mi?tab=repositories) | 🔗[]() |  🔗[KichanShin](https://github.com/KichanShin) |  🔗[]() |
 | 팀장 | 팀원 | 팀원 | 팀원 |     
      
@@ -47,7 +47,7 @@
 ## 2-2. 역할분담
 |정종미|김지우|신기찬|정선빈|
 | :---: | :---: | :---: | :---: |
-| <img width="250" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/e902a43e-9d9e-43ab-9276-e87cb2571559"> | <img width="250" src =""> | <img width="250" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/ceed318c-3a8e-4549-af94-33d7c85a24b4"> | <img width="250" src =""> |
+| <img width="250" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/d673c291-b77d-4e92-9a9f-65a3661759b2"> | <img width="250" src =""> | <img width="250" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/ceed318c-3a8e-4549-af94-33d7c85a24b4"> | <img width="250" src =""> |
 
 <br/>
 
