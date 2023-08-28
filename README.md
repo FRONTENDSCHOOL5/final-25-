@@ -48,7 +48,7 @@
 ## 2-2. 역할분담
 |정종미|김지우|신기찬|정선빈|
 | :---: | :---: | :---: | :---: |
-| <img width="200" height="350" style="max-width: 100%" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/d673c291-b77d-4e92-9a9f-65a3661759b2"> | <img  width="200" height="350" style="max-width: 100%" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/e1b3da92-1567-4cc0-8de9-c250912aae1e"> | <img  width="200" height="350" style="max-width: 100%"  src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/ceed318c-3a8e-4549-af94-33d7c85a24b4"> | <img  width="200" height="350" style="max-width: 100%" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/16c9a1e3-45dc-4e0c-8698-697c803c5886"> |
+| <img width="200" height="400" style="max-width: 100%" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/116716381/b59154d0-a3de-42de-b95c-9643ed9ee079"> | <img  width="200" height="400" style="max-width: 100%" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/109861096/e1b3da92-1567-4cc0-8de9-c250912aae1e"> | <img  width="200" height="400" style="max-width: 100%"  src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/ceed318c-3a8e-4549-af94-33d7c85a24b4"> | <img  width="200" height="400" style="max-width: 100%" src ="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/96880673/16c9a1e3-45dc-4e0c-8698-697c803c5886"> |
 
 <br/>
 
@@ -297,7 +297,7 @@
 ## 7.2. 채팅 💬
 |채팅 페이지|
 |---|
-|<img width="390" alt="채팅 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/630e9d9d-21ab-4d59-b665-e5d5f5f035d2">|
+|<img width="285" alt="채팅 페이지" src="https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/630e9d9d-21ab-4d59-b665-e5d5f5f035d2">| | |
 ## 7.3. 게시글 🗒️
 |게시글 상세 페이지|게시글 업로드 페이지|게시글 삭제|
 |---|---|---|
@@ -312,6 +312,7 @@
 |![프로필수정](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/985b8708-338f-4854-9689-e50036eeaba3)|![팔로워팔로잉](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/eaa139f9-e89b-4a23-83dc-94376ce61157)|![로그아웃수정](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/322c811d-ca64-4083-8a82-6493b64c968a)|
 ## 7.5. 공구중인 상품 🛒
 |공구 중인 상품 등록 페이지|상품 수정 및 삭제|웹사이트 연결|
+|---|---|---|
 |![상품등록](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/1bb99308-84ef-4dec-9d5d-6bed19402e74)|![상품수정및삭제](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/d0c100c0-384f-41f6-9090-66fa01c04a58)|![웹사이트연결](https://github.com/FRONTENDSCHOOL5/final-25-would-you/assets/124339986/23b0238c-9132-461a-9c8f-1c0dae068872)|
 
 
